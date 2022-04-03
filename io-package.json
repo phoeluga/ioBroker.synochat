@@ -1,0 +1,81 @@
+{
+	"common": {
+		"name": "synochat",
+		"version": "0.0.1",
+		"news": {
+			"0.0.1": {
+				"en": "initial release",
+				"de": "Erstveröffentlichung",
+				"ru": "Начальная версия",
+				"pt": "lançamento inicial",
+				"nl": "Eerste uitgave",
+				"fr": "Première version",
+				"it": "Versione iniziale",
+				"es": "Versión inicial",
+				"pl": "Pierwsze wydanie",
+				"zh-cn": "首次出版"
+			}
+		},
+		"title": "Synology-Chat",
+		"titleLang": {
+			"en": "Synology-Chat",
+			"de": "Synology-Chat",
+			"ru": "Synology-Чат",
+			"pt": "Synology-Chat",
+			"nl": "Synology-Chat",
+			"fr": "Synology-Chat",
+			"it": "Synology-Chat",
+			"es": "Chat de Synology",
+			"pl": "Synology-Chat",
+			"zh-cn": "Synology-聊天"
+		},
+		"desc": {
+			"en": "This adapter provides access to incoming and outgoing Synology-Chat channels",
+			"de": "Dieser Adapter bietet Zugriff auf eingehende und ausgehende Synology-Chat-Kanäle",
+			"ru": "Этот адаптер обеспечивает доступ к входящим и исходящим каналам Synology-Chat.",
+			"pt": "Este adaptador fornece acesso aos canais Synology-Chat de entrada e saída",
+			"nl": "Deze adapter biedt toegang tot inkomende en uitgaande Synology-Chat-kanalen",
+			"fr": "Cet adaptateur permet d'accéder aux canaux Synology-Chat entrants et sortants",
+			"it": "Questo adattatore fornisce l'accesso ai canali Synology-Chat in entrata e in uscita",
+			"es": "Este adaptador proporciona acceso a los canales Synology-Chat entrantes y salientes",
+			"pl": "Ten adapter zapewnia dostęp do przychodzących i wychodzących kanałów Synology-Chat",
+			"zh-cn": "此适配器提供对传入和传出 Synology-Chat 频道的访问"
+		},
+		"authors": [
+			"phoeluga <phoeluga@gmail.com>"
+		],
+		"keywords": [
+			"Synology",
+			"Chat",
+			"message",
+			"incoming",
+			"outgoing",
+			"channel"
+		],
+		"license": "MIT",
+		"platform": "Javascript/Node.js",
+		"main": "main.js",
+		"icon": "synochat.png",
+		"enabled": true,
+		"extIcon": "https://raw.githubusercontent.com/phoeluga/ioBroker.synochat/main/admin/synochat.png",
+		"readme": "https://github.com/phoeluga/ioBroker.synochat/blob/main/README.md",
+		"loglevel": "info",
+		"mode": "daemon",
+		"type": "messaging",
+		"compact": true,
+		"connectionType": "local",
+		"dataSource": "push",
+		"materialize": true,
+		"dependencies": [
+			{
+				"js-controller": ">=2.0.0"
+			}
+		]
+	},
+	"native": {
+		"option1": true,
+		"option2": "42"
+	},
+	"objects": [],
+	"instanceObjects": []
+}

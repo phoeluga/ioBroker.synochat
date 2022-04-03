@@ -1,0 +1,46 @@
+{
+	"cli": true,
+	"target": "directory",
+	"adapterName": "synochat",
+	"title": "Synology-Chat",
+	"description": "This adapter provides access to incoming and outgoing Synology-Chat channels",
+	"keywords": [
+		"Synology",
+		"Chat",
+		"message",
+		"incoming",
+		"outgoing",
+		"channel"
+	],
+	"expert": "no",
+	"features": [
+		"adapter"
+	],
+	"adminFeatures": [],
+	"type": "messaging",
+	"startMode": "daemon",
+	"connectionType": "local",
+	"dataSource": "push",
+	"connectionIndicator": "no",
+	"language": "JavaScript",
+	"adminReact": "no",
+	"tools": [
+		"ESLint",
+		"type checking"
+	],
+	"i18n": "words.js",
+	"releaseScript": "yes",
+	"devServer": "no",
+	"indentation": "Tab",
+	"quotes": "double",
+	"es6class": "yes",
+	"authorName": "phoeluga",
+	"authorGithub": "phoeluga",
+	"authorEmail": "phoeluga@gmail.com",
+	"gitRemoteProtocol": "HTTPS",
+	"gitCommit": "no",
+	"defaultBranch": "main",
+	"license": "MIT License",
+	"dependabot": "no",
+	"creatorVersion": "2.1.1"
+}
