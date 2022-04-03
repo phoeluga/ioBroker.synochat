@@ -22,6 +22,9 @@
 		function load(settings, onChange) {
 			// example: select elements with id=key and class=value and insert value
 			if (!settings) return;
+
+			showGeneralSetupDialog();
+
 			$('.value').each(function () {
 				var $key = $(this);
 				var id = $key.attr('id');
@@ -59,6 +62,38 @@
 			});
 			callback(obj);
 		}
+
+
+
+
+		function disableAllDialogs() {
+            $(".c-tab").removeClass("tab-active");
+            var x = document.getElementsByClassName("dialog");
+            for (var cnt = 0; cnt < x.length; cnt++) {
+                x[cnt].style.display = "none";
+            }
+        }
+
+		function showGeneralSetupDialog() {
+            disableAllDialogs();
+            $(".dialog-general-setup").addClass("tab-active");
+            var x = document.getElementById("generalSetupDialog");
+            x.style.display = "block";
+        }
+		
+        function showChannelConfigDialog() {
+            disableAllDialogs();
+            $('.dialog-channel-config').addClass('tab-active');
+            var x = document.getElementById("channelConfigDialog");
+            x.style.display = "block";
+        }
+
+		function showHelpDialog() {
+            disableAllDialogs();
+            $('.dialog-help').addClass('tab-active');
+            var x = document.getElementById("helpDialog");
+            x.style.display = "block";
+        }
 	</script>
 
 </head>
@@ -66,63 +101,77 @@
 <body>
 
 	<div class="m adapter-container">
+		<nav>
+            <div class="row">
+                <div class="col s2">
+                    <img src="synochat.png" class="logo">
+                </div>
+            </div>
+        </nav>
+        <div class="row">
+            <ul class="tabs">
+                <li class="tab col s3 dialog-general-setup c-tab translate"><a onclick="showGeneralSetupDialog()">General setup</a></li>
+                <li class="tab col s3 dialog-channel-config c-tab translate"><a onclick="showChannelConfigDialog()">Channel configuration</a></li>
+				<li class="tab col s3 dialog-help c-tab translate"><a onclick="showHelpDialog()">Help</a></li>
+            </ul>
+        </div>
+		<div id="generalSetupDialog" class="dialog">
+            <div class="card">
+                <div class="card-content">
+                    <div class="row">
+                        <div class="col s6 l2 input-field">
+                            <input class="value" id="synoUrl" type="text" />
+                            <label for="synoUrl" class="translate">Synology URL/IP</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 input-field">
+                            <input class="value" id="certCheck" type="checkbox" />
+                            <label class="translate" for="certCheck">Validate SSL certificate</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+		<div id="channelConfigDialog" class="dialog">
+            <div class="card">
+                <div class="card-content">
+                    <div class="row">
+						<div class="input-field col s6 l2">
+                            <input class="value" id="channelName" type="text" />
+                            <label class="translate" for="channelName">Channel name</label>
+                        </div>
+                        <div class="input-field col s12 l6">
+                            <input class="value" id="channelToken" type="text" />
+                            <label class="translate" for="channelToken">Channel token</label>
+                        </div>
+                        <div class="col s12 l3 input-field">
+                            <select class="value" id="channelType">
+								<option value="incoming">Incoming</option>
+								<!-- <option value="outgoing">Outgoing</option> -->
+							</select>
+                            <label class="translate" for="channelType">Channel type</label>
+                        </div>
 
-		<div class="row">
-			<div class="col s12 m4 l2">
-				<ul class="tabs">
-                    <li class="tab col s2">
-                        <a href="#tab-general" class="translate active" data-lang="General setup">General setup</a>
-                    </li>
-                    <li class="tab col s2">
-                        <a href="#tab-manage-channels" class="translate" data-lang="Manage channels">Manage channels</a>
-                    </li>
-                    <li class="tab col s2">
-                        <a href="#tab-help" class="translate" data-lang="Help">Help</a>
-                    </li>
-                </ul>
-			</div>
-		</div>
-
-		<div id="tab-general" class="col s12 page">
-			<div class="row">
-				<div class="input-field col s6 m4 l4">
-					<img src="synochat.png" class="logo">
-				</div>
-			</div>
-
-			<div class="table-values-div">
-				<table class="table-values centered">
-					<thead>
-					<tr>
-						<th class="translate" data-lang="Name">Name</th>
-						<th class="translate">ID</th>
-						<th class="translate" data-lang="Devices (ID of Device)">Devices (ID of Device)</th>
-						<th class="translate" data-lang="Lights (ID of Light)">Lights (ID of Light)</th>
-						<th class="translate"></th>
-					</tr>
-					</thead>
-					<tbody id="groups"></tbody>
-				</table>
-			</div>
-		</div>
-
-		<div id="tab-manage-channels" class="col s12 page">
-			<div class="row">
-				<div class="input-field col s6 m4 l4">
-					<img src="synochat.png" class="logo">
-				</div>
-			</div>
-		</div>
-
-		<div id="tab-help" class="col s12 page">
-			<div class="row">
-				<div class="input-field col s6 m4 l4">
-					<img src="synochat.png" class="logo">
-				</div>
-			</div>
-		</div>
-
-
+                    </div>
+                </div>
+            </div>
+        </div>
+		<div id="helpDialog" class="dialog">
+            <div class="card">
+                <div class="card-content">
+                    <div class="row">
+                        <div class="col s12">
+                            <h6>
+								<span class="translate">
+									Adapter help goes here...
+								</span>
+							</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
 
