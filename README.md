@@ -1,5 +1,4 @@
-![Logo](admin/synochat.png)
-# ioBroker.synochat
+# <img src="admin/synochat.png" alt="drawing" style="width:50px;"/> Synology-Chat adapter for ioBroker
 
 [![NPM version](https://img.shields.io/npm/v/iobroker.synochat.svg)](https://www.npmjs.com/package/iobroker.synochat)
 [![Downloads](https://img.shields.io/npm/dm/iobroker.synochat.svg)](https://www.npmjs.com/package/iobroker.synochat)
@@ -110,25 +109,13 @@ For later updates, the above procedure is not necessary. Just do the following:
 ### **WORK IN PROGRESS**
 * (phoeluga) initial release
 
+## Changelog
+All changes to this project are described in the [CHANGELOG.md](./CHANGELOG.md).
+
 ## License
-MIT License
+This code is licensed under the license specified in the [LICENSE](./LICENSE) file.
 
-Copyright (c) 2022 phoeluga <phoeluga@gmail.com>
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+## Other disclosures
+#### Resource attribution
+- [Chat icons created by Pixel perfect - Flaticon](https://www.flaticon.com/free-icons/chat)
