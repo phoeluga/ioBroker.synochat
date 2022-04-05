@@ -30,7 +30,7 @@
 			"zh-cn": "Synology-聊天"
 		},
 		"desc": {
-			"en": "This adapter provides access to incoming and outgoing Synology-Chat channels",
+			"en": "This adapter provides an interface between Synology-Chat and ioBroker.",
 			"de": "Dieser Adapter bietet Zugriff auf eingehende und ausgehende Synology-Chat-Kanäle",
 			"ru": "Этот адаптер обеспечивает доступ к входящим и исходящим каналам Synology-Chat.",
 			"pt": "Este adaptador fornece acesso aos canais Synology-Chat de entrada e saída",
