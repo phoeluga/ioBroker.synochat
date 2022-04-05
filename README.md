@@ -9,7 +9,7 @@
 
 [![NPM](https://nodei.co/npm/iobroker.synochat.png?downloads=true)](https://nodei.co/npm/iobroker.synochat/)
 
-## What's this?
+## What is it?
 This adapter provides an interface between Synology Chat and ioBroker.
 For this purpose, the standard integration features provided by Synology Chat and the corresponding REST API endpoints are used.
 
@@ -58,13 +58,13 @@ For more details on how to handle integrations within Synlogy chat, please refer
 
 		***Sample for valide values:***
 		- https://mychat.mydomain.tld
-		- https://192.168.1.1:8080"
+		- https://192.168.1.1:8080
 
     * **Validate SSL certificate**
 
-        It's of cause always recommended to encrypt data transfers using SSL/TLS.
-		In the most cases at a home environmnet a self signed certificat is used for an SSL connection. In this case it might be neccessarry to disable the SSL certificat validation of a HTTP connection.
-		Disablt to property to ignore a certification issue.
+        It is of course always recommended to encrypt data transfers.
+		Often, self-signed certificates are used for encrypted connections in home environments. In this case, it may be necessary to disable SSL certificate verification of an HTTP connection.
+		Disable this property to turn off certificate validation.
 
     #### 2.2.2. Channel configuration:	
 	![IobrokerInstanceSettingsChannelConfiguration](./docs/images/diIobrokerInstanceSettingsChannelConfiguration.png)
@@ -79,7 +79,7 @@ For more details on how to handle integrations within Synlogy chat, please refer
 		More details can be found in chapter [Synology chat configuration](#synology-chat-configuration).
 
 		***NOTE:***\
-		*Depending on the integration, when you create the Synology chat integration, you will get a link similar to the following example:*\
+		*Depending on the integration, when you create the Synology chat integration, you will get a link similar to the following example:*
 
 			https://mychat.mydomain.tld/webapi/entry.cgi?api=SYNO.Chat.External&method=incoming&version=2&token=%22QF5DWyG7M47Ls3cv%22
 		

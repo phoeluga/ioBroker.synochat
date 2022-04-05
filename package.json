@@ -1,7 +1,7 @@
 {
   "name": "iobroker.synochat",
-  "version": "0.0.1",
-  "description": "This adapter provides access to incoming and outgoing Synology-Chat channels",
+  "version": "1.0.0",
+  "description": "This adapter provides an interface between Synology-Chat and ioBroker.",
   "author": {
     "name": "phoeluga",
     "email": "phoeluga@gmail.com"

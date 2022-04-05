@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 
 
-## `1.0.0` - *2022-??-??*
+## `1.0.0` - *2022-04-05*
 
 - *[@phoeluga]* Initial release
 
