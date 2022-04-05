@@ -82,7 +82,7 @@ class Synochat extends utils.Adapter {
 				common: {
 					name: "Message object to be handled",
 					type: "string",
-					role: "indicator",
+					role: "text",
 					read: true,
 					write: true,
 				},

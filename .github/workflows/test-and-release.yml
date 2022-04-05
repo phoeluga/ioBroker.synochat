@@ -5,7 +5,7 @@ name: Test and Release
 on:
   push:
     branches:
-      - "main"
+      - "master"
     tags:
       # normal versions
       - "v[0-9]+.[0-9]+.[0-9]+"
@@ -46,7 +46,7 @@ jobs:
           # Uncomment the following line if your adapter cannot be installed using 'npm ci'
           # install-command: 'npm install'
 
-# TODO: To enable automatic npm releases, create a token on npmjs.org 
+# To enable automatic npm releases, create a token on npmjs.org 
 # Enter this token as a GitHub secret (with name NPM_TOKEN) in the repository options
 # Then uncomment the following block:
 

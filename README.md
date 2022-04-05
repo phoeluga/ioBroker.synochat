@@ -127,6 +127,9 @@ All changes to this project are described in the [CHANGELOG](./CHANGELOG.md).
 ## License
 This code is licensed under the license specified in the [LICENSE](./LICENSE) file.
 
+Copyright (c) 2022 phoeluga <phoeluga@gmail.com>
+
+
 ## Other disclosures
 #### Resource attribution
 - [Chat icons created by Pixel perfect - Flaticon](https://www.flaticon.com/free-icons/chat)
