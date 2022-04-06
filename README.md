@@ -67,7 +67,7 @@ For more details on how to handle integrations within Synlogy chat, please refer
 		Disable this property to turn off certificate validation.
 
     #### 2.2.2. Channel configuration:	
-	![IobrokerInstanceSettingsChannelConfiguration](./docs/images/diIobrokerInstanceSettingsChannelConfiguration.png)
+	![IobrokerInstanceSettingsChannelConfiguration](./docs/images/diIobrokerInstanceSettingsChannelConfiguration02.png)
 
     * **Channel name**
 
@@ -93,12 +93,17 @@ For more details on how to handle integrations within Synlogy chat, please refer
 		***NOTE:***\
 		*The channel type must be specified from the perspective of the Synology chat. For example, selecting 'Incoming' in the configuration means that the messages will be sent to the Synology chat.*
 
+	* **Validate SSL certificate for non-text messages**
+	
+		In case that for an incoming channel type a content other than a text, for example an image, is to be sent, this is specified from an HTTP source via a URL. If this content is provided with a self-signed certificate, the certificate check can be enabled or disabled with this setting.
+		For details on sending non-text content, see chapter [Synology chat configuration](#synology-chat-configuration)..
+
 	#### 2.2.3. Help:
    	* This tab usually redirects to the official GitHub page of this project, where detailed help and usage instructions are given.
 	* If there are any open questions, suggestions for changes, unwanted behavior or bugs, please create a [GitHub issue](https://github.com/phoeluga/ioBroker.synochat/issues/new/choose) to ensure the quality of this project.
 
 ## 3. Usage
-
+### 3.1 General
 * After the adapter is instantiated, a respective folder is created in the objects of the respective adapter instance for the Synology chat channel specified in the instance configuration.
 	![IobrokerObjectOverview](./docs/images/diIobrokerObjectOverview.png)
 
@@ -112,6 +117,15 @@ For more details on how to handle integrations within Synlogy chat, please refer
 
 * When the message object is changed, this message - depending on the channel type - is passed to the Synology chat in the channel published.
 	![SynoChatChannelIncomingMessage](./docs/images/diSynoChatChannelIncomingMessage.png)
+
+### 3.2 Message content type
+
+Besides sending plain text messages, other content types such as images can also be sent to an incoming channel.\
+To realize this, the content must be available as a web resource. To send an image, just set the URL as the value of the the message object of the Syno-Chat adapter instance mentioned in [3. Usage > 3.1 General](#3.1-general).
+
+**Example of a use case of a surveillance camera:**\
+Many surveillance cameras provide a stream or interface to retrieve an image that is updated at a specified time interval or when motion is detected.\
+This URL provides image that needs to be set as the value of the the message object.
 
 ---
 

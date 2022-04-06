@@ -157,11 +157,26 @@
             <div class="card">
                 <div class="card-content">
                     <div class="row">
+                        <div class="col s12">
+                            <h6>
+								<span class="translate">
+									<strong>NOTE:</strong>
+                                    <br>
+                                    <em>The channel type must be specified from the perspective of the Synology chat. For example, selecting 'Incoming' in the configuration means that the messages will be sent to the Synology chat.</em>
+								</span>
+							</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-content">
+                    <div class="row">
 						<div class="input-field col s6 l2">
                             <input class="value" id="channelName" type="text" />
                             <label class="translate" for="channelName">Channel name</label>
                         </div>
-                        <div class="input-field col s12 l6">
+                        <div class="input-field col s12 l4">
                             <input class="value" id="channelToken" type="text" />
                             <label class="translate" for="channelToken">Channel token</label>
                         </div>
@@ -172,7 +187,10 @@
 							</select>
                             <label class="translate" for="channelType">Channel type</label>
                         </div>
-
+                        <div class="input-field col s6 l2">
+                            <input class="value" id="channelContentCertCheck" type="checkbox" />
+                            <label class="translate" for="channelContentCertCheck">Validate SSL certificate for non-text messages</label>
+                        </div>
                     </div>
                 </div>
             </div>

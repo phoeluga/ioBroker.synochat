@@ -8,10 +8,8 @@
 // you need to create an adapter
 const utils = require("@iobroker/adapter-core");
 
-// Load your modules here, e.g.:
-// const fs = require("fs");
-const https = require('https');
-const axios = require('axios')
+const SynoChatRequests = require("./lib/synoChatRequests.js");
+const synoChatRequestHelper = require("./lib/synoChatRequestHelper.js");
 
 class Synochat extends utils.Adapter {
 
@@ -25,26 +23,15 @@ class Synochat extends utils.Adapter {
 		});
 		this.on("ready", this.onReady.bind(this));
 		this.on("stateChange", this.onStateChange.bind(this));
-		// this.on("objectChange", this.onObjectChange.bind(this));
-		// this.on("message", this.onMessage.bind(this));
 		this.on("unload", this.onUnload.bind(this));
+
+		this.synoChatRequestHandler = null;
 	}
 
 	/**
 	 * Is called when databases are connected and adapter received configuration.
 	 */
 	async onReady() {
-		// Initialize your adapter here
-
-		// The adapters config (in the instance object everything under the attribute "native") is accessible via
-		// this.config:
-
-		/*
-		For every state in the system there has to be also an object of type state
-		Here a simple template for a boolean variable named "testVariable"
-		Because every adapter instance uses its own unique namespace variable names can't collide with other adapters variables
-		*/
-		//after installation
 		this.setState("info.connection", false, true);
 		this.log.info("Got instance configuration. SynoChat adapter instance not yet ready!");
 
@@ -72,7 +59,7 @@ class Synochat extends utils.Adapter {
 			await this.setObjectNotExistsAsync(this.config.channelName, {
 				type: "folder",
 				common: {
-					name: "Synonlogy chat channel for " + this.config.channelType + " messages",
+					name: "Synology chat channel for " + this.config.channelType + " messages",
 				},
 				native: {},
 			});
@@ -89,40 +76,14 @@ class Synochat extends utils.Adapter {
 				native: {},
 			});
 		}
-
+		this.synoChatRequestHandler = new SynoChatRequests.SynoChatRequests(this, this.config.synoUrl, this.config.certCheck);
 		
 		// In order to get state updates, you need to subscribe to them. The following line adds a subscription for our variable we have created above.
 		this.log.info("Subscribing adapter instance to all instance states.");
         this.subscribeStates("*");
-		// this.log.info("Subscribing adapter instance to all instance objects.");
-		// this.subscribeObjects("*");
 
-		// // You can also add a subscription for multiple states. The following line watches all states starting with "lights."
-		// // this.subscribeStates("lights.*");
-		// // Or, if you really must, you can also watch all states. Don't do this if you don't need to. Otherwise this will cause a lot of unnecessary load on the system:
-		// // this.subscribeStates("*");
-		
-		// // setState examples
-		// // you will notice that each setState will cause the stateChange event to fire (because of above subscribeStates cmd)
-		// // the variable testVariable is set to true as command (ack=false)
-		// await this.setStateAsync("testVariable", true);
-
-		// // same thing, but the value is flagged "ack"
-		// // ack should be always set to true if the value is received from or acknowledged from the target system
-		// await this.setStateAsync("testVariable", { val: true, ack: true });
-
-		// // same thing, but the state is deleted after 30s (getState will return null afterwards)
-		// await this.setStateAsync("testVariable", { val: true, ack: true, expire: 30 });
-
-		// // examples for the checkPassword/checkGroup functions
-		// let result = await this.checkPasswordAsync("admin", "iobroker");
-		// this.log.info("check user admin pw iobroker: " + result);
-
-		// result = await this.checkGroupAsync("admin", "admin");
-		// this.log.info("check group user admin group admin: " + result);
-		
-		await this.initialConnectivityCheck();
-		if (await this.getStateAsync("info.connection")) {
+		if (await this.synoChatRequestHandler.initialConnectivityCheck()) {
+			this.setState("info.connection", true, true);
 			this.log.info("SynoChat adapter instance initialized! > Instance up and running!");
 		}
 	}
@@ -147,23 +108,6 @@ class Synochat extends utils.Adapter {
 		this.log.info("SynoChat adapter instance unloaded!");
 	}
 
-	// // If you need to react to object changes, uncomment the following block and the corresponding line in the constructor.
-	// // You also need to subscribe to the objects with `this.subscribeObjects`, similar to `this.subscribeStates`.
-	// /**
-	//  * Is called if a subscribed object changes
-	//  * @param {string} id
-	//  * @param {ioBroker.Object | null | undefined} obj
-	//  */
-	// onObjectChange(id, obj) {
-	// 	if (obj) {
-	// 		// The object was changed
-	// 		this.log.info(`object ${id} changed: ${JSON.stringify(obj)}`);
-	// 	} else {
-	// 		// The object was deleted
-	// 		this.log.info(`object ${id} deleted`);
-	// 	}
-	// }
-
 	/**
 	 * Is called if a subscribed state changes
 	 * @param {string} id
@@ -187,116 +131,16 @@ class Synochat extends utils.Adapter {
 				return "instanceNotReady";
 			}
 
-			this.log.debug(`State for object '${id}' changed to value '${state.val}' with ack=${state.ack}. > Request will not be processed!`);
+			this.log.debug(`State for object '${id}' changed to value '${state.val}' with ack=${state.ack}.`);
 
-			var synoChatEndpointUrl = this.config.synoUrl + "/webapi/entry.cgi";
-			this.log.debug(`Preparing REST API call for endoint '${synoChatEndpointUrl}'...`);
-
-			if(this.config.certCheck){
-				var request = axios.create();
-			} else {
-				var request = axios.create({
-					httpsAgent: new https.Agent({  
-					rejectUnauthorized: false
-					}),
-					timeout: 10000
-				});
+			if(await this.synoChatRequestHandler.sendMessage(this.config.channelToken, this.config.channelType, this.config.channelContentCertCheck, state.val)){
+				this.setState(id, {ack: true});
 			}
-
-			request({
-				method: 'post',
-				url: synoChatEndpointUrl,
-				data: 'payload={"text": "' + state.val + '"}',
-				params: {
-					'api': "SYNO.Chat.External",
-					'method': this.config.channelType,
-					'version': "2",
-					'token': this.config.channelToken
-				}
-			})
-			.then(res => {
-				if(res.status == 200){
-					if(JSON.parse(JSON.stringify(res.data))['success'] == true){
-						this.setState(id, {ack: true});
-						this.log.debug(`Successfully sent message to ${synoChatEndpointUrl}.`);
-						return;
-					}
-					this.log.error(`Unable to send message to Synology Chat REST API ${synoChatEndpointUrl} '${JSON.stringify(res.data)}'`);
-				} else {
-					this.log.error(`Unable to send message to Synology Chat REST API ${synoChatEndpointUrl} > ${JSON.stringify(res.statusText)} ${JSON.stringify(res.status)} '${JSON.stringify(res.data)}'`);
-				}
-			})
-			.catch(err => {
-				this.log.error(`Unable to get send message to Synology Chat REST API ${synoChatEndpointUrl} '${err}'`);
-			});
-
+			
 		} else {
 			// The state was deleted
 			this.log.info(`state ${id} deleted`);
 		}
-	}
-
-	// // If you need to accept messages in your adapter, uncomment the following block and the corresponding line in the constructor.
-	// /**
-	//  * Some message was sent to this instance over message box. Used by email, pushover, text2speech, ...
-	//  * Using this method requires "common.messagebox" property to be set to true in io-package.json
-	//  * @param {ioBroker.Message} obj
-	//  */
-	// onMessage(obj) {
-	// 	if (typeof obj === "object" && obj.message) {
-	// 		if (obj.command === "send") {
-	// 			// e.g. send email or pushover or whatever
-	// 			this.log.info("send command");
-
-	// 			// Send response in callback if required
-	// 			if (obj.callback) this.sendTo(obj.from, obj.command, "Message received", obj.callback);
-	// 		}
-	// 	}
-	// }
-
-
-	async initialConnectivityCheck(){
-		this.log.info(`Checking general availability of the Synology Chat REST API...`);
-        
-		if(this.config.certCheck){
-			var request = axios.create();
-		} else {
-			var request = axios.create({
-				httpsAgent: new https.Agent({  
-				rejectUnauthorized: false
-				}),
-				timeout: 10000
-			});
-		}
-
-		var synoChatEndpointUrl = this.config.synoUrl + "/webapi/entry.cgi";
-
-		await request({
-			method: 'get',
-			url: synoChatEndpointUrl,
-			params: {
-				'api': "SYNO.Chat.External",
-				'method': "kuchen",
-				'version': "2"
-			}
-		})
-		.then(res => {
-			if(res.status == 200){
-				if(JSON.parse(JSON.stringify(res.data))['success'] == false && JSON.parse(JSON.stringify(res.data))['error']['code'] == 103){
-					this.setState("info.connection", true, true);
-					this.log.info(`Initial connectivity check of Synology Chat REST API successfully passed!`);
-					return;
-				}
-				this.log.error(`Unable to get valid response of Synology Chat REST API ${synoChatEndpointUrl} '${JSON.stringify(res.data)}'`);
-			} else {
-				this.log.error(`Unable to request Synology Chat REST API ${synoChatEndpointUrl} > ${JSON.stringify(res.statusText)} ${JSON.stringify(res.status)} '${JSON.stringify(res.data)}'`);
-			}
-			this.log.error(`Adapter instance not in a usable state!`);
-		})
-		.catch(err => {
-			this.log.error(`Unable to get valid response of Synology Chat REST API ${synoChatEndpointUrl} '${err}'`);
-			this.log.error(`Adapter instance not in a usable state!`);
-		});
 	}
 }
 
