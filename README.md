@@ -9,7 +9,9 @@
 
 [![NPM](https://nodei.co/npm/iobroker.synochat.png?downloads=true)](https://nodei.co/npm/iobroker.synochat/)
 
-## What is it?
+[![Donate][donate-badge2]][donate-link]
+
+## What is it? 
 This adapter provides an interface between Synology Chat and ioBroker.
 For this purpose, the standard integration features provided by Synology Chat and the corresponding REST API endpoints are used.
 
@@ -19,7 +21,7 @@ For this purpose, the standard integration features provided by Synology Chat an
 
 ## 1. Installation
 The adapter can be instanciated from the adapter section in your ioBroker installation.
-More information can be found in the offical ioBroker documentation [HERE](https://www.iobroker.net/#de/documentation/admin/adapter.md)
+More information can be found in the offical [ioBroker documentation](https://www.iobroker.net/#de/documentation/admin/adapter.md).
 
 ## 2. Configuration
 ***NOTE:***\
@@ -79,11 +81,12 @@ For more details on how to handle integrations within Synlogy chat, please refer
 		More details can be found in chapter [Synology chat configuration](#synology-chat-configuration).
 
 		***NOTE:***\
-		*Depending on the integration, when you create the Synology chat integration, you will get a link similar to the following example:*
+		*Depending on the integration, when create the Synology chat integration, you will get a link similar to the following example:*
 
 			https://mychat.mydomain.tld/webapi/entry.cgi?api=SYNO.Chat.External&method=incoming&version=2&token=%22QF5DWyG7M47Ls3cv%22
 		
-		*In this example, the token is included in the URL. In this case, coded control characters are specified here at the beginning and end of the setting. **These have to be removed!**
+		*In this example, the token is included in the URL. Encoded control characters - `%22` - are specified here at the beginning and end of the setting.\
+		**These have to be removed!**\
 		In this example the token to be entered would be `QF5DWyG7M47Ls3cv`.*
 		
 	* **Channel type**
@@ -147,3 +150,9 @@ Copyright (c) 2022 phoeluga <phoeluga@gmail.com>
 ## Other disclosures
 #### Resource attribution
 - [Chat icons created by Pixel perfect - Flaticon](https://www.flaticon.com/free-icons/chat)
+
+
+
+[donate-badge]:https://img.shields.io/static/v1?label=Treat%20a%20coffee&message=donate%20a%20tip&color=2a9cde&logo=data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTcgMjJoMTBhMSAxIDAgMCAwIC45OS0uODU4TDE5Ljg2NyA4SDIxVjZoLTEuMzgybC0xLjcyNC0zLjQ0N0EuOTk4Ljk5OCAwIDAgMCAxNyAySDdjLS4zNzkgMC0uNzI1LjIxNC0uODk1LjU1M0w0LjM4MiA2SDN2MmgxLjEzM0w2LjAxIDIxLjE0MkExIDEgMCAwIDAgNyAyMnptMTAuNDE4LTExSDYuNTgybC0uNDI5LTNoMTEuNjkzbC0uNDI4IDN6bS05LjU1MSA5LS40MjktM2g5LjEyM2wtLjQyOSAzSDcuODY3ek03LjYxOCA0aDguNzY0bDEgMkg2LjYxOGwxLTJ6IiBmaWxsPSIjZWRmMmZhIiBjbGFzcz0iZmlsbC0wMDAwMDAiPjwvcGF0aD48L3N2Zz4=
+[donate-badge2]:https://img.shields.io/static/v1?label=Treat%20a%20coffee&message=donate%20a%20tip&color=2a9cde&logo=data:image/svg+xml;base64,PHN2ZyBkYXRhLW5hbWU9IkxheWVyIDEiIHZpZXdCb3g9IjAgMCAzMiAzMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMjYuNSAxNUgyNnYtMWEyIDIgMCAwIDAtMi0ySDJhMiAyIDAgMCAwLTIgMnY2YTEwLjY0IDEwLjY0IDAgMCAwIDExIDExaDRhMTAuNzkgMTAuNzkgMCAwIDAgOS4zMS01aDIuMTlhNS41IDUuNSAwIDAgMCAwLTExWk0xNSAyN2gtNGE2LjcgNi43IDAgMCAxLTctN3YtNGgxOHY0YTYuNzcgNi43NyAwIDAgMS03IDdabTExLjQ0LTQuNzdoLS43OGExMy43NSAxMy43NSAwIDAgMCAuMi0yLjMxdi0xLjE1aC41OGExLjczIDEuNzMgMCAwIDEgMCAzLjQ2Wk0xMyAxMGEyIDIgMCAwIDAgMi0yVjJhMiAyIDAgMSAwLTQgMHY2YTIgMiAwIDAgMCAyIDJaTTIwIDEwYTIgMiAwIDAgMCAyLTJWN2EyIDIgMCAwIDAtNCAwdjFhMiAyIDAgMCAwIDIgMlpNNiAxMGEyIDIgMCAwIDAgMi0yVjZhMiAyIDAgMCAwLTQgMHYyYTIgMiAwIDAgMCAyIDJaIiBmaWxsPSIjZjBmNWZhIiBjbGFzcz0iZmlsbC1iYTYzYzYiPjwvcGF0aD48L3N2Zz4=
+[donate-link]: https://www.paypal.com/donate/?hosted_button_id=9MLB29CKX5674
