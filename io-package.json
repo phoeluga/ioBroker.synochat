@@ -60,6 +60,7 @@
 		"extIcon": "https://raw.githubusercontent.com/phoeluga/ioBroker.synochat/master/admin/synochat.png",
 		"readme": "https://github.com/phoeluga/ioBroker.synochat/blob/master/README.md",
 		"loglevel": "info",
+		"webExtension": "lib/web.js",
 		"mode": "daemon",
 		"type": "messaging",
 		"compact": true,
@@ -68,6 +69,7 @@
 		"materialize": true,
 		"dependencies": [
 			{
+				"web": ">=3.0.12",
 				"js-controller": ">=2.0.0"
 			}
 		]
@@ -78,7 +80,8 @@
 		"channelName": "",
 		"channelToken": "",
 		"channelType": "",
-		"channelContentCertCheck": true
+		"channelContentCertCheck": true,
+		"webInstance": "*"
 	},
 	"objects": [],
 	"instanceObjects": [

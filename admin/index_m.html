@@ -56,6 +56,19 @@
 
                 });
 			});
+
+            getExtendableInstances(function (result) {
+                if (result) {
+                    var text = '';
+                    for (var r = 0; r < result.length; r++) {
+                        var name = result[r]._id.substring('system.adapter.'.length);
+                        text += '<option value="' + name + '">' + name + '</option>';
+                    }
+                    $('#webInstance').append(text).val(settings.webInstance).select();
+                    showHideSettings();
+                }
+            });
+
 			onChange(false);
 			// reinitialize all the Materialize labels on the page if you are dynamically adding inputs:
 			if (M) M.updateTextFields();
@@ -139,15 +152,22 @@
             <div class="card">
                 <div class="card-content">
                     <div class="row">
-                        <div class="col s6 l2 input-field">
+                        <div class="input-field col s6 l2">
                             <input class="value" id="synoUrl" type="text" />
                             <label for="synoUrl" class="translate">Synology URL/IP</label>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s12 input-field">
+                        <div class="input-field col s6 l2">
                             <input class="value" id="certCheck" type="checkbox" />
                             <label class="translate" for="certCheck">Validate SSL certificate</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 l3 input-field">
+                            <select class="value" id="webInstance">
+								<option value="*" class="translate">all</option>
+								<!-- <option value="outgoing">Outgoing</option> -->
+							</select>
+                            <label class="translate" for="webInstance">Web instance for messages send from Synology chat to ioBroker adapter instance</label>
                         </div>
                     </div>
                 </div>
