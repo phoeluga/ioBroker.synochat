@@ -1,3 +1,11 @@
+# TODO BEFORE RELEASE > v1.1.0
+- Name usage of web.0 > For debugging debug output of synochat.0 + web.0 needs to be activated
+- Remove note of Outgoing implementation planned
+- Remove Note of naming convention Incoming + Outgoing
+- (optional) check ChannelType in main.js for handling Incoming messages and Outgoing response > Currently covered with the ack flag of a state change!
+- Add hint of new web instance combobox in README.md
+- Add version desc to io-package.json
+
 # <img src="admin/synochat.png" alt="drawing" style="width:30px;"/> Synology-Chat adapter for ioBroker
 
 [![NPM version](https://img.shields.io/npm/v/iobroker.synochat.svg)](https://www.npmjs.com/package/iobroker.synochat)
