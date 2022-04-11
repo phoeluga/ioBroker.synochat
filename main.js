@@ -10,6 +10,7 @@ const utils = require("@iobroker/adapter-core");
 
 const SynoChatRequests = require("./lib/synoChatRequests.js");
 const synoChatRequestHelper = require("./lib/synoChatRequestHelper.js");
+const ipInfo = require('ip');
 
 class Synochat extends utils.Adapter {
 
@@ -37,6 +38,13 @@ class Synochat extends utils.Adapter {
 
 		this.log.info("Initializing SynoChat...");
 
+		if(this.config.iobrokerHost == ""){
+			var sysIp = ipInfo.address();
+			this.log.debug(`Hostname for 'iobrokerHost' is unset! > Set default value of current local IP '${sysIp}'.\nNOTE: This might be incorrect when using an Docker instance!`);
+			this.config.iobrokerHost = sysIp;
+			this.updateConfig(this.config);
+		}
+
 		if (this.config && Object.keys(this.config).length === 0 && Object.getPrototypeOf(this.config) === Object.prototype) {
             this.log.error("Instance configuration missing! Please update the instance configuration!");
             this.log.error(`Adapter instance not in a usable state!`);
@@ -47,7 +55,8 @@ class Synochat extends utils.Adapter {
 			if (!this.config.synoUrl ||
 				!this.config.channelName ||
 				!this.config.channelToken ||
-				!this.config.channelType) {
+				!this.config.channelType ||
+				!this.config.webInstance) {
 				this.log.error("Instance configuration invalid! One or more values of the configuration is missing.");
 				this.log.error(`Adapter instance not in a usable state!`);
 				return;
@@ -75,7 +84,20 @@ class Synochat extends utils.Adapter {
 				},
 				native: {},
 			});
-		}
+
+			await this.setObjectNotExistsAsync("info.webHookUrl", {
+				type: "state",
+				common: {
+					name: "Adapter web hook URL for receiving data from the Synology chat server",
+					type: "string",
+					role: "text",
+					read: true,
+					write: false,
+				},
+				native: {},
+			});
+		} 
+
 		this.synoChatRequestHandler = new SynoChatRequests.SynoChatRequests(this, this.config.synoUrl, this.config.certCheck);
 		
 		// In order to get state updates, you need to subscribe to them. The following line adds a subscription for our variable we have created above.
@@ -117,6 +139,9 @@ class Synochat extends utils.Adapter {
 		if (state) {
 			if (id.endsWith("info.connection")){
 				return "managementStateChange";
+			}
+			if (!id.endsWith(".message")){
+				return "notAMessageObject";
 			}
 			if (state.ack) {
 				//only continue when application triggered a change without ack flag, filter out reception state changes

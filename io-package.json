@@ -81,7 +81,17 @@
 		"channelToken": "",
 		"channelType": "",
 		"channelContentCertCheck": true,
-		"webInstance": "*"
+		"iobrokerHost": "",
+		"channels": [
+			{
+			  "channelName": "",
+			  "channelAccessToken": "",
+			  "channelType": "incoming",
+			  "channelValidateCert": true,
+			  "channelWebHook": ""
+			}
+		],
+		"webInstance": ""
 	},
 	"objects": [],
 	"instanceObjects": [
