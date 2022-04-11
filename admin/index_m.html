@@ -90,7 +90,6 @@
             settings.channels[c].channelName  = settings.channels[c].channelName || '';
             settings.channels[c].channelAccessToken   = settings.channels[c].channelAccessToken || '';
             settings.channels[c].channelType  = settings.channels[c].channelType || '';
-            settings.channels[c].channelWebHook  = settings.channels[c].channelWebHook || '';
         }
         
         getExtendableInstances(function (result) {
@@ -221,8 +220,7 @@
                                     <th data-name="channelName"         class="translate">Channel name</th>
                                     <th data-name="channelAccessToken"  class="translate">Access token</th>
                                     <th data-name="channelType"         data-options="incoming/Send data to Synology chat server;outgoing/Get data from Synology chat server" data-type="select" class="translate">Channel type</th>
-                                    <th data-name="channelValidateCert" data-type="checkbox" class="translate">Channel specific data</th>
-                                    <th data-name="channelWebHook"      data-type="label" readonly disabled class="translate">Channel Web Hook</th>
+                                    <th data-name="channelValidateCert" data-type="checkbox" class="translate">Validate SSL certificate for non-text messages</th>
                                     <th data-buttons="delete up down"></th>
     
                                 </tr>

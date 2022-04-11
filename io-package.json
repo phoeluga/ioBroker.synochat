@@ -77,18 +77,19 @@
 	"native": {
 		"synoUrl": "",
 		"certCheck": true,
+
 		"channelName": "",
 		"channelToken": "",
 		"channelType": "",
 		"channelContentCertCheck": true,
+
 		"iobrokerHost": "",
 		"channels": [
 			{
 			  "channelName": "",
 			  "channelAccessToken": "",
 			  "channelType": "incoming",
-			  "channelValidateCert": true,
-			  "channelWebHook": ""
+			  "channelValidateCert": true
 			}
 		],
 		"webInstance": ""

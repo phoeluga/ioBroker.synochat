@@ -64,26 +64,29 @@ class Synochat extends utils.Adapter {
 
 			this.log.info("Instance configuration check passed!");
 
-			this.log.info("Checking and creating object resources...");
-			await this.setObjectNotExistsAsync(this.config.channelName, {
-				type: "folder",
-				common: {
-					name: "Synology chat channel for " + this.config.channelType + " messages",
-				},
-				native: {},
-			});
+			this.log.info("Checking and creating object resources...");			
+			for (let i = 0; i < this.config.channels.length; i++) {
+				await this.setObjectNotExistsAsync(this.config.channelName, {
+					type: "folder",
+					common: {
+						name: "Synology chat channel for " + this.config.channels[i].channelType + " messages",
+					},
+					native: {},
+				});
+				await this.setObjectNotExistsAsync(this.config.channels[i].channelName + ".message", {
+					type: "state",
+					common: {
+						name: "Message object to be handled",
+						type: "string",
+						role: "text",
+						read: true,
+						write: true,
+					},
+					native: {},
+				});
+			}
 
-			await this.setObjectNotExistsAsync(this.config.channelName + ".message", {
-				type: "state",
-				common: {
-					name: "Message object to be handled",
-					type: "string",
-					role: "text",
-					read: true,
-					write: true,
-				},
-				native: {},
-			});
+			// TODO - Delete objects chat were deleted in the settings.
 
 			await this.setObjectNotExistsAsync("info.webHookUrl", {
 				type: "state",
@@ -96,7 +99,7 @@ class Synochat extends utils.Adapter {
 				},
 				native: {},
 			});
-		} 
+		}
 
 		this.synoChatRequestHandler = new SynoChatRequests.SynoChatRequests(this, this.config.synoUrl, this.config.certCheck);
 		
@@ -158,10 +161,34 @@ class Synochat extends utils.Adapter {
 
 			this.log.debug(`State for object '${id}' changed to value '${state.val}' with ack=${state.ack}.`);
 
-			if(await this.synoChatRequestHandler.sendMessage(this.config.channelToken, this.config.channelType, this.config.channelContentCertCheck, state.val)){
-				this.setState(id, {ack: true});
+			var lookupChannelName = "";
+			var lookupChannelToken = "";
+			var lookupChannelContentCertCheck = true;
+			var lookupChannelType = "";
+
+			for (let i = 0; i < this.config.channels.length; i++) {
+				if(id.split(".")[id.split(".").length - 2].toLowerCase() == this.config.channels[i].channelName.toLowerCase()){
+					this.log.debug(`Found channel for requested message to be sent to the Synology chat server with object id '${id}'.`);
+					lookupChannelName = this.config.channels[i].channelName;
+					lookupChannelToken = this.config.channels[i].channelAccessToken;
+					lookupChannelContentCertCheck = this.config.channels[i].channelValidateCert;
+					lookupChannelType = this.config.channels[i].channelType;
+					if(lookupChannelType.toLowerCase() == "incoming"){
+						break;
+					} else {
+						this.log.debug(`WARN: The found channel is not an incoming channel! > Checking next one...`);
+					}
+				}
+				
 			}
-			
+			if(lookupChannelType.toLowerCase() == "incoming"){
+				if(await this.synoChatRequestHandler.sendMessage(lookupChannelToken, lookupChannelType, lookupChannelContentCertCheck, state.val)){
+					this.setState(id, {ack: true});
+				}
+			} else {
+				this.log.debug(`Unable to find a incoming channel for the requested channel name '${lookupChannelName}'! > Request will not be processed!`);
+			}
+
 		} else {
 			// The state was deleted
 			this.log.info(`state ${id} deleted`);
