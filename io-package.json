@@ -3,17 +3,53 @@
 		"name": "synochat",
 		"version": "1.1.0",
 		"news": {
+			"1.1.0": {
+				"en": "Added the ability to manage multiple channels in one adapter instance per Synology chat server.\nA possibility of ioBroker hostname / IP address configuration has been introduced. (May be helpful when using an ioBroker Docker instance).\nA functionality to receive incoming messages from the Synology chat server using WebHooks has been added. (An instance of the web adapter is required to use this feature)\nThe translation of the UI properties was added.",
+				"de": "Möglichkeit hinzugefügt, mehrere Kanäle in einer Adapterinstanz pro Synology-Chatserver zu verwalten.\nEine Möglichkeit zur Konfiguration von ioBroker-Hostnamen / IP-Adressen wurde eingeführt. (Kann hilfreich sein, wenn Sie eine ioBroker Docker-Instanz verwenden).\nEine Funktion zum Empfangen eingehender Nachrichten vom Synology-Chatserver mit WebHooks wurde hinzugefügt. (Zur Verwendung dieser Funktion ist eine Instanz des Web Adaptors erforderlich.)\nDie Übersetzung der UI-Eigenschaften wurde hinzugefügt.",
+				"ru": "Добавлена возможность управлять несколькими каналами в одном экземпляре адаптера для каждого сервера чата Synology.\nДобавлена возможность настройки имени хоста / IP-адреса ioBroker. (Может быть полезно при использовании экземпляра ioBroker Docker).\nДобавлена возможность получать входящие сообщения с сервера чата Synology с помощью WebHooks. (Для использования этой функции требуется экземпляр веб-адаптера)\nДобавлен перевод свойств пользовательского интерфейса.",
+				"pt": "Adicionada a capacidade de gerenciar vários canais em uma instância do adaptador por servidor de bate-papo Synology.\nUma possibilidade de configuração de nome de host/endereço IP do ioBroker foi introduzida. (Pode ser útil ao usar uma instância do ioBroker Docker).\nFoi adicionada uma funcionalidade para receber mensagens recebidas do servidor de bate-papo Synology usando WebHooks. (É necessária uma instância do adaptador da Web para usar esse recurso)\nA tradução das propriedades da interface do usuário foi adicionada.",
+				"nl": "De mogelijkheid toegevoegd om meerdere kanalen in één adapterinstantie per Synology-chatserver te beheren.\nEen mogelijkheid voor ioBroker hostnaam / IP-adresconfiguratie is geïntroduceerd. (Kan handig zijn bij het gebruik van een ioBroker Docker-instantie).\nEr is een functionaliteit toegevoegd om inkomende berichten van de Synology-chatserver te ontvangen met behulp van WebHooks. (Een exemplaar van de webadapter is vereist om deze functie te gebruiken)\nDe vertaling van de UI-eigenschappen is toegevoegd.",
+				"fr": "Ajout de la possibilité de gérer plusieurs canaux dans une instance d'adaptateur par serveur de discussion Synology.\nUne possibilité de configuration du nom d'hôte / de l'adresse IP ioBroker a été introduite. (Peut être utile lors de l'utilisation d'une instance ioBroker Docker).\nUne fonctionnalité permettant de recevoir des messages entrants du serveur de discussion Synology à l'aide de WebHooks a été ajoutée. (Une instance de l'adaptateur Web est requise pour utiliser cette fonctionnalité)\nLa traduction des propriétés de l'interface utilisateur a été ajoutée.",
+				"it": "Aggiunta la possibilità di gestire più canali in un'istanza dell'adattatore per server di chat Synology.\nÈ stata introdotta una possibilità di configurazione del nome host/indirizzo IP di ioBroker. (Può essere utile quando si utilizza un'istanza ioBroker Docker).\nÈ stata aggiunta una funzionalità per ricevere i messaggi in arrivo dal server di chat Synology utilizzando WebHooks. (Per utilizzare questa funzione è necessaria un'istanza dell'adattatore Web)\nÈ stata aggiunta la traduzione delle proprietà dell'interfaccia utente.",
+				"es": "Se agregó la capacidad de administrar varios canales en una instancia de adaptador por servidor de chat de Synology.\nSe ha introducido la posibilidad de configurar el nombre de host/dirección IP de ioBroker. (Puede ser útil al usar una instancia de ioBroker Docker).\nSe ha agregado una funcionalidad para recibir mensajes entrantes del servidor de chat de Synology mediante WebHooks. (Se requiere una instancia del adaptador web para usar esta característica)\nSe agregó la traducción de las propiedades de la interfaz de usuario.",
+				"pl": "Dodano możliwość zarządzania wieloma kanałami w jednej instancji adaptera na serwer czatu firmy Synology.\nWprowadzono możliwość konfiguracji nazwy hosta / adresu IP w ioBroker. (Może być pomocne podczas korzystania z instancji ioBroker Docker).\nDodano funkcję odbierania wiadomości przychodzących z serwera czatu Synology za pomocą uchwytów WebHook. (Do korzystania z tej funkcji wymagana jest instancja karty sieciowej)\nDodano tłumaczenie właściwości interfejsu użytkownika.",
+				"zh-cn": "添加了在每个 Synology 聊天服务器的一个适配器实例中管理多个通道的功能。\n引入了 ioBroker 主机名/IP 地址配置的可能性。 （在使用 ioBroker Docker 实例时可能会有所帮助）。\n添加了使用 WebHooks 从 Synology 聊天服务器接收传入消息的功能。 （使用此功能需要 Web 适配器实例）\n添加了 UI 属性的翻译。"
+			  },
+			"1.0.1": {
+				"en": "Resolved issue #1 - Unable to send messages with special characters\nResolved issue #2 - Send images",
+				"de": "Behobenes Problem Nr. 1 – Nachrichten mit Sonderzeichen können nicht gesendet werden\nBehobenes Problem Nr. 2 – Bilder senden",
+				"ru": "Решенная проблема №1 — невозможно отправлять сообщения со специальными символами\nРешенная проблема № 2 – отправка изображений",
+				"pt": "Problema resolvido nº 1 - Não é possível enviar mensagens com caracteres especiais\nProblema resolvido nº 2 - Enviar imagens",
+				"nl": "Opgelost probleem #1 - Kan geen berichten met speciale tekens verzenden\nProbleem #2 opgelost - Afbeeldingen verzenden",
+				"fr": "Problème résolu #1 - Impossible d'envoyer des messages avec des caractères spéciaux\nProblème résolu #2 - Envoyer des images",
+				"it": "Risolto problema n. 1: impossibile inviare messaggi con caratteri speciali\nRisolto problema n. 2 - Invia immagini",
+				"es": "Problema resuelto n.º 1: no se pueden enviar mensajes con caracteres especiales\nProblema resuelto #2 - Enviar imágenes",
+				"pl": "Rozwiązany problem nr 1 – Nie można wysyłać wiadomości ze znakami specjalnymi\nRozwiązany problem nr 2 – Wyślij obrazy",
+				"zh-cn": "已解决的问题 #1 - 无法发送带有特殊字符的消息\n已解决的问题 #2 - 发送图像"
+			  },
 			"1.0.0": {
-				"en": "Bug fixes; Content consideration",
-				"de": "Fehlerbehebung; Inhaltliche Betrachtung",
-				"ru": "Исправление ошибок; Рассмотрение содержания",
-				"pt": "Correções de bugs; Consideração de conteúdo",
-				"nl": "Bugfixes; Inhoudelijke overweging",
-				"fr": "Corrections de bogues ; Considération du contenu",
-				"it": "Correzioni di bug; Considerazione sui contenuti",
-				"es": "Corrección de errores; Consideración del contenido",
-				"pl": "poprawki błędów; Rozważanie treści",
-				"zh-cn": "Bug修复;内容考虑"
+				"en": "Initial release",
+				"de": "Erstveröffentlichung",
+				"ru": "Первый выпуск",
+				"pt": "lançamento inicial",
+				"nl": "Eerste uitgave",
+				"fr": "Première version",
+				"it": "Versione iniziale",
+				"es": "Versión inicial",
+				"pl": "Pierwsze wydanie",
+				"zh-cn": "初始发行"
+			  },
+			"0.0.1": {
+				"en": "Start of development",
+				"de": "Beginn der Entwicklung",
+				"ru": "Начало разработки",
+				"pt": "Começo do desenvolvimento",
+				"nl": "Begin van ontwikkeling",
+				"fr": "Début du développement",
+				"it": "Inizio dello sviluppo",
+				"es": "Comienzo del desarrollo",
+				"pl": "Początek rozwoju",
+				"zh-cn": "开发开始"
 			  }
 		},
 		"title": "Synology-Chat",
@@ -77,13 +113,8 @@
 	"native": {
 		"synoUrl": "",
 		"certCheck": true,
-
-		"channelName": "",
-		"channelToken": "",
-		"channelType": "",
-		"channelContentCertCheck": true,
-
 		"iobrokerHost": "",
+		"webInstance": "",
 		"channels": [
 			{
 			  "channelName": "",
@@ -91,8 +122,7 @@
 			  "channelType": "incoming",
 			  "channelValidateCert": true
 			}
-		],
-		"webInstance": ""
+		]
 	},
 	"objects": [],
 	"instanceObjects": [

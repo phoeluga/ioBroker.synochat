@@ -156,9 +156,9 @@
         <div class="row">
             <div class="col s12">
                 <ul class="tabs">
-                    <li class="tab col s2"><a href="#tab-main"      class="translate active">Main settings</a></li>
-                    <li class="tab col s2"><a href="#tab-channels" class="translate">Channels</a></li>
-                    <li class="tab col s2"><a target="_blank" href="https://github.com/phoeluga/ioBroker.synochat"    class="translate">Help</a></li>
+                    <li class="tab col s2"><a href="#tab-main"      class="translate" data-lang="Main settings">Main settings</a></li>
+                    <li class="tab col s2"><a href="#tab-channels"  class="translate" data-lang="Channel management">Channel management</a></li>
+                    <li class="tab col s2"><a target="_blank"       class="translate" data-lang="Help" href="https://github.com/phoeluga/ioBroker.synochat">Help</a></li>
                 </ul>
             </div>
             <div id="tab-main" class="col s12 page">
@@ -167,7 +167,7 @@
                         <div class="row">
                             <div class="input-field col s6 l2">
                                 <input class="value" id="synoUrl" type="text" />
-                                <label for="synoUrl" class="translate">Synology URL/IP</label>
+                                <label class="translate" for="synoUrl">Synology URL/IP</label>
                             </div>
                             <div class="input-field col s6 l2">
                                 <input class="value" id="certCheck" type="checkbox" />
@@ -177,7 +177,7 @@
                         <div class="row">
                             <div class="input-field col s6 l2">
                                 <input class="value" id="iobrokerHost" type="text" />
-                                <label for="iobrokerHost" class="translate">Hostname / IP address of ioBroker instance</label>
+                                <label class="translate" for="iobrokerHost">Hostname / IP address of ioBroker instance</label>
                             </div>
                             <div class="col s12 l3 input-field">
                                 <select class="value" id="webInstance">
@@ -189,21 +189,18 @@
                     </div>
                 </div>
             </div>
-
             <div id="tab-channels" class="col s12 page">
                 <div class="card">
                     <div class="card-content">
                         <div class="row">
                             <div class="col s12">
                                 <h6>
-                                    <span class="translate">
-                                        </br>
-                                        <p><strong>NOTE:</strong></p>
-                                        </br>
-                                        <p><em>The WebHook URL for receiving data from Synology chat server can be found as object value of 'ADAPTER_INSTANCE.info.webHookUrl' for this adapter instance.</em></p>
-                                        </br>
-                                    </span>
-                                </h6>
+                                    </br>
+                                    <p></p>
+                                    <span class="translate">NOTE: The WebHook URL for receiving data from Synology chat server can be found as object value of 'ADAPTER_INSTANCE.info.webHookUrl' for this adapter instance.</span>
+                                    </br>
+                                    <p></p>
+                            </h6>
                             </div>
                         </div>
                     </div>
@@ -221,8 +218,8 @@
                                     <th data-name="channelAccessToken"  class="translate">Access token</th>
                                     <th data-name="channelType"         data-options="incoming/Send data to Synology chat server;outgoing/Get data from Synology chat server" data-type="select" class="translate">Channel type</th>
                                     <th data-name="channelValidateCert" data-type="checkbox" class="translate">Validate SSL certificate for non-text messages</th>
-                                    <th data-buttons="delete up down"></th>
-    
+                                    <th data-buttons="delete"></th>
+                                    <!-- <th data-buttons="delete up down"></th> -->
                                 </tr>
                                 </thead>
                             </table>
