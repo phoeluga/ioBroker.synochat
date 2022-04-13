@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 - *[@phoeluga]* A functionality to receive incoming messages from the Synology chat server using WebHooks has been added.\
 (An instance of the web adapter is required to use this feature)
 - *[@phoeluga]* The translation of the UI properties was added.
+- *[@phoeluga]* Added function to migrate channel data from an older version to a new channel object in the list approach.
 
 ## `1.0.1` - *2022-04-06*
 

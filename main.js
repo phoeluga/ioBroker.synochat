@@ -71,7 +71,32 @@ class Synochat extends utils.Adapter {
 
 			this.log.info("Instance configuration check passed!");
 
-			this.log.info("Checking and creating object resources...");			
+			this.log.info("Checking and creating object resources...");
+			// Migration from older versions
+			if (this.config.channelName ||
+				this.config.channelToken ||
+				this.config.channelType) {
+
+				this.log.warn("Configuration data from older version found! > Migrating data to new channel object...");
+				var migrationChannel = {
+					"channelName": this.config.channelName,
+					"channelAccessToken": this.config.channelToken,
+					"channelType": this.config.channelType,
+					"channelValidateCert": this.config.channelContentCertCheck
+				  };
+				  
+				
+				this.config.channels.push(migrationChannel);
+
+				this.config.iobrokerHost = null;
+				this.config.iobrokerHost = null;
+				this.config.iobrokerHost = null;
+				this.updateConfig(this.config);
+
+				this.log.debug("Migration data of of older version done! > Old config data deleted!");
+			}
+
+			// Create configured channel ressources
 			for (let i = 0; i < this.config.channels.length; i++) {
 				await this.setObjectNotExistsAsync(this.config.channels[i].channelName, {
 					type: "folder",
@@ -93,6 +118,7 @@ class Synochat extends utils.Adapter {
 				});
 			}
 
+			// Clean up
 			for(const adapterInstanceObject in await this.getAdapterObjectsAsync()){
 				if(adapterInstanceObject.split(".").length === 3){
 					if((await this.getObjectAsync(adapterInstanceObject))?.type == "folder" && adapterInstanceObject.split(".")[2] != "info"){
