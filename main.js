@@ -10,7 +10,7 @@ const utils = require("@iobroker/adapter-core");
 
 const SynoChatRequests = require("./lib/synoChatRequests.js");
 const synoChatRequestHelper = require("./lib/synoChatRequestHelper.js");
-const ipInfo = require('ip');
+const iFaces = require('os').networkInterfaces();
 
 class Synochat extends utils.Adapter {
 
@@ -39,9 +39,17 @@ class Synochat extends utils.Adapter {
 		this.log.info("Initializing SynoChat...");
 
 		if(this.config.iobrokerHost == ""){
-			var sysIp = ipInfo.address();
-			this.log.debug(`Hostname for 'iobrokerHost' is unset! > Set default value of current local IP '${sysIp}'.\nNOTE: This might be incorrect when using an Docker instance!`);
-			this.config.iobrokerHost = sysIp;
+			var ipAddress = null;
+			Object.keys(iFaces).forEach(dev => {
+				iFaces[dev].filter(details => {
+				  if (details.family === 'IPv4' && details.internal === false) {
+					ipAddress = details.address;
+				  }
+				});
+			});
+
+			this.log.debug(`Hostname for 'iobrokerHost' is unset! > Set default value of current local IP '${ipAddress}'.\nNOTE: This might be incorrect when using an Docker instance!`);
+			this.config.iobrokerHost = ipAddress;
 			this.updateConfig(this.config);
 		}
 
