@@ -129,7 +129,7 @@ class Synochat extends utils.Adapter {
 			// Clean up
 			for(const adapterInstanceObject in await this.getAdapterObjectsAsync()){
 				if(adapterInstanceObject.split(".").length === 3){
-					if((await this.getObjectAsync(adapterInstanceObject))?.type == "folder" && adapterInstanceObject.split(".")[2] != "info"){
+					if((await this.getObjectAsync(adapterInstanceObject)).type == "folder" && adapterInstanceObject.split(".")[2] != "info"){
 						var deleteObj = true;
 						for (let i = 0; i < this.config.channels.length; i++) {
 							if(this.config.channels[i].channelName == adapterInstanceObject.split(".")[2]){
@@ -139,7 +139,7 @@ class Synochat extends utils.Adapter {
 						}
 						if(deleteObj){
 							this.log.warn(`Clean up not configured object. Deleting channel objects in '${adapterInstanceObject}'`);
-							await this.delObjectAsync(adapterInstanceObject);
+							await this.delObjectAsync(adapterInstanceObject, {recursive: true});
 						}
 					}
 				}
