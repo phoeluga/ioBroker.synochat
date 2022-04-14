@@ -41,6 +41,8 @@ More information can be found in the official [ioBroker documentation](https://w
 	![SynoChatIntegrationIncoming](./docs/images/diSynoChatIntegrationIncoming.png)
 	![SynoChatIntegrationIncomingSettings](./docs/images/diSynoChatIntegrationIncomingSettings.png)
 
+	<div id="synologyChatConfigurationOutgoingIntegration"></div>
+
   	#### 2.1.1. Outgoing integration
 	For the integration of an outgoing message in the Synology chat, a web hook URL needs to be provided. You will get this web hook URL from the instance objects after instantiating the synochat adapter. More details can be found in [3. Usage > 3.1 General](#webHookLocation)
 	![SynoChatIntegrationIncoming](./docs/images/diSynoChatIntegrationOutgoing.png)
@@ -78,6 +80,8 @@ For more details on how to handle integrations within Synology chat, please refe
 		In case of using ioBroker as a Docker instance, it may be necessary to change this value, e.g. if a reverse proxy or similar is used to reach your ioBroker instance.
 
 		This value is used to generate the web hook URL for channels that receive messages from the Synology chat server.
+
+	<div id="configurationAdapterWebInstance"></div>
 
 	* **Web instance for messages send from Synology chat to ioBroker adapter instance**
 
@@ -129,6 +133,20 @@ For more details on how to handle integrations within Synology chat, please refe
 	#### 2.2.3. Help:
    	* This tab usually redirects to the official GitHub page of this project, where detailed help and usage instructions are given.
 	* If there are any open questions, suggestions for changes, unwanted behavior or bugs, please create a [GitHub issue](https://github.com/phoeluga/ioBroker.synochat/issues/new/choose) to ensure the quality of this project.
+
+<div id="configurationWebInstance"></div>
+
+### 2.3. Configuration of the `web` instance
+For receiving messages from the Synology chat server an outgoing integration is needed to be configured - See [Outgoing integration](#synologyChatConfigurationOutgoingIntegration).
+
+This requires an instance of the `web` adapter to be running and configures in the [synochat adapter instance configured](#configurationAdapterWebInstance).
+
+If the used `web` instance is configured to use a secure connection over HTTPS, **ensure that you provide a valid certificate or import your own certificate into your Synology trusted certificates**.\
+Otherwise, no messages are sent from the Synology chat server to your ioBroker adapter instance.
+The communication will not be established and unfortunately there will be no direct indication to the user on both sites that the message was rejected due to an invalid certificate.
+
+If the configured `web` instance is configured to use a secure connection via HTTPS make sure to provide a valid certificate or import your own certificate to the trusted certificates in your Synology.
+Otherwise no messages will be send from the Synology chat server to your ioBroker adapter instance.
 
 <div id="usage"></div>
 
