@@ -44,7 +44,7 @@ More information can be found in the official [ioBroker documentation](https://w
 	<div id="synologyChatConfigurationOutgoingIntegration"></div>
 
   	#### 2.1.1. Outgoing integration
-	For the integration of an outgoing message in the Synology chat, a web hook URL needs to be provided. You will get this web hook URL from the instance objects after instantiating the synochat adapter. More details can be found in [3. Usage > 3.1 General](#webHookLocation)
+	For the integration of an outgoing message in the Synology chat, a web hook URL needs to be provided. You will get this web hook URL from the instance objects after instantiating the `synochat` adapter. More details can be found in [3. Usage > 3.1 General](#webHookLocation)
 	![SynoChatIntegrationIncoming](./docs/images/diSynoChatIntegrationOutgoing.png)
 	![SynoChatIntegrationIncomingSettings](./docs/images/diSynoChatIntegrationOutgoingSettings.png)
 
@@ -85,12 +85,18 @@ For more details on how to handle integrations within Synology chat, please refe
 
 	* **Web instance for messages send from Synology chat to ioBroker adapter instance**
 
-        The synochat adapter is using a `web` adapter to make web hooks available. You need to select a specific instance of the `web` adapter to provide a dedicated web hook to the Synology chat integration.
+        The `synochat` adapter is using a `web` adapter to make web hooks available. You need to select a specific instance of the `web` adapter to provide a dedicated web hook to the Synology chat integration.
 
 	<div id="channel-configuration"></div>
 
-    #### 2.2.2. Channel configuration:
+    #### 2.2.2. Channel configuration / management:
 	![IobrokerInstanceSettingsChannelConfiguration](./docs/images/diIobrokerInstanceSettingsChannelConfiguration.png)
+
+	* **Channel enabled**
+
+		This option can be used to disable the handling of incoming or outgoing messages.
+
+		This can be useful if e.g. the user wants to disable the use of a channel only temporarily and wants to keep the settings like the access token or similar to prevent to collect them again.
 
     * **Channel name**
 
@@ -129,7 +135,7 @@ For more details on how to handle integrations within Synology chat, please refe
 
 		If a channel should be configured in both, sending and receiving messages, simply add a second channel with the same name and select the other channel type.
 
-	* **Validate SSL certificate for non-text messages**
+	* **Validate SSL certificate - For non-text messages**
 	
 		In case that for an incoming channel type a content other than a text, for example an image, is to be sent, this is specified from an HTTP source via a URL. If this content is provided with a self-signed certificate, the certificate check can be enabled or disabled with this setting.
 		For details on sending non-text content, see chapter [Synology chat configuration](#synology-chat-configuration)..
@@ -143,7 +149,7 @@ For more details on how to handle integrations within Synology chat, please refe
 ### 2.3. Configuration of the `web` instance
 For receiving messages from the Synology chat server an outgoing integration is needed to be configured - See [Outgoing integration](#synologyChatConfigurationOutgoingIntegration).
 
-This requires an instance of the `web` adapter to be running and configures in the [synochat adapter instance configured](#configurationAdapterWebInstance).
+This requires an instance of the `web` adapter to be running and configures in the [`synochat` adapter instance configured](#configurationAdapterWebInstance).
 
 If the used `web` instance is configured to use a secure connection over HTTPS, **ensure that you provide a valid certificate or import your own certificate into your Synology trusted certificates**.\
 Otherwise, no messages are sent from the Synology chat server to your ioBroker adapter instance.
@@ -187,9 +193,9 @@ This URL provides image that needs to be set as the value of the the message obj
 
 ### 3.3 Debugging in case of issues
 
-To get more detailed information about the adapter behaviors in case of issues, you can increase the log level of the synochat adapter instance to `debug`.
+To get more detailed information about the adapter behaviors in case of issues, you can increase the log level of the `synochat` adapter instance to `debug`.
 
-Since this adapter is using a `web` adapter instance to provide web hooks to the Synology chat server, the configured `web` instance is executing some functions. In order to get more detailed information in case of receiving message issues you need to increase the log level of the configured `web` instance as well to `debug`. Log messages related to the synochat adapter can be identified by the log message prefix `synochat.<INSTANCE_NUMBER>`.
+Since this adapter is using a `web` adapter instance to provide web hooks to the Synology chat server, the configured `web` instance is executing some functions. In order to get more detailed information in case of receiving message issues you need to increase the log level of the configured `web` instance as well to `debug`. Log messages related to the `synochat` adapter can be identified by the log message prefix `synochat.<INSTANCE_NUMBER>`.
 
 ---
 

@@ -134,16 +134,16 @@ systemDictionary = {
 		"pl": "Typ kanału",
 		"zh-cn": "渠道类型"
 	  },
-	  "Validate SSL certificate for non-text messages": {
-		"en": "Validate SSL certificate for non-text messages",
-		"de": "Validieren Sie das SSL-Zertifikat für Nicht-Textnachrichten",
-		"ru": "Проверить SSL-сертификат для нетекстовых сообщений",
-		"pt": "Validar certificado SSL para mensagens que não sejam de texto",
-		"nl": "Valideer SSL-certificaat voor niet-tekstberichten",
-		"fr": "Valider le certificat SSL pour les messages non textuels",
-		"it": "Convalida il certificato SSL per i messaggi non di testo",
-		"es": "Validar certificado SSL para mensajes que no sean de texto",
-		"pl": "Sprawdź poprawność certyfikatu SSL dla wiadomości innych niż tekstowe",
-		"zh-cn": "验证非文本消息的 SSL 证书"
+	  "Channel enabled": {
+		"en": "Channel enabled",
+		"de": "Kanal aktiviert",
+		"ru": "Канал включен",
+		"pt": "Canal ativado",
+		"nl": "Kanaal ingeschakeld",
+		"fr": "Canal activé",
+		"it": "Canale abilitato",
+		"es": "Canal habilitado",
+		"pl": "Kanał włączony",
+		"zh-cn": "启用频道"
 	  }
 };

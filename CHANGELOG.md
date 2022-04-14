@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file.
 (An instance of the web adapter is required to use this feature)
 - *[@phoeluga]* The translation of the UI properties was added.
 - *[@phoeluga]* Added function to migrate channel data from an older version to a new channel object in the list approach.
+- *[@phoeluga]* Added possibility for a user to disable dedicated channels from being processed.
 
 ## `1.0.1` - *2022-04-06*
 

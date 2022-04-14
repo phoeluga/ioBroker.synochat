@@ -82,6 +82,11 @@
         channels = settings.channels || [];
                 
         for (var c = 0; c < settings.channels.length; c++) {
+            settings.channels[c].channelEnabled =
+                settings.channels[c].channelEnabled === 'ignore' ||
+                settings.channels[c].channelEnabled === 'true' ||
+                settings.channels[c].channelEnabled === true;
+
             settings.channels[c].channelValidateCert =
                 settings.channels[c].channelValidateCert === 'ignore' ||
                 settings.channels[c].channelValidateCert === 'true' ||
@@ -214,10 +219,11 @@
                             <table class="table-values">
                                 <thead>
                                 <tr>
+                                    <th data-name="channelEnabled"      data-type="checkbox" class="translate">Channel enabled</th>
                                     <th data-name="channelName"         class="translate">Channel name</th>
                                     <th data-name="channelAccessToken"  class="translate">Access token</th>
                                     <th data-name="channelType"         data-options="incoming/Send data to Synology chat server;outgoing/Get data from Synology chat server" data-type="select" class="translate">Channel type</th>
-                                    <th data-name="channelValidateCert" data-type="checkbox" class="translate">Validate SSL certificate for non-text messages</th>
+                                    <th data-name="channelValidateCert" data-type="checkbox" class="translate">Validate SSL certificate</th>
                                     <th data-buttons="delete"></th>
                                     <!-- <th data-buttons="delete up down"></th> -->
                                 </tr>

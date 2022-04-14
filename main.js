@@ -87,6 +87,7 @@ class Synochat extends utils.Adapter {
 
 				this.log.warn("Configuration data from older version found! > Migrating data to new channel object...");
 				var migrationChannel = {
+					"channelEnabled": true,
 					"channelName": this.config.channelName,
 					"channelAccessToken": this.config.channelToken,
 					"channelType": this.config.channelType,
@@ -218,6 +219,7 @@ class Synochat extends utils.Adapter {
 
 			this.log.debug(`State for object '${id}' changed to value '${state.val}' with ack=${state.ack}.`);
 
+			var lookupChannelEnabled = true;
 			var lookupChannelName = "";
 			var lookupChannelToken = "";
 			var lookupChannelContentCertCheck = true;
@@ -228,6 +230,7 @@ class Synochat extends utils.Adapter {
 			for (let i = 0; i < this.config.channels.length; i++) {
 				if(id.split(".")[id.split(".").length - 2].toLowerCase() == this.config.channels[i].channelName.toLowerCase()){
 					this.log.debug(`Found channel for requested message to be sent to the Synology chat server with object id '${id}'.`);
+					lookupChannelEnabled = this.config.channels[i].channelEnabled;
 					lookupChannelName = this.config.channels[i].channelName;
 					lookupChannelToken = this.config.channels[i].channelAccessToken;
 					lookupChannelContentCertCheck = this.config.channels[i].channelValidateCert;
@@ -241,7 +244,9 @@ class Synochat extends utils.Adapter {
 				}
 				
 			}
-			if(lookupSuccessful){
+			if(!lookupChannelEnabled){
+                this.log.debug(`Channel '${lookupChannelName}' was disabled in the adapter instance configuration! > Request will not be processed!`);
+            } else if(lookupSuccessful){
 				if(await this.synoChatRequestHandler.sendMessage(lookupChannelToken, lookupChannelType, lookupChannelContentCertCheck, state.val)){
 					this.setState(id, {ack: true});
 				}
