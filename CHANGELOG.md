@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## `1.1.0` - *2022-XX-XX*
+## `1.1.0` - *2022-04-14*
 
 - *[@phoeluga]* Added the ability to manage multiple channels in one adapter instance per Synology chat server.
 - *[@phoeluga]* A possibility of ioBroker hostname / IP address configuration has been introduced.\
