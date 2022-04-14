@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## `1.1.0` - *2022-04-14*
+
+- *[@phoeluga]* Added the ability to manage multiple channels in one adapter instance per Synology chat server.
+- *[@phoeluga]* A possibility of ioBroker hostname / IP address configuration has been introduced.\
+(May be helpful when using an ioBroker Docker instance).
+- *[@phoeluga]* A functionality to receive incoming messages from the Synology chat server using WebHooks has been added.\
+(An instance of the web adapter is required to use this feature)
+- *[@phoeluga]* The translation of the UI properties was added.
+- *[@phoeluga]* Added function to migrate channel data from an older version to a new channel object in the list approach.
+- *[@phoeluga]* Added possibility for a user to disable dedicated channels from being processed.
 
 ## `1.0.1` - *2022-04-06*
 

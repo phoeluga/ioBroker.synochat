@@ -1,124 +1,156 @@
 <html>
-
 <head>
+    <meta charset="UTF-8">
+    <!-- Materialze style -->
+    <link rel="stylesheet" type="text/css" href="../../css/adapter.css"/>
+    <link rel="stylesheet" type="text/css" href="../../lib/css/materialize.css">
+    <link type="text/css" rel="stylesheet" href="../../lib/css/themes/jquery-ui/default/jquery-ui.min.css">
+    <link type="text/css" rel="stylesheet" href="../../lib/css/fancytree/ui.fancytree.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../../lib/css/iob/selectID.css"/>
 
-	<!-- Load ioBroker scripts and styles-->
-	<link rel="stylesheet" type="text/css" href="../../css/adapter.css" />
-	<link rel="stylesheet" type="text/css" href="../../lib/css/materialize.css">
+    <script type="text/javascript" src="../../lib/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../../lib/js/jquery-ui-1.10.3.full.min.js"></script>
+    <script type="text/javascript" src="../../lib/js/jquery.fancytree-all.min.js"></script>
+    <script type="text/javascript" src="../../socket.io/socket.io.js"></script>
 
-	<script type="text/javascript" src="../../lib/js/jquery-3.2.1.min.js"></script>
-	<script type="text/javascript" src="../../socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="../../js/translate.js"></script>
+    <script type="text/javascript" src="../../lib/js/selectID.js"></script>
+    <script type="text/javascript" src="../../lib/js/materialize.js"></script>
+    <script type="text/javascript" src="../../js/adapter-settings.js"></script>
+    <script type="text/javascript" src="words.js"></script>
 
-	<script type="text/javascript" src="../../js/translate.js"></script>
-	<script type="text/javascript" src="../../lib/js/materialize.js"></script>
-	<script type="text/javascript" src="../../js/adapter-settings.js"></script>
+<script type="text/javascript">
 
-	<!-- Load our own files -->
-	<link rel="stylesheet" type="text/css" href="style.css" />
-	<script type="text/javascript" src="words.js"></script>
-
-	<script type="text/javascript">
-		// This will be called by the admin adapter when the settings page loads
-		function load(settings, onChange) {
-			// example: select elements with id=key and class=value and insert value
-			if (!settings) return;
-
-			showGeneralSetupDialog();
-
-			$('.value').each(function () {
-				var $key = $(this);
-				var id = $key.attr('id');
-				if ($key.attr('type') === 'checkbox') {
-					// do not call onChange direct, because onChange could expect some arguments
-					$key.prop('checked', settings[id])
-						.on('change', () => onChange())
-						;
-				} else {
-					// do not call onChange direct, because onChange could expect some arguments
-					$key.val(settings[id])
-						.on('change', () => onChange())
-						.on('keyup', () => onChange())
-						;
-				}
-
-                //add sanity checks
-				$key.val(settings[id]).focusout("change", function () {
-                    if (id === "synoUrl") {
-                        var ip1 = $("#synoUrl").val();
-                        if (isUrlValid(ip1)) {
-                            $("#synoUrl").val(ip1);
-                        } else {
-                            alert("Please enter a valid URL to your Synology Chat application\nwith prefix (http/s://) and without postfix (/)\n\n Valide sample values:\n - https://mychat.mydomain.com\n - https://192.168.x.x:8080");
-                            //restore
-                            $("#synoUrl").val(settings.synoUrl).change();
-                        }
+    var calendars = [];
+    var events = [];
+    // the function loadSettings has to exist ...
+    function load(settings, onChange) {
+        if (!settings) return;
+        for (var key in settings) {
+            if (!settings.hasOwnProperty(key)) continue;
+            var $value = $('#' + key + '.value');
+            if ($value.attr('type') === 'checkbox') {
+                $value.prop('checked', settings[key]).on('change', function() {
+                    if ($('#auth').prop('checked')) {
+                        $('#secure').prop('checked', true);
+                    }
+                    onChange();
+                    //showHideSettings();
+                });
+            } else {
+                $value.val(settings[key]).on('change', function() {
+                    onChange();
+                }).keyup(function() {
+                    onChange();
+                });
+            }
+            
+            if ($value.attr('id') === 'synoUrl') {
+                $value.prop('checked', settings[key]).focusout('change', function() {
+                    var ip1 = $("#synoUrl").val();
+                    if (isUrlValid(ip1)) {
+                        $("#synoUrl").val(ip1);
+                    } else {
+                        alert("Please enter a valid URL to your Synology Chat application\nwith prefix (http/s://) and without postfix (/)\n\n Valid sample values:\n - https://mychat.mydomain.com\n - https://192.168.x.x:8080");
+                        //restore
+                        $("#synoUrl").val(settings.synoUrl).change();
                     }
 
                 });
-			});
-			onChange(false);
-			// reinitialize all the Materialize labels on the page if you are dynamically adding inputs:
-			if (M) M.updateTextFields();
-		}
+            }
 
-		// This will be called by the admin adapter when the user presses the save button
-		function save(callback) {
-			// example: select elements with class=value and build settings object
-			var obj = {};
-			$('.value').each(function () {
-				var $this = $(this);
-				if ($this.attr('type') === 'checkbox') {
-					obj[$this.attr('id')] = $this.prop('checked');
-				} else if ($this.attr('type') === 'number') {
-					obj[$this.attr('id')] = parseFloat($this.val());
-				} else {
-					obj[$this.attr('id')] = $this.val();
-				}
-			});
-			callback(obj);
-		}
+            if ($value.attr('id') === 'iobrokerHost') {
+                $value.prop('checked', settings[key]).focusout('change', function() {
+                    var hostname = $("#iobrokerHost").val();
+                    if (isHostnameValid(hostname)) {
+                        $("#iobrokerHost").val(hostname);
+                    } else {
+                        alert("Please enter a valid hostname of IP address of your ioBroker instance\nwithout prefix (http/s://) and without port or postfix (/)\n\n Valid sample values:\n - myIoBrokerInstance.tld\n - 192.168.x.x");
+                        //restore
+                        $("#iobrokerHost").val(settings.iobrokerHost).change();
+                    }
 
-		function isUrlValid(inputText) {
-			var format = /^(http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?|^(http:\/\/|https:\/\/)(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(?::\d{0,4})?$/;
-            return !!inputText.match(format);
-        }
-
-		function disableAllDialogs() {
-            $(".c-tab").removeClass("tab-active");
-            var x = document.getElementsByClassName("dialog");
-            for (var cnt = 0; cnt < x.length; cnt++) {
-                x[cnt].style.display = "none";
+                });
             }
         }
 
-		function showGeneralSetupDialog() {
-            disableAllDialogs();
-            $(".dialog-general-setup").addClass("tab-active");
-            var x = document.getElementById("generalSetupDialog");
-            x.style.display = "block";
+        // Set default language
+        if (!settings.language) {
+            settings.language = systemLang || 'en';
+            $('#language').val(settings.language).trigger('change');
         }
-		
-        function showChannelConfigDialog() {
-            disableAllDialogs();
-            $('.dialog-channel-config').addClass('tab-active');
-            var x = document.getElementById("channelConfigDialog");
-            x.style.display = "block";
-        }
+        channels = settings.channels || [];
+                
+        for (var c = 0; c < settings.channels.length; c++) {
+            settings.channels[c].channelEnabled =
+                settings.channels[c].channelEnabled === 'ignore' ||
+                settings.channels[c].channelEnabled === 'true' ||
+                settings.channels[c].channelEnabled === true;
 
-		function showHelpDialog() {
-            disableAllDialogs();
-            $('.dialog-help').addClass('tab-active');
-            var x = document.getElementById("helpDialog");
-            x.style.display = "block";
-        }
-	</script>
+            settings.channels[c].channelValidateCert =
+                settings.channels[c].channelValidateCert === 'ignore' ||
+                settings.channels[c].channelValidateCert === 'true' ||
+                settings.channels[c].channelValidateCert === true;
 
+            settings.channels[c].channelName  = settings.channels[c].channelName || '';
+            settings.channels[c].channelAccessToken   = settings.channels[c].channelAccessToken || '';
+            settings.channels[c].channelType  = settings.channels[c].channelType || '';
+        }
+        
+        getExtendableInstances(function (result) {
+            if (result) {
+                var text = '';
+                for (var r = 0; r < result.length; r++) {
+                    var name = result[r]._id.substring('system.adapter.'.length);
+                    text += '<option value="' + name + '">' + name + '</option>';
+                }
+                $('#webInstance').append(text).val(settings.webInstance).select();
+                //showHideSettings();
+            }
+        });
+
+        onChange(false);
+
+        values2table('channels', channels, onChange);
+    }
+
+    function save(callback) {
+        var obj = {};
+        $('.value').each(function () {
+            var $this = $(this);
+            if ($this.attr('type') === 'checkbox') {
+                obj[$this.attr('id')] = $this.prop('checked');
+            } else {
+                obj[$this.attr('id')] = $this.val();
+            }
+        });
+        // Get edited table
+        obj.channels = table2values('channels');
+        callback(obj);
+    }
+
+    function isUrlValid(inputText) {
+        var format = /^(http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?|^(http:\/\/|https:\/\/)(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(?::\d{0,4})?$/;
+        return !!inputText.match(format);
+    }
+
+    function isHostnameValid(inputText) {
+        var format = /^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?|^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+        return !!inputText.match(format);
+    }
+
+</script>
+    <style>
+        .m .select-wrapper+label {
+            top: 100%;
+        }
+    </style>
 </head>
 
 <body>
 
 	<div class="m adapter-container">
-		<nav>
+        <nav>
             <div class="row">
                 <div class="col s5">
                     <img src="synochat.png" class="logo" style="float: left">
@@ -127,89 +159,81 @@
             </div>
         </nav>
         <div class="row">
-            <ul class="tabs">
-                <li class="tab col s3 dialog-general-setup c-tab translate"><a onclick="showGeneralSetupDialog()">General setup</a></li>
-                <li class="tab col s3 dialog-channel-config c-tab translate"><a onclick="showChannelConfigDialog()">Channel configuration</a></li>
-				<!-- <li class="tab col s3 dialog-help c-tab translate"><a onclick="showHelpDialog()">Help</a></li> -->
-				<li class="tab col s3 c-tab translate"><a target="_blank" class="translate" href="https://github.com/phoeluga/ioBroker.synochat">Help</a></li>
-			
-            </ul>
-        </div>
-		<div id="generalSetupDialog" class="dialog">
-            <div class="card">
-                <div class="card-content">
-                    <div class="row">
-                        <div class="col s6 l2 input-field">
-                            <input class="value" id="synoUrl" type="text" />
-                            <label for="synoUrl" class="translate">Synology URL/IP</label>
+            <div class="col s12">
+                <ul class="tabs">
+                    <li class="tab col s2"><a href="#tab-main"      class="translate" data-lang="Main settings">Main settings</a></li>
+                    <li class="tab col s2"><a href="#tab-channels"  class="translate" data-lang="Channel management">Channel management</a></li>
+                    <li class="tab col s2"><a target="_blank"       class="translate" data-lang="Help" href="https://github.com/phoeluga/ioBroker.synochat">Help</a></li>
+                </ul>
+            </div>
+            <div id="tab-main" class="col s12 page">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="row">
+                            <div class="input-field col s6 l2">
+                                <input class="value" id="synoUrl" type="text" />
+                                <label class="translate" for="synoUrl">Synology URL/IP</label>
+                            </div>
+                            <div class="input-field col s6 l2">
+                                <input class="value" id="certCheck" type="checkbox" />
+                                <label class="translate" for="certCheck">Validate SSL certificate</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s12 input-field">
-                            <input class="value" id="certCheck" type="checkbox" />
-                            <label class="translate" for="certCheck">Validate SSL certificate</label>
+                        <div class="row">
+                            <div class="input-field col s6 l2">
+                                <input class="value" id="iobrokerHost" type="text" />
+                                <label class="translate" for="iobrokerHost">Hostname / IP address of ioBroker instance</label>
+                            </div>
+                            <div class="col s12 l3 input-field">
+                                <select class="value" id="webInstance">
+                                    <!-- <option value="*" class="translate">Any</option> -->
+                                </select>
+                                <label class="translate" for="webInstance">Web instance for messages send from Synology chat to ioBroker adapter instance</label>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-		<div id="channelConfigDialog" class="dialog">
-            <div class="card">
-                <div class="card-content">
-                    <div class="row">
-                        <div class="col s12">
-                            <h6>
-								<span class="translate">
-									<strong>NOTE:</strong>
-                                    <br>
-                                    <em>The channel type must be specified from the perspective of the Synology chat. For example, selecting 'Incoming' in the configuration means that the messages will be sent to the Synology chat.</em>
-								</span>
-							</h6>
+            <div id="tab-channels" class="col s12 page">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="row">
+                            <div class="col s12">
+                                <h6>
+                                    </br>
+                                    <p></p>
+                                    <span class="translate">NOTE: The WebHook URL for receiving data from Synology chat server can be found as object value of 'ADAPTER_INSTANCE.info.webHookUrl' for this adapter instance.</span>
+                                    </br>
+                                    <p></p>
+                            </h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p></p></br>
+                <div class="row">
+                    <div class="col s12" id="channels">
+                        <a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a>
+                        <p></p>
+                        <div class="table-values-div">
+                            <table class="table-values">
+                                <thead>
+                                <tr>
+                                    <th data-name="channelEnabled"      data-type="checkbox" class="translate">Channel enabled</th>
+                                    <th data-name="channelName"         class="translate">Channel name</th>
+                                    <th data-name="channelAccessToken"  class="translate">Access token</th>
+                                    <th data-name="channelType"         data-options="incoming/Send data to Synology chat server;outgoing/Get data from Synology chat server" data-type="select" class="translate">Channel type</th>
+                                    <th data-name="channelValidateCert" data-type="checkbox" class="translate">Validate SSL certificate</th>
+                                    <th data-buttons="delete"></th>
+                                    <!-- <th data-buttons="delete up down"></th> -->
+                                </tr>
+                                </thead>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="card">
-                <div class="card-content">
-                    <div class="row">
-						<div class="input-field col s6 l2">
-                            <input class="value" id="channelName" type="text" />
-                            <label class="translate" for="channelName">Channel name</label>
-                        </div>
-                        <div class="input-field col s12 l4">
-                            <input class="value" id="channelToken" type="text" />
-                            <label class="translate" for="channelToken">Channel token</label>
-                        </div>
-                        <div class="col s12 l3 input-field">
-                            <select class="value" id="channelType">
-								<option value="incoming">Incoming</option>
-								<!-- <option value="outgoing">Outgoing</option> -->
-							</select>
-                            <label class="translate" for="channelType">Channel type</label>
-                        </div>
-                        <div class="input-field col s6 l2">
-                            <input class="value" id="channelContentCertCheck" type="checkbox" />
-                            <label class="translate" for="channelContentCertCheck">Validate SSL certificate for non-text messages</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-		<div id="helpDialog" class="dialog">
-            <div class="card">
-                <div class="card-content">
-                    <div class="row">
-                        <div class="col s12">
-                            <h6>
-								<span class="translate">
-									Adapter help goes here...
-								</span>
-							</h6>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </div>	
 	</div>
 </body>
 

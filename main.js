@@ -10,6 +10,7 @@ const utils = require("@iobroker/adapter-core");
 
 const SynoChatRequests = require("./lib/synoChatRequests.js");
 const synoChatRequestHelper = require("./lib/synoChatRequestHelper.js");
+const iFaces = require('os').networkInterfaces();
 
 class Synochat extends utils.Adapter {
 
@@ -37,6 +38,21 @@ class Synochat extends utils.Adapter {
 
 		this.log.info("Initializing SynoChat...");
 
+		if(this.config.iobrokerHost == ""){
+			var ipAddress = null;
+			Object.keys(iFaces).forEach(dev => {
+				iFaces[dev].filter(details => {
+				  if (details.family === 'IPv4' && details.internal === false) {
+					ipAddress = details.address;
+				  }
+				});
+			});
+
+			this.log.debug(`Hostname for 'iobrokerHost' is unset! > Set default value of current local IP '${ipAddress}'.\nNOTE: This might be incorrect when using an Docker instance!`);
+			this.config.iobrokerHost = ipAddress;
+			this.updateConfig(this.config);
+		}
+
 		if (this.config && Object.keys(this.config).length === 0 && Object.getPrototypeOf(this.config) === Object.prototype) {
             this.log.error("Instance configuration missing! Please update the instance configuration!");
             this.log.error(`Adapter instance not in a usable state!`);
@@ -45,37 +61,104 @@ class Synochat extends utils.Adapter {
 			this.log.info("Instance configuration found! > Checking configuration...");
 
 			if (!this.config.synoUrl ||
-				!this.config.channelName ||
-				!this.config.channelToken ||
-				!this.config.channelType) {
-				this.log.error("Instance configuration invalid! One or more values of the configuration is missing.");
+				!this.config.webInstance) {
+				this.log.error("Instance main configuration invalid! One or more values of the configuration is missing.");
 				this.log.error(`Adapter instance not in a usable state!`);
 				return;
+			}
+
+			for (let i = 0; i < this.config.channels.length; i++) {
+				if (!this.config.channels[i].channelName ||
+					!this.config.channels[i].channelAccessToken ||
+					!this.config.channels[i].channelType) {
+					this.log.error("At least one channel configuration is invalid! One or more values of the configuration is missing.");
+					this.log.error(`Adapter instance not in a usable state!`);
+					return;
+				}
 			}
 
 			this.log.info("Instance configuration check passed!");
 
 			this.log.info("Checking and creating object resources...");
-			await this.setObjectNotExistsAsync(this.config.channelName, {
-				type: "folder",
-				common: {
-					name: "Synology chat channel for " + this.config.channelType + " messages",
-				},
-				native: {},
-			});
+			// Migration from older versions
+			if (this.config.channelName ||
+				this.config.channelToken ||
+				this.config.channelType) {
 
-			await this.setObjectNotExistsAsync(this.config.channelName + ".message", {
+				this.log.warn("Configuration data from older version found! > Migrating data to new channel object...");
+				var migrationChannel = {
+					"channelEnabled": true,
+					"channelName": this.config.channelName,
+					"channelAccessToken": this.config.channelToken,
+					"channelType": this.config.channelType,
+					"channelValidateCert": this.config.channelContentCertCheck
+				  };
+				  
+				
+				this.config.channels.push(migrationChannel);
+
+				this.config.iobrokerHost = null;
+				this.config.iobrokerHost = null;
+				this.config.iobrokerHost = null;
+				this.updateConfig(this.config);
+
+				this.log.debug("Migration data of of older version done! > Old config data deleted!");
+			}
+
+			// Create configured channel ressources
+			for (let i = 0; i < this.config.channels.length; i++) {
+				await this.setObjectNotExistsAsync(this.config.channels[i].channelName, {
+					type: "folder",
+					common: {
+						name: "Synology chat channel for " + this.config.channels[i].channelType + " messages",
+					},
+					native: {},
+				});
+				await this.setObjectNotExistsAsync(this.config.channels[i].channelName + ".message", {
+					type: "state",
+					common: {
+						name: "Message object to be handled",
+						type: "string",
+						role: "text",
+						read: true,
+						write: true,
+					},
+					native: {},
+				});
+			}
+
+			// Clean up
+			for(const adapterInstanceObject in await this.getAdapterObjectsAsync()){
+				if(adapterInstanceObject.split(".").length === 3){
+					if((await this.getObjectAsync(adapterInstanceObject)).type == "folder" && adapterInstanceObject.split(".")[2] != "info"){
+						var deleteObj = true;
+						for (let i = 0; i < this.config.channels.length; i++) {
+							if(this.config.channels[i].channelName == adapterInstanceObject.split(".")[2]){
+								deleteObj = false;
+								break;
+							}
+						}
+						if(deleteObj){
+							this.log.warn(`Clean up not configured object. Deleting channel objects in '${adapterInstanceObject}'`);
+							await this.delObjectAsync(adapterInstanceObject, {recursive: true});
+						}
+					}
+				}
+			}
+			
+			await this.setObjectNotExistsAsync("info.webHookUrl", {
 				type: "state",
 				common: {
-					name: "Message object to be handled",
+					name: "Adapter web hook URL for receiving data from the Synology chat server",
 					type: "string",
 					role: "text",
 					read: true,
-					write: true,
+					write: false,
 				},
 				native: {},
 			});
 		}
+
 		this.synoChatRequestHandler = new SynoChatRequests.SynoChatRequests(this, this.config.synoUrl, this.config.certCheck);
 		
 		// In order to get state updates, you need to subscribe to them. The following line adds a subscription for our variable we have created above.
@@ -118,6 +201,9 @@ class Synochat extends utils.Adapter {
 			if (id.endsWith("info.connection")){
 				return "managementStateChange";
 			}
+			if (!id.endsWith(".message")){
+				return "notAMessageObject";
+			}
 			if (state.ack) {
 				//only continue when application triggered a change without ack flag, filter out reception state changes
 	
@@ -133,10 +219,41 @@ class Synochat extends utils.Adapter {
 
 			this.log.debug(`State for object '${id}' changed to value '${state.val}' with ack=${state.ack}.`);
 
-			if(await this.synoChatRequestHandler.sendMessage(this.config.channelToken, this.config.channelType, this.config.channelContentCertCheck, state.val)){
-				this.setState(id, {ack: true});
+			var lookupChannelEnabled = true;
+			var lookupChannelName = "";
+			var lookupChannelToken = "";
+			var lookupChannelContentCertCheck = true;
+			var lookupChannelType = "";
+
+			var lookupSuccessful = false;
+
+			for (let i = 0; i < this.config.channels.length; i++) {
+				if(id.split(".")[id.split(".").length - 2].toLowerCase() == this.config.channels[i].channelName.toLowerCase()){
+					this.log.debug(`Found channel for requested message to be sent to the Synology chat server with object id '${id}'.`);
+					lookupChannelEnabled = this.config.channels[i].channelEnabled;
+					lookupChannelName = this.config.channels[i].channelName;
+					lookupChannelToken = this.config.channels[i].channelAccessToken;
+					lookupChannelContentCertCheck = this.config.channels[i].channelValidateCert;
+					lookupChannelType = this.config.channels[i].channelType;
+					if(lookupChannelType.toLowerCase() == "incoming"){
+						lookupSuccessful = true;
+						break;
+					} else {
+						this.log.debug(`WARN: The found channel is not an incoming channel! > Checking next one...`);
+					}
+				}
+				
 			}
-			
+			if(!lookupChannelEnabled){
+                this.log.debug(`Channel '${lookupChannelName}' was disabled in the adapter instance configuration! > Request will not be processed!`);
+            } else if(lookupSuccessful){
+				if(await this.synoChatRequestHandler.sendMessage(lookupChannelToken, lookupChannelType, lookupChannelContentCertCheck, state.val)){
+					this.setState(id, {ack: true});
+				}
+			} else {
+				this.log.debug(`Unable to find an incoming channel for the requested channel name '${lookupChannelName}'! > Request will not be processed!`);
+			}
+
 		} else {
 			// The state was deleted
 			this.log.info(`state ${id} deleted`);
