@@ -96,6 +96,8 @@ For more details on how to handle integrations within Synology chat, please refe
 
 		This setting specifies the name of the channel from/to which messages are sent. This name can be freely selected and is used for referencing.
 
+		The channel name to be configured here should be identical to the channel name of the Synology chat.
+
 	* **Channel token**
 
 		This setting provides the access token to the Synology chat channel. Depending on the channel type, the creation of this varies.
@@ -121,7 +123,9 @@ For more details on how to handle integrations within Synology chat, please refe
 			This option enables the channel to send the new value of the ioBroker message object ([see usage chapter](#usage)) as soon as the object value changes.
 
         * **Get data from Synology chat server - Outgoing integration**\
-			This option enables the channel to receive messages from the Synology chat server and update the new value of the ioBroker message object (see usage chapter](#usage)).
+			This option enables the channel to receive messages from the Synology chat server and update the new value of the ioBroker message object ([see usage chapter](#usage)).
+
+			Please note that when using this channel type, the channel name of the ioBroker adapter instance configuration must be identical to the channel name of the Synology chat channel in order to receive messages.
 
 		If a channel should be configured in both, sending and receiving messages, simply add a second channel with the same name and select the other channel type.
 
