@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## `1.1.0` - *2022-XX-XX*
+
+- *[@phoeluga]* Fixed issue #4 - Issue while migrating data from version < 1.1.0
+- *[@phoeluga]* Added collecting and loading of default values when loading the initial configuration of the adapter instance
+
 ## `1.1.0` - *2022-04-14*
 
 - *[@phoeluga]* Added the ability to manage multiple channels in one adapter instance per Synology chat server.
