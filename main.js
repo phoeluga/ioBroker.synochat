@@ -22,6 +22,7 @@ class Synochat extends utils.Adapter {
 			...options,
 			name: "synochat",
 		});
+		this.connected = false;
 		this.on("ready", this.onReady.bind(this));
 		this.on("stateChange", this.onStateChange.bind(this));
 		this.on("unload", this.onUnload.bind(this));
@@ -33,25 +34,12 @@ class Synochat extends utils.Adapter {
 	 * Is called when databases are connected and adapter received configuration.
 	 */
 	async onReady() {
+		var configChanged = false;
+
 		this.setState("info.connection", false, true);
-		this.log.info("Got instance configuration. SynoChat adapter instance not yet ready!");
+		//this.log.info("Got instance configuration. SynoChat adapter instance not yet ready!");
 
 		this.log.info("Initializing SynoChat...");
-
-		if(this.config.iobrokerHost == ""){
-			var ipAddress = null;
-			Object.keys(iFaces).forEach(dev => {
-				iFaces[dev].filter(details => {
-				  if (details.family === 'IPv4' && details.internal === false) {
-					ipAddress = details.address;
-				  }
-				});
-			});
-
-			this.log.debug(`Hostname for 'iobrokerHost' is unset! > Set default value of current local IP '${ipAddress}'.\nNOTE: This might be incorrect when using an Docker instance!`);
-			this.config.iobrokerHost = ipAddress;
-			this.updateConfig(this.config);
-		}
 
 		if (this.config && Object.keys(this.config).length === 0 && Object.getPrototypeOf(this.config) === Object.prototype) {
             this.log.error("Instance configuration missing! Please update the instance configuration!");
@@ -60,13 +48,89 @@ class Synochat extends utils.Adapter {
         } else {
 			this.log.info("Instance configuration found! > Checking configuration...");
 
+			// Migration from older versions
+			if (this.config.channelName ||
+				this.config.channelToken ||
+				this.config.channelType) {
+
+				this.log.warn("Configuration data from older version found! > Migrating data to new channel object...");
+				
+				// Adding first web instance
+				if (!this.config.webInstance) {
+					this.log.warn("Web adapter instance not configured! > Checking current Web adapter instances...");
+
+					var webInstanceObjects = await this.getObjectViewAsync('system', 'instance', {startkey: 'system.adapter.web.', endkey: 'system.adapter.web.\u9999'});
+					let webInstanceIds = [];
+					if (webInstanceObjects && webInstanceObjects.rows){
+						webInstanceObjects.rows.forEach(row => {
+							webInstanceIds.push({id: row.id.replace('system.adapter.', ''), config: row.value.native.type})
+						});
+						if(webInstanceIds.length >= 1){
+							this.config.webInstance = webInstanceIds[0].id.toString();
+							this.log.debug(`Found '${webInstanceIds.length.toString()}' Web adapter instances! > Set Web adapter instance '${this.config.webInstance}' as initial configuration value!`);
+							configChanged = true;
+						} else {
+							this.log.error("No Web adapter instances found! > A Web adapter instance is required to start up this adapter instance!");
+						}
+					} else {
+						this.log.error("No Web adapter instances found! > A Web adapter instance is required to start up this adapter instance!");
+					}
+				}
+
+				// Set ioBroker Host address to the first address in the listed network interfaces
+				if(this.config.iobrokerHost == ""){
+					var ipAddress = null;
+					Object.keys(iFaces).forEach(dev => {
+						iFaces[dev].filter(details => {
+						  if (details.family === 'IPv4' && details.internal === false) {
+							ipAddress = details.address;
+						  }
+						});
+					});
+		
+					this.log.debug(`Hostname for 'iobrokerHost' is unset! > Set default value of current local IP '${ipAddress}'.\nNOTE: This might be incorrect when using an Docker instance!`);
+					this.config.iobrokerHost = ipAddress;
+					configChanged = true;
+				}
+
+				// Main migration of previous data
+				var migrationChannel = {
+					"channelEnabled": true,
+					"channelName": this.config.channelName,
+					"channelAccessToken": this.config.channelToken,
+					"channelType": this.config.channelType,
+					"channelValidateCert": this.config.channelContentCertCheck
+				};
+				
+				if(this.config.channels.length == 1 && this.config.channels[0].channelName == "" && this.config.channels[0].channelAccessToken == ""){
+					this.log.debug("Found empty initial channel item! > Deleting this item for migration...");
+					this.config.channels.pop();
+				}
+
+				this.config.channels.push(migrationChannel);
+
+				this.config.channelName = null;
+				this.config.channelToken = null;
+				this.config.channelType = null;
+				
+				this.log.debug("Migration data of of older version done! > Old config data was deleted!");
+				configChanged = true;
+			}
+
+			if(configChanged){
+				this.log.debug("A adapter configuration change was detected! > Adapter will be restarted by the configuration change!");
+				this.updateConfig(this.config);
+				return "migration";
+			}
+
 			if (!this.config.synoUrl ||
+				!this.config.iobrokerHost ||
 				!this.config.webInstance) {
-				this.log.error("Instance main configuration invalid! One or more values of the configuration is missing.");
+				this.log.error("Instance main configuration invalid! One or more values of the configuration are missing.");
 				this.log.error(`Adapter instance not in a usable state!`);
 				return;
 			}
-
+			
 			for (let i = 0; i < this.config.channels.length; i++) {
 				if (!this.config.channels[i].channelName ||
 					!this.config.channels[i].channelAccessToken ||
@@ -78,32 +142,7 @@ class Synochat extends utils.Adapter {
 			}
 
 			this.log.info("Instance configuration check passed!");
-
 			this.log.info("Checking and creating object resources...");
-			// Migration from older versions
-			if (this.config.channelName ||
-				this.config.channelToken ||
-				this.config.channelType) {
-
-				this.log.warn("Configuration data from older version found! > Migrating data to new channel object...");
-				var migrationChannel = {
-					"channelEnabled": true,
-					"channelName": this.config.channelName,
-					"channelAccessToken": this.config.channelToken,
-					"channelType": this.config.channelType,
-					"channelValidateCert": this.config.channelContentCertCheck
-				  };
-				  
-				
-				this.config.channels.push(migrationChannel);
-
-				this.config.iobrokerHost = null;
-				this.config.iobrokerHost = null;
-				this.config.iobrokerHost = null;
-				this.updateConfig(this.config);
-
-				this.log.debug("Migration data of of older version done! > Old config data deleted!");
-			}
 
 			// Create configured channel ressources
 			for (let i = 0; i < this.config.channels.length; i++) {
@@ -235,28 +274,28 @@ class Synochat extends utils.Adapter {
 					lookupChannelToken = this.config.channels[i].channelAccessToken;
 					lookupChannelContentCertCheck = this.config.channels[i].channelValidateCert;
 					lookupChannelType = this.config.channels[i].channelType;
-					if(lookupChannelType.toLowerCase() == "incoming"){
+					
+					if(!lookupChannelEnabled){
+						this.log.debug(`Channel '${lookupChannelName}' was disabled in the adapter instance configuration! > Checking next channel...`);
+					} else if(lookupChannelType.toLowerCase() == "incoming"){
 						lookupSuccessful = true;
-						break;
+						
+						if(await this.synoChatRequestHandler.sendMessage(lookupChannelToken, lookupChannelType, lookupChannelContentCertCheck, state.val)){
+							this.setState(id, {ack: true});
+							return;
+						} else {
+							this.log.debug(`Message not successfully sent. > Lookup next channel for '${lookupChannelName}' in the configured channels...`);
+						}
 					} else {
-						this.log.debug(`WARN: The found channel is not an incoming channel! > Checking next one...`);
+						this.log.debug(`WARN: The found channel is not an incoming channel! > Checking next channel...`);
 					}
 				}
-				
 			}
-			if(!lookupChannelEnabled){
-                this.log.debug(`Channel '${lookupChannelName}' was disabled in the adapter instance configuration! > Request will not be processed!`);
-            } else if(lookupSuccessful){
-				if(await this.synoChatRequestHandler.sendMessage(lookupChannelToken, lookupChannelType, lookupChannelContentCertCheck, state.val)){
-					this.setState(id, {ack: true});
-				}
-			} else {
-				this.log.debug(`Unable to find an incoming channel for the requested channel name '${lookupChannelName}'! > Request will not be processed!`);
-			}
-
+			
+			this.log.debug(`Unable to find an incoming channel for the requested channel name '${lookupChannelName}'! > Request will not be processed!`);
 		} else {
 			// The state was deleted
-			this.log.info(`state ${id} deleted`);
+			this.log.info(`The state for '${id}' was deleted! > Request will not be processed!`);
 		}
 	}
 }

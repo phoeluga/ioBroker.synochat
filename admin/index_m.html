@@ -79,8 +79,9 @@
             settings.language = systemLang || 'en';
             $('#language').val(settings.language).trigger('change');
         }
+        
         channels = settings.channels || [];
-                
+
         for (var c = 0; c < settings.channels.length; c++) {
             settings.channels[c].channelEnabled =
                 settings.channels[c].channelEnabled === 'ignore' ||
@@ -97,20 +98,66 @@
             settings.channels[c].channelType  = settings.channels[c].channelType || '';
         }
         
-        getExtendableInstances(function (result) {
-            if (result) {
-                var text = '';
-                for (var r = 0; r < result.length; r++) {
-                    var name = result[r]._id.substring('system.adapter.'.length);
-                    text += '<option value="' + name + '">' + name + '</option>';
-                }
-                $('#webInstance').append(text).val(settings.webInstance).select();
-                //showHideSettings();
+        // getExtendableInstances(function (result) {
+        //     if (result) {
+        //         var text = '';
+        //         for (var r = 0; r < result.length; r++) {
+        //             var name = result[r]._id.substring('system.adapter.'.length);
+        //             text += '<option value="' + name + '">' + name + '</option>';
+        //         }
+        //         $('#webInstance').append(text).val(settings.webInstance).select();
+        //         if(settings.webInstance == ""){
+        //             $('#webInstance').prop("selectedIndex",0);
+        //         }
+                
+        //         //showHideSettings();
+        //     }
+        // });
+        getAdapterInstances('web', function (arr) {
+            instances = arr;
+            var text = '';
+            for (var r = 0; r < arr.length; r++) {
+                var name = arr[r]._id.substring('system.adapter.'.length);
+                text += '<option value="' + name + '">' + name + '</option>';
+            }
+            $('#webInstance').append(text).val(settings.webInstance).select();
+            if(settings.webInstance == ""){
+                $('#webInstance').prop("selectedIndex",0);
+                $('#webInstance').select()
             }
         });
 
+        if(settings.iobrokerHost == ""){
+            //Set first available ipv4
+            getIPs(function (ips) {
+                //if(settings.iobrokerHost != ""){
+                    for (var i = 0; i < ips.length; i++) {
+                        if (ips[i].family.indexOf("ipv4") > -1 && ips[i].address !== "0.0.0.0" && ips[i].address !== "127.0.0.1") {
+                            $("#iobrokerHost").val(ips[i].address).change();
+                            break;
+                        }
+                    }
+                //}
+            });
+        
+            //triggers getIPs
+            fillSelectIPs("#adapterAddress", settings.adapterAddress, false, true, function () {
+                $('#iobrokerHost').focus();
+                $('#webInstance').select();
+            });
+        }
+        
+        // Set focus of initial data load after adapter instantiation
+        if(settings.webInstance == ""){
+            $('#webInstance').select();
+        }
+        if(settings.iobrokerHost == ""){
+            $('#iobrokerHost').focus();
+        }
+        
+        M.updateTextFields();
         onChange(false);
-
+        
         values2table('channels', channels, onChange);
     }
 
