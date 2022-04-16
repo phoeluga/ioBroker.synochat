@@ -274,28 +274,28 @@ class Synochat extends utils.Adapter {
 					lookupChannelToken = this.config.channels[i].channelAccessToken;
 					lookupChannelContentCertCheck = this.config.channels[i].channelValidateCert;
 					lookupChannelType = this.config.channels[i].channelType;
-					if(lookupChannelType.toLowerCase() == "incoming"){
+					
+					if(!lookupChannelEnabled){
+						this.log.debug(`Channel '${lookupChannelName}' was disabled in the adapter instance configuration! > Checking next channel...`);
+					} else if(lookupChannelType.toLowerCase() == "incoming"){
 						lookupSuccessful = true;
-						break;
+						
+						if(await this.synoChatRequestHandler.sendMessage(lookupChannelToken, lookupChannelType, lookupChannelContentCertCheck, state.val)){
+							this.setState(id, {ack: true});
+							return;
+						} else {
+							this.log.debug(`Message not successfully sent. > Lookup next channel for '${lookupChannelName}' in the configured channels...`);
+						}
 					} else {
-						this.log.debug(`WARN: The found channel is not an incoming channel! > Checking next one...`);
+						this.log.debug(`WARN: The found channel is not an incoming channel! > Checking next channel...`);
 					}
 				}
-				
 			}
-			if(!lookupChannelEnabled){
-                this.log.debug(`Channel '${lookupChannelName}' was disabled in the adapter instance configuration! > Request will not be processed!`);
-            } else if(lookupSuccessful){
-				if(await this.synoChatRequestHandler.sendMessage(lookupChannelToken, lookupChannelType, lookupChannelContentCertCheck, state.val)){
-					this.setState(id, {ack: true});
-				}
-			} else {
-				this.log.debug(`Unable to find an incoming channel for the requested channel name '${lookupChannelName}'! > Request will not be processed!`);
-			}
-
+			
+			this.log.debug(`Unable to find an incoming channel for the requested channel name '${lookupChannelName}'! > Request will not be processed!`);
 		} else {
 			// The state was deleted
-			this.log.info(`state ${id} deleted`);
+			this.log.info(`The state for '${id}' was deleted! > Request will not be processed!`);
 		}
 	}
 }

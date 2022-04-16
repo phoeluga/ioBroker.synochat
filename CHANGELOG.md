@@ -2,10 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
-## `1.1.0` - *2022-XX-XX*
+## `1.1.1` - *2022-04-16*
 
 - *[@phoeluga]* Fixed issue #4 - Issue while migrating data from version < 1.1.0
 - *[@phoeluga]* Added collecting and loading of default values when loading the initial configuration of the adapter instance
+- *[@phoeluga]* The channel search behavior has been adjusted to react accordingly to deactivated channels and to query the remaining channels.
 
 ## `1.1.0` - *2022-04-14*
 
