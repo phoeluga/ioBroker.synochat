@@ -9,9 +9,10 @@
 const utils = require("@iobroker/adapter-core");
 
 const SynoChatRequests = require("./lib/synoChatRequests.js");
-const synoChatRequestHelper = require("./lib/synoChatRequestHelper.js");
 const iFaces = require('os').networkInterfaces();
+const uuid = require('uuid');
 
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 class Synochat extends utils.Adapter {
 
 	/**
@@ -28,12 +29,14 @@ class Synochat extends utils.Adapter {
 		this.on("unload", this.onUnload.bind(this));
 
 		this.synoChatRequestHandler = null;
+		this.messageQueue = [];
 	}
 
 	/**
 	 * Is called when databases are connected and adapter received configuration.
 	 */
 	async onReady() {
+		this.messageQueue = [];
 		var configChanged = false;
 
 		this.setState("info.connection", false, true);
@@ -256,7 +259,8 @@ class Synochat extends utils.Adapter {
 				return "instanceNotReady";
 			}
 
-			this.log.debug(`State for object '${id}' changed to value '${state.val}' with ack=${state.ack}.`);
+			var msgUuid =  uuid.v1();
+			this.log.debug(`State for object '${id}' changed to value '${state.val}' with ack=${state.ack}. ID of message: '${msgUuid}'`);
 
 			var lookupChannelEnabled = true;
 			var lookupChannelName = "";
@@ -279,15 +283,37 @@ class Synochat extends utils.Adapter {
 						this.log.debug(`Channel '${lookupChannelName}' was disabled in the adapter instance configuration! > Checking next channel...`);
 					} else if(lookupChannelType.toLowerCase() == "incoming"){
 						lookupSuccessful = true;
-						
-						if(await this.synoChatRequestHandler.sendMessage(lookupChannelToken, lookupChannelType, lookupChannelContentCertCheck, state.val)){
-							this.setState(id, {ack: true});
+						this.log.debug(`Adding message '${msgUuid}' he send queue...`);
+						this.messageQueue.push(msgUuid);
+
+						// Adding message queue to ensure messages will send in the incoming order
+						var j = 0;
+						for(j = 0; j < 30; j++){
+							if(this.messageQueue[0] == msgUuid){
+								var messageWasSend = await this.synoChatRequestHandler.sendMessage(lookupChannelToken, lookupChannelType, lookupChannelContentCertCheck, state.val, msgUuid);
+								this.messageQueue.splice(this.messageQueue.indexOf(msgUuid), 1);
+
+								if(messageWasSend){
+									this.setState(id, {ack: true});
+									return;
+								}
+								break;
+							} else {
+								this.log.debug(`Message '${msgUuid}' still in the queue. Waiting for processing...`);
+							}
+
+							// Math.floor(Math.random() * (max - min + 1) + min)
+                    		await sleep(Math.floor(Math.random() * (1450 - 890 + 1) + 890))
+					  	}
+						if(j >= 30){
+							this.log.error(`Timeout for sending message '${msgUuid}'. Message will be discarded!`);
 							return;
 						} else {
-							this.log.debug(`Message not successfully sent. > Lookup next channel for '${lookupChannelName}' in the configured channels...`);
+							this.log.debug(`Message '${msgUuid}' not successfully sent. > Lookup next channel for '${lookupChannelName}' in the configured channels...`);
 						}
+						
 					} else {
-						this.log.debug(`WARN: The found channel is not an incoming channel! > Checking next channel...`);
+						this.log.debug(`WARN: The found channel '${lookupChannelName}' for message '${msgUuid}' is not an incoming channel! > Checking next channel...`);
 					}
 				}
 			}

@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## `1.2.0` - *2022-XX-XX*
+
+- *[@phoeluga]* Added enhancement #6 - Delayed sending of messages has been added to work around the limitations of messages sent to the Synology Chat Server in a certain time interval.
+- *[@phoeluga]* Regarding #6, a message queue has been added to ensure that the order of messages to be sent is respected when the sending of messages is delayed.
+
 ## `1.1.1` - *2022-04-16*
 
 - *[@phoeluga]* Fixed issue #4 - Issue while migrating data from version < 1.1.0
