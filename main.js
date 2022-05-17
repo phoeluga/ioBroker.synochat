@@ -82,16 +82,23 @@ class Synochat extends utils.Adapter {
 
 				// Set ioBroker Host address to the first address in the listed network interfaces
 				if(this.config.iobrokerHost == ""){
-					var ipAddress = null;
-					Object.keys(iFaces).forEach(dev => {
-						iFaces[dev].filter(details => {
-						  if (details.family === 'IPv4' && details.internal === false) {
-							ipAddress = details.address;
-						  }
+					var ipAddress = "localhost";
+
+					// Adding exception handling to cover https://github.com/nodejs/node/issues/43014 in Nodejs 18
+					try {
+						Object.keys(iFaces).forEach(dev => {
+							iFaces[dev].filter(details => {
+							  if (details.family === 'IPv4' && details.internal === false) {
+								ipAddress = details.address;
+							  }
+							});
 						});
-					});
-		
-					this.log.debug(`Hostname for 'iobrokerHost' is unset! > Set default value of current local IP '${ipAddress}'.\nNOTE: This might be incorrect when using an Docker instance!`);
+			
+						this.log.debug(`Hostname for 'iobrokerHost' is unset! > Set default value of current local IP '${ipAddress}'.\nNOTE: This might be incorrect when using an Docker instance!`);	
+					} catch (e) {
+						this.log.warn(`Hostname for 'iobrokerHost' could not be looked up! > You need to adapt this value to the URL/IP of your ioBroker instance manually!`);	
+					}
+					
 					this.config.iobrokerHost = ipAddress;
 					configChanged = true;
 				}
@@ -203,13 +210,16 @@ class Synochat extends utils.Adapter {
 
 		this.synoChatRequestHandler = new SynoChatRequests.SynoChatRequests(this, this.config.synoUrl, this.config.certCheck);
 		
-		// In order to get state updates, you need to subscribe to them. The following line adds a subscription for our variable we have created above.
-		this.log.info("Subscribing adapter instance to all instance states.");
-        this.subscribeStates("*");
-
 		if (await this.synoChatRequestHandler.initialConnectivityCheck()) {
 			this.setState("info.connection", true, true);
+
+			// In order to get state updates, you need to subscribe to them. The following line adds a subscription for our variable we have created above.
+			this.log.info("Subscribing adapter instance to all instance states.");
+			this.subscribeStates("*");
+
 			this.log.info("SynoChat adapter instance initialized! > Instance up and running!");
+		} else {
+			this.log.error("Initial connectivity check failed! > Adapter instance not in a usable state!");
 		}
 	}
 
@@ -283,7 +293,7 @@ class Synochat extends utils.Adapter {
 						this.log.debug(`Channel '${lookupChannelName}' was disabled in the adapter instance configuration! > Checking next channel...`);
 					} else if(lookupChannelType.toLowerCase() == "incoming"){
 						lookupSuccessful = true;
-						this.log.debug(`Adding message '${msgUuid}' he send queue...`);
+						this.log.debug(`Adding message '${msgUuid}' to the send queue...`);
 						this.messageQueue.push(msgUuid);
 
 						// Adding message queue to ensure messages will send in the incoming order
