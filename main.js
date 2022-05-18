@@ -84,21 +84,16 @@ class Synochat extends utils.Adapter {
 				if(this.config.iobrokerHost == ""){
 					var ipAddress = "localhost";
 
-					// Adding exception handling to cover https://github.com/nodejs/node/issues/43014 in Nodejs 18
-					try {
-						Object.keys(iFaces).forEach(dev => {
-							iFaces[dev].filter(details => {
-							  if (details.family === 'IPv4' && details.internal === false) {
+					Object.keys(iFaces).forEach(dev => {
+						iFaces[dev].filter(details => {
+							if ((details.family === 'IPv4' || details.family === 4) && details.internal === false){
 								ipAddress = details.address;
-							  }
-							});
+							}
 						});
-			
-						this.log.debug(`Hostname for 'iobrokerHost' is unset! > Set default value of current local IP '${ipAddress}'.\nNOTE: This might be incorrect when using an Docker instance!`);	
-					} catch (e) {
-						this.log.warn(`Hostname for 'iobrokerHost' could not be looked up! > You need to adapt this value to the URL/IP of your ioBroker instance manually!`);	
-					}
+					});
 					
+					this.log.debug(`Hostname for 'iobrokerHost' is unset! > Set default value of current local IP '${ipAddress}'.\nNOTE: This might be incorrect when using an Docker instance!`);	
+
 					this.config.iobrokerHost = ipAddress;
 					configChanged = true;
 				}

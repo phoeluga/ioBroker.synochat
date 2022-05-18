@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## `1.2.1` - *2022-05-18*
+- *[@phoeluga]* The IP family check to determine the local IP address of the ioBroker instance has been adjusted.
+
 ## `1.2.0` - *2022-05-17*
 
 - *[@phoeluga]* Added enhancement #6 - Delayed sending of messages has been added to work around the limitations of messages sent to the Synology Chat Server in a certain time interval.
