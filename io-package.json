@@ -1,8 +1,20 @@
 {
 	"common": {
 		"name": "synochat",
-		"version": "1.2.0",
+		"version": "1.2.1",
 		"news": {
+			"1.2.1": {
+				"en": "The IP family check to determine the local IP address of the ioBroker instance has been adjusted.",
+				"de": "Die IP-Familienprüfung zur Ermittlung der lokalen IP-Adresse der ioBroker-Instanz wurde angepasst.",
+				"ru": "Проверка семейства IP-адресов для определения локального IP-адреса экземпляра ioBroker была скорректирована.",
+				"pt": "A verificação da família IP para determinar o endereço IP local da instância ioBroker foi ajustada.",
+				"nl": "De IP-familiecontrole om het lokale IP-adres van de ioBroker-instantie te bepalen, is aangepast.",
+				"fr": "La vérification de la famille IP pour déterminer l'adresse IP locale de l'instance ioBroker a été ajustée.",
+				"it": "Il controllo della famiglia IP per determinare l'indirizzo IP locale dell'istanza ioBroker è stato modificato.",
+				"es": "Se ha ajustado la comprobación de la familia de IP para determinar la dirección IP local de la instancia de ioBroker.",
+				"pl": "Sprawdzenie rodziny IP w celu określenia lokalnego adresu IP instancji ioBroker zostało dostosowane.",
+				"zh-cn": "已调整用于确定 ioBroker 实例的本地 IP 地址的 IP 系列检查。"
+			  },
 			"1.2.0": {
 				"en": "Added enhancement #6 - Delayed sending of messages has been added to work around the limitations of messages sent to the Synology Chat Server in a certain time interval.\nRegarding #6, a message queue has been added to ensure that the order of messages to be sent is respected when the sending of messages is delayed.\nImplementation of the [requirements](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) for adding the adapter in the ioBroker repository - Adding MIT license hint to the Readme.\nmplementation of the [requirements](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) for adding the adapter in the ioBroker repository - Moved adapter instance object subscription after initial connectivity check.\nImplementation of the [requirements](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) for adding the adapter in the ioBroker repository - Added exception handling to cover https://github.com/nodejs/node/issues/43014 in Nodejs 18\nImplementation of the [requirements](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127527703) for adding the adapter in the ioBroker repository - Added axios as dependency in package.json",
 				"de": "Verbesserung Nr. 6 hinzugefügt – Verzögertes Senden von Nachrichten wurde hinzugefügt, um die Beschränkungen von Nachrichten zu umgehen, die in einem bestimmten Zeitintervall an den Synology Chat-Server gesendet werden.\nIn Bezug auf #6 wurde eine Nachrichtenwarteschlange hinzugefügt, um sicherzustellen, dass die Reihenfolge der zu sendenden Nachrichten eingehalten wird, wenn das Senden von Nachrichten verzögert wird.\nImplementierung der [Anforderungen](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) zum Hinzufügen des Adapters im ioBroker-Repository - Hinzufügen eines MIT-Lizenzhinweises zur Readme.\nImplementierung der [Anforderungen](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) zum Hinzufügen des Adapters im ioBroker-Repository – Abonnement des Adapterinstanzobjekts nach anfänglicher Verbindungsprüfung verschoben.\nImplementierung der [Anforderungen](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) zum Hinzufügen des Adapters im ioBroker-Repository – Ausnahmebehandlung hinzugefügt, um https://github.com abzudecken /nodejs/node/issues/43014 in Nodejs 18\nImplementierung der [Anforderungen](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127527703) zum Hinzufügen des Adapters im ioBroker-Repository – Axios als Abhängigkeit in package.json hinzugefügt",
