@@ -25,6 +25,7 @@ class Synochat extends utils.Adapter {
 		});
 		this.connected = false;
 		this.on("ready", this.onReady.bind(this));
+		this.on('message', this.onMessage.bind(this));
 		this.on("stateChange", this.onStateChange.bind(this));
 		this.on("unload", this.onUnload.bind(this));
 
@@ -104,6 +105,9 @@ class Synochat extends utils.Adapter {
 					"channelName": this.config.channelName,
 					"channelAccessToken": this.config.channelToken,
 					"channelType": this.config.channelType,
+					"channelObjectValueTemplate": this.config.channelObjectValueTemplate,
+					"channelReactOnNotificationmanager": false,
+					"channelReactOnAllIobrokerMessages": false,
 					"channelValidateCert": this.config.channelContentCertCheck
 				};
 				
@@ -117,6 +121,7 @@ class Synochat extends utils.Adapter {
 				this.config.channelName = null;
 				this.config.channelToken = null;
 				this.config.channelType = null;
+				this.config.channelObjectValueTemplate = null;
 				
 				this.log.debug("Migration data of of older version done! > Old config data was deleted!");
 				configChanged = true;
@@ -267,69 +272,167 @@ class Synochat extends utils.Adapter {
 			var msgUuid =  uuid.v1();
 			this.log.debug(`State for object '${id}' changed to value '${state.val}' with ack=${state.ack}. ID of message: '${msgUuid}'`);
 
-			var lookupChannelEnabled = true;
-			var lookupChannelName = "";
-			var lookupChannelToken = "";
-			var lookupChannelContentCertCheck = true;
-			var lookupChannelType = "";
-
-			var lookupSuccessful = false;
+			var sendingResult = false;
 
 			for (let i = 0; i < this.config.channels.length; i++) {
 				if(id.split(".")[id.split(".").length - 2].toLowerCase() == this.config.channels[i].channelName.toLowerCase()){
-					this.log.debug(`Found channel for requested message to be sent to the Synology chat server with object id '${id}'.`);
-					lookupChannelEnabled = this.config.channels[i].channelEnabled;
-					lookupChannelName = this.config.channels[i].channelName;
-					lookupChannelToken = this.config.channels[i].channelAccessToken;
-					lookupChannelContentCertCheck = this.config.channels[i].channelValidateCert;
-					lookupChannelType = this.config.channels[i].channelType;
+					this.log.debug(`Found channel '${this.config.channels[i].channelName}' for requested message to be sent to the Synology chat server with object id '${id}'.`);
 					
-					if(!lookupChannelEnabled){
-						this.log.debug(`Channel '${lookupChannelName}' was disabled in the adapter instance configuration! > Checking next channel...`);
-					} else if(lookupChannelType.toLowerCase() == "incoming"){
-						lookupSuccessful = true;
-						this.log.debug(`Adding message '${msgUuid}' to the send queue...`);
-						this.messageQueue.push(msgUuid);
-
-						// Adding message queue to ensure messages will send in the incoming order
-						var j = 0;
-						for(j = 0; j < 30; j++){
-							if(this.messageQueue[0] == msgUuid){
-								var messageWasSend = await this.synoChatRequestHandler.sendMessage(lookupChannelToken, lookupChannelType, lookupChannelContentCertCheck, state.val, msgUuid);
-								this.messageQueue.splice(this.messageQueue.indexOf(msgUuid), 1);
-
-								if(messageWasSend){
-									this.setState(id, {ack: true});
-									return;
-								}
-								break;
-							} else {
-								this.log.debug(`Message '${msgUuid}' still in the queue. Waiting for processing...`);
-							}
-
-							// Math.floor(Math.random() * (max - min + 1) + min)
-                    		await sleep(Math.floor(Math.random() * (1450 - 890 + 1) + 890))
-					  	}
-						if(j >= 30){
-							this.log.error(`Timeout for sending message '${msgUuid}'. Message will be discarded!`);
-							return;
-						} else {
-							this.log.debug(`Message '${msgUuid}' not successfully sent. > Lookup next channel for '${lookupChannelName}' in the configured channels...`);
-						}
-						
-					} else {
-						this.log.debug(`WARN: The found channel '${lookupChannelName}' for message '${msgUuid}' is not an incoming channel! > Checking next channel...`);
+					sendingResult = await this.enqueueAndSendMessage(i, state.val, msgUuid) 
+					
+					if (sendingResult){
+						this.setState(id, {ack: true});
+						return;
 					}
 				}
 			}
 			
-			this.log.debug(`Unable to find an incoming channel for the requested channel name '${lookupChannelName}'! > Request will not be processed!`);
+			this.log.debug(`Unable to find an incoming remote channel for the requested object '${id}' on the Synology chat server! > Request will not be processed!`);
 		} else {
 			// The state was deleted
 			this.log.info(`The state for '${id}' was deleted! > Request will not be processed!`);
 		}
 	}
+
+	/**
+	 * Process a `sendNotification` request
+	 *
+	 * @param {ioBroker.Message} obj
+	 */
+	async onMessage(obj) {
+		this.log.debug("Received message object. Processing...");
+		var msgUuid =  uuid.v1();
+
+		if (obj && obj.command === 'sendNotification' && obj.message) {
+			this.log.debug(`Process message from Notification-Manager with internal message ID: '${msgUuid}'`);
+
+			var sendingResult = 1;
+
+			for (let i = 0; i < this.config.channels.length; i++) {
+				if(this.config.channels[i].channelReactOnNotificationmanager == true){
+					this.log.debug(`Found channel '${this.config.channels[i].channelName}' for requested message to react on messages from Notification-Manager.`);
+					sendingResult = await this.enqueueAndSendMessage(i, obj, msgUuid, this.config.receivedNotificationMamagerTemplate) 
+					if (!sendingResult){
+						this.sendTo(obj.from, 'sendNotification', { sent: false }, obj.callback);
+						this.log.error(`Unable to send the received message '${obj._id}' from Notification-Manager! > Request will not be processed!`);
+						return;
+					}
+				}
+			}
+			
+			if (sendingResult){
+				this.sendTo(obj.from, 'sendNotification', { sent: true }, obj.callback);
+			} else {
+				this.sendTo(obj.from, 'sendNotification', { sent: false }, obj.callback);
+				this.log.error(`Unable to send the received message '${obj._id}' from Notification-Manager! > Request will not be processed!`);
+			}
+
+        } else if (obj && obj.message){
+			this.log.debug(`Process message from unknown provider '${obj.from}' with internal message ID: '${msgUuid}'`);
+			for (let i = 0; i < this.config.channels.length; i++) {
+				if(this.config.channels[i].channelReactOnAllIobrokerMessages == true){
+					this.log.debug(`Found channel '${this.config.channels[i].channelName}' for requested message to react on messages default messages.`);
+					await this.enqueueAndSendMessage(i, obj, msgUuid, this.config.receivedMessageTemplate)
+				}
+			}
+		
+		} else {
+            this.log.debug(`Unable to process received message from unknown provider '${obj.from}' with object message ID: '${obj._id}'. None or empty inner Message object was provided!`);
+        }
+	}
+	
+	async enqueueAndSendMessage(channelIndex, messageObject, msgUuid, messageTemplate = null) {
+		var lookupChannelEnabled = this.config.channels[channelIndex].channelEnabled;
+		var lookupChannelName = this.config.channels[channelIndex].channelName;
+		var lookupChannelToken = this.config.channels[channelIndex].channelAccessToken;
+		var lookupChannelContentCertCheck = this.config.channels[channelIndex].channelValidateCert;
+		var lookupChannelType = this.config.channels[channelIndex].channelType;
+		var lookupChannelObjectValueTemplate = this.config.channels[channelIndex].channelObjectValueTemplate
+		
+		if(!lookupChannelEnabled){
+			this.log.debug(`Channel '${lookupChannelName}' was disabled in the adapter instance configuration! > Checking next channel...`);
+		} else if(lookupChannelType.toLowerCase() == "incoming"){
+			this.log.debug(`Adding message '${msgUuid}' to the send queue...`);
+			this.messageQueue.push(msgUuid);
+
+			// Adding message queue to ensure messages will send in the incoming order
+			var j = 0;
+			for(j = 0; j < 30; j++){
+				if(this.messageQueue[0] == msgUuid){
+					var formattedMessage = ""
+					if(messageTemplate){
+						formattedMessage = this.formatReceivedOnMessageData(messageObject, messageTemplate);
+					} else {
+						if(lookupChannelObjectValueTemplate){
+							this.log.debug(`Parsing template '${lookupChannelObjectValueTemplate}' for provided message...`);
+							formattedMessage = this.formatObjectMessageData(messageObject, this.config[lookupChannelObjectValueTemplate]);
+						} else {
+							formattedMessage = messageObject;
+						}
+					}
+
+					var messageWasSend = await this.synoChatRequestHandler.sendMessage(lookupChannelToken, lookupChannelType, lookupChannelContentCertCheck, String(formattedMessage), msgUuid);
+					this.messageQueue.splice(this.messageQueue.indexOf(msgUuid), 1);
+					return messageWasSend;
+				} else {
+					this.log.debug(`Message '${msgUuid}' still in the queue. Waiting for processing...`);
+				}
+
+				// Math.floor(Math.random() * (max - min + 1) + min)
+				await sleep(Math.floor(Math.random() * (1450 - 890 + 1) + 890))
+			}
+			if(j >= 30){
+				this.log.error(`Timeout for sending message '${msgUuid}'. Message will be discarded!`);
+				return;
+			} else {
+				this.log.debug(`Message '${msgUuid}' not successfully sent. > Lookup next configured channel...`);
+			}
+			
+		} else {
+			this.log.debug(`WARN: The found channel '${lookupChannelName}' for message '${msgUuid}' is not an incoming channel! > Checking next channel...`);
+		}
+	}
+	
+
+	formatObjectMessageData(obj, formatTemplate){
+		try {
+			obj = JSON.parse(obj);
+		} catch (e) {
+			this.log.error(`Unable to parse provided object message to JSON! ${e}`);
+			return "Unable to parse provided object message to JSON!";
+		}
+
+		while(formatTemplate.match(/\$\{(.+?)\}/)){
+			var currentMatch = formatTemplate.match(/\$\{(.+?)\}/)[1]
+			currentMatch = currentMatch.split(".")[0]
+
+			while(formatTemplate.match(`\\$\\{${currentMatch}\\.(.+?)\\}`)){
+				var replacePattern = currentMatch + "." + formatTemplate.match(`\\$\\{${currentMatch}\\.(.+?)\\}`)[1]
+				// https://stackoverflow.com/questions/37611143/access-json-data-with-string-path
+				var replaceValue = replacePattern.split('.').reduce(function(o, k) { return o && o[k]; }, obj);
+				formatTemplate = formatTemplate.replaceAll(String("${" + replacePattern + "}"), String(replaceValue));
+			}
+		}
+		return formatTemplate;
+	}
+
+	formatReceivedOnMessageData(obj, formatTemplate){
+		var formattedMessage = formatTemplate;
+		formattedMessage = formattedMessage.replaceAll("${command}", String(obj.command));
+		formattedMessage = formattedMessage.replaceAll("${from}", String(obj.from));
+		formattedMessage = formattedMessage.replaceAll("${_id}", String(obj._id));
+		formattedMessage = formattedMessage.replaceAll("${message}", String(JSON.stringify(obj.message, undefined, 4)));
+		
+		while(formattedMessage.match(/\$\{message\.(.+?)\}/)){
+			var replacePattern = formattedMessage.match(/\$\{message\.(.+?)\}/)[1]
+			var replaceValue = replacePattern.split('.').reduce(function(o, k) { return o && o[k]; }, obj.message);
+			formattedMessage = formattedMessage.replaceAll(String("${message." + replacePattern + "}"), String(replaceValue));
+		}
+
+		return formattedMessage;
+	}
 }
+
 
 if (require.main !== module) {
 	// Export the constructor in compact mode

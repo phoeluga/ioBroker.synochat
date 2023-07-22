@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## `1.3.0` - *2023-07-23*
+- *[@phoeluga]* Added feature to react on messages from Notification-Manager - #9
+- *[@phoeluga]* Added feature to react on general received messages sent to the `synochat` adapter instance.
+- *[@phoeluga]* Added message templates for received messages from other adapters.
+- *[@phoeluga]* Added message templates for object values related to an associated channel.
+
 ## `1.2.1` - *2022-05-18*
 - *[@phoeluga]* The IP family check to determine the local IP address of the ioBroker instance has been adjusted.
 

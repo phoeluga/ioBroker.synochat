@@ -1,8 +1,21 @@
 {
 	"common": {
 		"name": "synochat",
-		"version": "1.2.1",
+		"version": "1.3.0",
 		"news": {
+			"1.3.0": {
+				"en": "Added feature to react on messages from Notification-Manager\nAdded feature to react on general received messages sent to the `synochat` adapter instance.\nAdded message templates for received messages from other adapters.\nAdded message templates for object values related to an associated channel.",
+				"de": "Zusätzlich zum Reagieren auf Nachrichten von Notification-Manager\nEs wurde ein Feature hinzugefügt, um auf allgemein empfangenen Nachrichten zu reagieren, die an die Synochat-Adapter-Instanz gesendet werden.\nHinzugefügt Nachrichtenvorlagen für empfangene Nachrichten von anderen Adaptern.\nHinzugefügt Nachrichtenvorlagen für Objektwerte im Zusammenhang mit einem zugehörigen Kanal.",
+				"ru": "Добавлена возможность реагировать на сообщения от Notification-Manager\nДобавлена функция для реагирования на общепринятые сообщения, отправленные в экземпляр адаптера Synochat.\nДобавлены шаблоны сообщений для полученных сообщений от других адаптеров.\nДобавлены шаблоны сообщений для значений объектов, связанных с соответствующим каналом.",
+				"pt": "Adicionado recurso para reagir em mensagens de Notificação-Manager\nAdicionado recurso para reagir em mensagens recebidas gerais enviadas para a instância do adaptador de synochat.\nModelos de mensagem adicionados para mensagens recebidas de outros adaptadores.\nAdicionado modelos de mensagem para valores de objeto relacionados a um canal associado.",
+				"nl": "Vermeldde kenmerken om op berichten te reageren\nGeadresseerd op algemene berichten gestuurd naar het synochat adapter instance.\nToegevoegd berichten voor ontvangen berichten van andere adapters.\nToegevoegd berichten voor objectenwaarden gerelateerd aan een geassocieerd kanaal.",
+				"fr": "Fonction ajoutée pour réagir aux messages de Notification-Manager\nAjout de la fonctionnalité pour réagir sur les messages reçus généraux envoyés à l'instance d'adaptation de synochat.\nAjout de modèles de message pour les messages reçus d'autres adaptateurs.\nAjout de modèles de message pour les valeurs d'objets liées à un canal associé.",
+				"it": "Funzione aggiunta per reagire ai messaggi da Notification-Manager\nFunzione aggiunta per reagire su messaggi ricevuti generali inviati all'istanza adattatore sinochat.\nAggiunti i modelli di messaggi per i messaggi ricevuti da altri adattatori.\nAggiunti i modelli di messaggi per i valori degli oggetti relativi a un canale associato.",
+				"es": "Función agregada para reaccionar en los mensajes de Notification-Manager\nFunción agregada para reaccionar en general recibido mensajes enviados a la instancia de adaptador de sinochat.\nPlantillas de mensajes adicionales para mensajes recibidos de otros adaptadores.\nPlantillas de mensajes adicionales para los valores de objetos relacionados con un canal asociado.",
+				"pl": "Wykorzystywanie zareagowało na wiadomości z Notification-Manager\nDodana cecha reagowania na ogólnych komunikatach wysyłanych do przykładu adaptera synochat.\nWtedy szablony wiadomości otrzymały wiadomości od innych adapterów.\nDodawane szablony wiadomości dla wartości obiektów związanych z kanałem.",
+				"uk": "Додано функцію для реагування повідомлень від Notification-Manager\nДодана функція для реагування на загальних отриманих повідомленнях, надісланих на екземпляр адаптера synochat.\nДодано шаблони повідомлень для отримання повідомлень з інших адаптерів.\nДодано шаблони повідомлень для значень об'єкта, пов'язаних з пов'язаним каналом.",
+				"zh-cn": "对通知-Manager的信息作出反应的附加特点\n对一般收到的信息作出反应的附加特点是发送给综合时代适应者。.\n添加了其他适应者收到信息的信息模板。.\n添加与相关渠道有关的物体价值的信息模板。."
+			  },
 			"1.2.1": {
 				"en": "The IP family check to determine the local IP address of the ioBroker instance has been adjusted.",
 				"de": "Die IP-Familienprüfung zur Ermittlung der lokalen IP-Adresse der ioBroker-Instanz wurde angepasst.",
@@ -139,12 +152,17 @@
 		"connectionType": "local",
 		"dataSource": "push",
 		"materialize": true,
+    "messagebox": true,
 		"dependencies": [
 			{
 				"web": ">=3.0.12",
 				"js-controller": ">=2.0.0"
 			}
-		]
+		],
+		"supportedMessages": {
+      "custom": true,
+			"notifications": true
+		}
 	},
 	"native": {
 		"synoUrl": "",
@@ -161,9 +179,24 @@
 			  "channelName": "",
 			  "channelAccessToken": "",
 			  "channelType": "incoming",
+        "channelObjectValueTemplate": "",
+        "channelReactOnNotificationmanager": false,
+        "channelReactOnAllIobrokerMessages": false,
 			  "channelValidateCert": true
 			}
-		]
+		],
+    "receivedNotificationMamagerTemplate": "Message from Notification-Manager:\n${message}",
+    "receivedMessageTemplate": "Message from ioBroker-${from} via ${command}:\n${message}",
+    "messageTemplate0": "",
+    "messageTemplate1": "",
+    "messageTemplate2": "",
+    "messageTemplate3": "",
+    "messageTemplate4": "",
+    "messageTemplate5": "",
+    "messageTemplate6": "",
+    "messageTemplate7": "",
+    "messageTemplate8": "",
+    "messageTemplate9": ""
 	},
 	"objects": [],
 	"instanceObjects": [

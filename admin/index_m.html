@@ -92,6 +92,16 @@
                 settings.channels[c].channelValidateCert === 'ignore' ||
                 settings.channels[c].channelValidateCert === 'true' ||
                 settings.channels[c].channelValidateCert === true;
+            
+            settings.channels[c].channelReactOnAllIobrokerMessages =
+                settings.channels[c].channelReactOnAllIobrokerMessages === 'ignore' ||
+                settings.channels[c].channelReactOnAllIobrokerMessages === 'true' ||
+                settings.channels[c].channelReactOnAllIobrokerMessages === true;
+            
+            settings.channels[c].channelReactOnNotificationmanager =
+                settings.channels[c].channelReactOnNotificationmanager === 'ignore' ||
+                settings.channels[c].channelReactOnNotificationmanager === 'true' ||
+                settings.channels[c].channelReactOnNotificationmanager === true;
 
             settings.channels[c].channelName  = settings.channels[c].channelName || '';
             settings.channels[c].channelAccessToken   = settings.channels[c].channelAccessToken || '';
@@ -210,6 +220,7 @@
                 <ul class="tabs">
                     <li class="tab col s2"><a href="#tab-main"      class="translate" data-lang="Main settings">Main settings</a></li>
                     <li class="tab col s2"><a href="#tab-channels"  class="translate" data-lang="Channel management">Channel management</a></li>
+                    <li class="tab col s2"><a href="#tab-message-messageTemplates"  class="translate" data-lang="Message templates">Message templates</a></li>
                     <li class="tab col s2"><a target="_blank"       class="translate" data-lang="Help" href="https://github.com/phoeluga/ioBroker.synochat">Help</a></li>
                 </ul>
             </div>
@@ -218,8 +229,8 @@
                     <div class="card-content">
                         <div class="row">
                             <div class="input-field col s6 l2">
+                                <p><label class="translate" for="synoUrl">Synology URL/IP</label></p>
                                 <input class="value" id="synoUrl" type="text" />
-                                <label class="translate" for="synoUrl">Synology URL/IP</label>
                             </div>
                             <div class="input-field col s6 l2">
                                 <input class="value" id="certCheck" type="checkbox" />
@@ -228,14 +239,95 @@
                         </div>
                         <div class="row">
                             <div class="input-field col s6 l2">
+                                <p><label class="translate" for="iobrokerHost">Hostname / IP address of ioBroker instance</label></p>
                                 <input class="value" id="iobrokerHost" type="text" />
-                                <label class="translate" for="iobrokerHost">Hostname / IP address of ioBroker instance</label>
                             </div>
                             <div class="col s12 l3 input-field">
+                                <p><label class="translate" for="webInstance">Web instance for messages send from Synology chat to ioBroker adapter instance</label></p>
                                 <select class="value" id="webInstance">
                                     <!-- <option value="*" class="translate">Any</option> -->
                                 </select>
-                                <label class="translate" for="webInstance">Web instance for messages send from Synology chat to ioBroker adapter instance</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="tab-message-messageTemplates" class="col s12 page">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="row">
+                            <div class="col s12">
+                                <h6>
+                                    </br>
+                                    <p></p>
+                                    <span class="translate">An adapter instance can receive messages. These messages consist of an object with several attributes that can be included as parameters in a message template. These parameters are replaced accordingly before the message is sent. <br> Details on the usage can be found in the Help section - Chapter 2.2.3 Message templates.</span>
+                                    </br>
+                                    <p></p>
+                            </h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p></p></br>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="row">
+                            <div class="input-field col" style="width:50%">
+                                <p><label class="translate" for="receivedNotificationMamagerTemplate">Template for sending messages received via ioBroker Notification-Manager</label></p>
+                                <textarea class="value" id="receivedNotificationMamagerTemplate" name="receivedNotificationMamagerTemplate" style="width:100%;height:120px;" cols="2" rows="20"></textarea>
+                            </div>
+                            <div class="input-field col" style="width:50%">
+                                <p><label class="translate" for="receivedMessageTemplate">Template for sending messages of all other received messages</label></p>
+                                <textarea class="value" id="receivedMessageTemplate" name="receivedMessageTemplate" style="width:100%;height:120px;" cols="2" rows="20"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div><hr></hr></div>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="row">
+                            <div class="input-field col" style="width:20%">
+                                <p><label class="translate" for="receivedNotificationMamagerTemplate">Template 1 - Template to be applied on a specific channel</label></p>
+                                <textarea class="value" id="messageTemplate0" name="messageTemplate0" style="width:100%;height:120px;" cols="2" rows="20"></textarea>
+                            </div>
+                            <div class="input-field col" style="width:20%">
+                                <p><label class="translate" for="receivedNotificationMamagerTemplate">Template 2 - Template to be applied on a specific channel</label></p>
+                                <textarea class="value" id="messageTemplate1" name="messageTemplate1" style="width:100%;height:120px;" cols="2" rows="20"></textarea>
+                            </div>
+                            <div class="input-field col" style="width:20%">
+                                <p><label class="translate" for="receivedNotificationMamagerTemplate">Template 3 - Template to be applied on a specific channel</label></p>
+                                <textarea class="value" id="messageTemplate2" name="messageTemplate2" style="width:100%;height:120px;" cols="2" rows="20"></textarea>
+                            </div>
+                            <div class="input-field col" style="width:20%">
+                                <p><label class="translate" for="receivedNotificationMamagerTemplate">Template 4 - Template to be applied on a specific channel</label></p>
+                                <textarea class="value" id="messageTemplate3" name="messageTemplate3" style="width:100%;height:120px;" cols="2" rows="20"></textarea>
+                            </div>
+                            <div class="input-field col" style="width:20%">
+                                <p><label class="translate" for="receivedNotificationMamagerTemplate">Template 5 - Template to be applied on a specific channel</label></p>
+                                <textarea class="value" id="messageTemplate4" name="messageTemplate4" style="width:100%;height:120px;" cols="2" rows="20"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col" style="width:20%">
+                                <p><label class="translate" for="receivedNotificationMamagerTemplate">Template 6 - Template to be applied on a specific channel</label></p>
+                                <textarea class="value" id="messageTemplate5" name="messageTemplate5" style="width:100%;height:120px;" cols="2" rows="20"></textarea>
+                            </div>
+                            <div class="input-field col" style="width:20%">
+                                <p><label class="translate" for="receivedNotificationMamagerTemplate">Template 7 - Template to be applied on a specific channel</label></p>
+                                <textarea class="value" id="messageTemplate6" name="messageTemplate6" style="width:100%;height:120px;" cols="2" rows="20"></textarea>
+                            </div>
+                            <div class="input-field col" style="width:20%">
+                                <p><label class="translate" for="receivedNotificationMamagerTemplate">Template 8 - Template to be applied on a specific channel</label></p>
+                                <textarea class="value" id="messageTemplate7" name="messageTemplate7" style="width:100%;height:120px;" cols="2" rows="20"></textarea>
+                            </div>
+                            <div class="input-field col" style="width:20%">
+                                <p><label class="translate" for="receivedNotificationMamagerTemplate">Template 9 - Template to be applied on a specific channel</label></p>
+                                <textarea class="value" id="messageTemplate8" name="messageTemplate8" style="width:100%;height:120px;" cols="2" rows="20"></textarea>
+                            </div>
+                            <div class="input-field col" style="width:20%">
+                                <p><label class="translate" for="receivedNotificationMamagerTemplate">Template 10 - Template to be applied on a specific channel</label></p>
+                                <textarea class="value" id="messageTemplate9" name="messageTemplate9" style="width:100%;height:120px;" cols="2" rows="20"></textarea>
                             </div>
                         </div>
                     </div>
@@ -270,6 +362,9 @@
                                     <th data-name="channelName"         class="translate">Channel name</th>
                                     <th data-name="channelAccessToken"  class="translate">Access token</th>
                                     <th data-name="channelType"         data-options="incoming/Send data to Synology chat server;outgoing/Get data from Synology chat server" data-type="select" class="translate">Channel type</th>
+                                    <th data-name="channelObjectValueTemplate"         data-options=";messageTemplate0/Template 1;messageTemplate1/Template 2;messageTemplate2/Template 3;messageTemplate3/Template 4;messageTemplate4/Template 5;messageTemplate5/Template 6;messageTemplate6/Template 7;messageTemplate7/Template 8;messageTemplate8/Template 9;messageTemplate9/Template 10;" data-type="select" class="translate">Object value template</th>
+                                    <th data-name="channelReactOnNotificationmanager" data-type="checkbox" class="translate">React on Notification-Manager</th>
+                                    <th data-name="channelReactOnAllIobrokerMessages" data-type="checkbox" class="translate">React on all ioBroker messages</th>
                                     <th data-name="channelValidateCert" data-type="checkbox" class="translate">Validate SSL certificate</th>
                                     <th data-buttons="delete"></th>
                                     <!-- <th data-buttons="delete up down"></th> -->
