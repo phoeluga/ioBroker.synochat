@@ -1,3 +1,5 @@
+/* eslint-disable prefer-const */
+
 "use strict";
 
 /*
@@ -67,7 +69,7 @@ class Synochat extends utils.Adapter {
 					let webInstanceIds = [];
 					if (webInstanceObjects && webInstanceObjects.rows){
 						webInstanceObjects.rows.forEach(row => {
-							webInstanceIds.push({id: row.id.replace('system.adapter.', ''), config: row.value.native.type})
+							webInstanceIds.push({id: row.id.replace("system.adapter.", ""), config: row.value.native.type})
 						});
 						if(webInstanceIds.length >= 1){
 							this.config.webInstance = webInstanceIds[0].id.toString();
@@ -87,7 +89,7 @@ class Synochat extends utils.Adapter {
 
 					Object.keys(iFaces).forEach(dev => {
 						iFaces[dev].filter(details => {
-							if ((details.family === 'IPv4' || details.family === 4) && details.internal === false){
+							if ((details.family === "IPv4" || details.family === 4) && details.internal === false){
 								ipAddress = details.address;
 							}
 						});
@@ -303,7 +305,7 @@ class Synochat extends utils.Adapter {
 		this.log.debug("Received message object. Processing...");
 		let msgUuid =  uuid.v1();
 
-		if (obj && obj.command === 'sendNotification' && obj.message) {
+		if (obj && obj.command === "sendNotification" && obj.message) {
 			this.log.debug(`Process message from Notification-Manager with internal message ID: '${msgUuid}'`);
 
 			let sendingResult = 1;
@@ -313,7 +315,7 @@ class Synochat extends utils.Adapter {
 					this.log.debug(`Found channel '${this.config.channels[i].channelName}' for requested message to react on messages from Notification-Manager.`);
 					sendingResult = await this.enqueueAndSendMessage(i, obj, msgUuid, this.config.receivedNotificationMamagerTemplate) 
 					if (!sendingResult){
-						this.sendTo(obj.from, 'sendNotification', { sent: false }, obj.callback);
+						this.sendTo(obj.from, "sendNotification", { sent: false }, obj.callback);
 						this.log.error(`Unable to send the received message '${obj._id}' from Notification-Manager! > Request will not be processed!`);
 						return;
 					}
@@ -321,9 +323,9 @@ class Synochat extends utils.Adapter {
 			}
 			
 			if (sendingResult){
-				this.sendTo(obj.from, 'sendNotification', { sent: true }, obj.callback);
+				this.sendTo(obj.from, "sendNotification", { sent: true }, obj.callback);
 			} else {
-				this.sendTo(obj.from, 'sendNotification', { sent: false }, obj.callback);
+				this.sendTo(obj.from, "sendNotification", { sent: false }, obj.callback);
 				this.log.error(`Unable to send the received message '${obj._id}' from Notification-Manager! > Request will not be processed!`);
 			}
 
@@ -392,7 +394,7 @@ class Synochat extends utils.Adapter {
 			this.log.debug(`WARN: The found channel '${lookupChannelName}' for message '${msgUuid}' is not an incoming channel! > Checking next channel...`);
 		}
 	}
-	
+
 
 	formatObjectMessageData(obj, formatTemplate){
 		try {
@@ -409,7 +411,7 @@ class Synochat extends utils.Adapter {
 			while(formatTemplate.match(`\\$\\{${currentMatch}\\.(.+?)\\}`)){
 				let replacePattern = currentMatch + "." + formatTemplate.match(`\\$\\{${currentMatch}\\.(.+?)\\}`)[1]
 				// https://stackoverflow.com/questions/37611143/access-json-data-with-string-path
-				let replaceValue = replacePattern.split('.').reduce(function(o, k) { return o && o[k]; }, obj);
+				let replaceValue = replacePattern.split(".").reduce(function(o, k) { return o && o[k]; }, obj);
 				formatTemplate = formatTemplate.replaceAll(String("${" + replacePattern + "}"), String(replaceValue));
 			}
 		}
@@ -425,7 +427,7 @@ class Synochat extends utils.Adapter {
 		
 		while(formattedMessage.match(/\$\{message\.(.+?)\}/)){
 			let replacePattern = formattedMessage.match(/\$\{message\.(.+?)\}/)[1]
-			let replaceValue = replacePattern.split('.').reduce(function(o, k) { return o && o[k]; }, obj.message);
+			let replaceValue = replacePattern.split(".").reduce(function(o, k) { return o && o[k]; }, obj.message);
 			formattedMessage = formattedMessage.replaceAll(String("${message." + replacePattern + "}"), String(replaceValue));
 		}
 

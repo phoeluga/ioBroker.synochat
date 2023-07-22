@@ -1,4 +1,6 @@
-/*global systemDictionary:true */
+/* eslint no-unused-vars: off */
+/* eslint no-global-assign: off */
+/* global systemDictionary */
 "use strict";
 
 systemDictionary = {
@@ -26,7 +28,7 @@ systemDictionary = {
 		"pl": "Zarządzanie kanałami",
 		"zh-cn": "渠道管理"
 	},
-	  "Help": {
+	"Help": {
 		"en": "Help",
 		"de": "Hilfe",
 		"ru": "Помощь",
@@ -38,7 +40,7 @@ systemDictionary = {
 		"pl": "Pomoc",
 		"zh-cn": "帮助"
 	},
-	  "Synology URL/IP": {
+	"Synology URL/IP": {
 		"en": "Synology URL/IP",
 		"de": "Synology-URL/IP",
 		"ru": "URL-адрес/IP-адрес Synology",
@@ -50,7 +52,7 @@ systemDictionary = {
 		"pl": "Adres URL/IP firmy Synology",
 		"zh-cn": "Synology URL/IP"
 	},
-	  "Validate SSL certificate": {
+	"Validate SSL certificate": {
 		"en": "Validate SSL certificate",
 		"de": "SSL-Zertifikat validieren",
 		"ru": "Проверить SSL-сертификат",
@@ -62,7 +64,7 @@ systemDictionary = {
 		"pl": "Zweryfikuj certyfikat SSL",
 		"zh-cn": "验证 SSL 证书"
 	},
-	  "Hostname / IP address of ioBroker instance": {
+	"Hostname / IP address of ioBroker instance": {
 		"en": "Hostname / IP address of ioBroker instance",
 		"de": "Hostname / IP-Adresse der ioBroker-Instanz",
 		"ru": "Имя хоста/IP-адрес экземпляра ioBroker",
@@ -74,7 +76,7 @@ systemDictionary = {
 		"pl": "Nazwa hosta / adres IP instancji ioBroker",
 		"zh-cn": "ioBroker 实例的主机名/IP 地址"
 	},
-	  "Web instance for messages send from Synology chat to ioBroker adapter instance": {
+	"Web instance for messages send from Synology chat to ioBroker adapter instance": {
 		"en": "Web instance for messages send from Synology chat to ioBroker adapter instance",
 		"de": "Webinstanz für Nachrichten, die vom Synology-Chat an die ioBroker-Adapterinstanz gesendet werden",
 		"ru": "Веб-экземпляр для отправки сообщений из чата Synology в экземпляр адаптера ioBroker",
@@ -86,7 +88,7 @@ systemDictionary = {
 		"pl": "Instancja internetowa dla wiadomości wysyłanych z czatu Synology do instancji adaptera ioBroker",
 		"zh-cn": "从 Synology 聊天发送到 ioBroker 适配器实例的消息的 Web 实例"
 	},
-	  "NOTE: The WebHook URL for receiving data from Synology chat server can be found as object value of 'ADAPTER_INSTANCE.info.webHookUrl' for this adapter instance.": {
+	"NOTE: The WebHook URL for receiving data from Synology chat server can be found as object value of 'ADAPTER_INSTANCE.info.webHookUrl' for this adapter instance.": {
 		"en": "NOTE:\nThe WebHook URL for receiving data from Synology chat server can be found as object value of 'ADAPTER_INSTANCE.info.webHookUrl' for this adapter instance.",
 		"de": "HINWEIS:\nDie WebHook-URL zum Empfangen von Daten vom Synology-Chatserver kann als Objektwert von „ADAPTER_INSTANCE.info.webHookUrl“ für diese Adapterinstanz gefunden werden.",
 		"ru": "ПРИМЕЧАНИЕ:\nURL-адрес WebHook для получения данных от сервера чата Synology можно найти как значение объекта ADAPTER_INSTANCE.info.webHookUrl для этого экземпляра адаптера.",
@@ -98,7 +100,7 @@ systemDictionary = {
 		"pl": "UWAGA:\nAdres URL elementu WebHook do odbierania danych z serwera czatu firmy Synology można znaleźć jako wartość obiektu „ADAPTER_INSTANCE.info.webHookUrl” dla tej instancji adaptera.",
 		"zh-cn": "笔记：\n用于从 Synology 聊天服务器接收数据的 WebHook URL 可以作为此适配器实例的“ADAPTER_INSTANCE.info.webHookUrl”的对象值找到。"
 	},
-	  "Channel name": {
+	"Channel name": {
 		"en": "Channel name",
 		"de": "Kanal Name",
 		"ru": "Название канала",
@@ -110,7 +112,7 @@ systemDictionary = {
 		"pl": "Nazwa kanału",
 		"zh-cn": "频道名称"
 	},
-	  "Access token": {
+	"Access token": {
 		"en": "Access token",
 		"de": "Zugangstoken",
 		"ru": "Токен доступа",
@@ -121,8 +123,8 @@ systemDictionary = {
 		"es": "ficha de acceso",
 		"pl": "Token dostępu",
 		"zh-cn": "访问令牌"
-	  },
-	  "Channel type": {
+	},
+	"Channel type": {
 		"en": "Channel type",
 		"de": "Kanaltyp",
 		"ru": "Тип канала",
@@ -134,7 +136,7 @@ systemDictionary = {
 		"pl": "Typ kanału",
 		"zh-cn": "渠道类型"
 	},
-	  "Channel enabled": {
+	"Channel enabled": {
 		"en": "Channel enabled",
 		"de": "Kanal aktiviert",
 		"ru": "Канал включен",
@@ -146,7 +148,7 @@ systemDictionary = {
 		"pl": "Kanał włączony",
 		"zh-cn": "启用频道"
 	},
-	  "Object value template": {
+	"Object value template": {
 		"en": "Object value template",
 		"de": "Vorlage des Werts",
 		"ru": "Шаблон ценности объекта",
@@ -158,8 +160,8 @@ systemDictionary = {
 		"pl": "Wartość obiektywna",
 		"uk": "Шаблон значень об'єкта",
 		"zh-cn": "目标模板"
-	  },
-	  "React on Notification-Manager": {
+	},
+	"React on Notification-Manager": {
 		"en": "React on Notification-Manager",
 		"de": "Reaktion auf den Notification-Manager",
 		"ru": "React на Notification-Manager",
@@ -172,7 +174,7 @@ systemDictionary = {
 		"uk": "Реакція на Notification-Manager",
 		"zh-cn": "对通知-Manager的答复"
 	},
-	  "React on all ioBroker messages": {
+	"React on all ioBroker messages": {
 		"en": "React on all ioBroker messages",
 		"de": "Reaktion auf alle ioBroker-Nachrichten",
 		"ru": "React на все сообщения ioBroker",
@@ -185,7 +187,7 @@ systemDictionary = {
 		"uk": "Реакція на всіх ioBroker повідомлень",
 		"zh-cn": "对所有ioBroker信息的反应"
 	},
-	  "Message templates": {
+	"Message templates": {
 		"en": "Message templates",
 		"de": "Nachrichtenvorlage",
 		"ru": "Шаблоны сообщений",
@@ -198,7 +200,7 @@ systemDictionary = {
 		"uk": "Шаблони повідомлень",
 		"zh-cn": "导 言模板"
 	},
-	  "Template for sending messages received via ioBroker Notification-Manager": {
+	"Template for sending messages received via ioBroker Notification-Manager": {
 		"en": "Template for sending messages received via ioBroker Notification-Manager",
 		"de": "Vorlage zum Senden von über ioBroker Notification-Manager empfangenen Nachrichten",
 		"ru": "Шаблон для отправки сообщений, полученных через ioBroker Notification-Manager",
@@ -211,7 +213,7 @@ systemDictionary = {
 		"uk": "Шаблон відправки повідомлень, отриманих через ioBroker Notification-Manager",
 		"zh-cn": "通过OioBroker通知-Manager收到的发信的实例"
 	},
-	  "Template for sending messages of all other received messages": {
+	"Template for sending messages of all other received messages": {
 		"en": "Template for sending messages of all other received messages",
 		"de": "Vorlage zum Senden von Nachrichten aller anderen empfangenen Nachrichten",
 		"ru": "Шаблон для отправки сообщений всех других полученных сообщений",
@@ -224,7 +226,7 @@ systemDictionary = {
 		"uk": "Шаблон відправки повідомлень всіх інших отриманих повідомлень",
 		"zh-cn": "发送所有其他收到的信息的实例"
 	},
-	  "An adapter instance can receive messages. These messages consist of an object with several attributes that can be included as parameters in a message template. These parameters are replaced accordingly before the message is sent. <br> Details on the usage can be found in the Help section - Chapter 2.2.3 Message templates.": {
+	"An adapter instance can receive messages. These messages consist of an object with several attributes that can be included as parameters in a message template. These parameters are replaced accordingly before the message is sent. <br> Details on the usage can be found in the Help section - Chapter 2.2.3 Message templates.": {
 		"en": "An adapter instance can receive messages. These messages consist of an object with several attributes that can be included as parameters in a message template. These parameters are replaced accordingly before the message is sent. <br> Details on the usage can be found in the Help section - Chapter 2.2.3 Message templates.",
 		"de": "Eine Adapterinstanz kann Nachrichten empfangen. Diese Nachrichten bestehen aus einem Objekt mit mehreren Attributen, die als Parameter in einer Nachrichtenvorlage enthalten sein können. Diese Parameter werden entsprechend ersetzt, bevor die Nachricht gesendet wird. <br> Details zur Nutzung finden Sie im Hilfebereich - Kapitel 2.2.3 Vorlagen.",
 		"ru": "Пример адаптера может получать сообщения. Эти сообщения состоят из объекта с несколькими атрибутами, которые могут быть включены в качестве параметров в шаблоне сообщений. Эти параметры заменены соответственно до отправки сообщения. <br> Детали об использовании можно найти в разделе Помощь - Глава 2.2.3 Шаблоны сообщений.",
