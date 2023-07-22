@@ -133,6 +133,8 @@ For more details on how to handle integrations within Synology chat, please refe
 
 			Please note that when using this channel type, the channel name of the ioBroker adapter instance configuration must be identical to the channel name of the Synology chat channel in order to receive messages.
 
+			> Note: Please make sure not to select the '*react on*' options for outgoing channels
+
 		If a channel should be configured in both, sending and receiving messages, simply add a second channel with the same name and select the other channel type.
 
     * **Object value template**
@@ -192,6 +194,44 @@ For more details on how to handle integrations within Synology chat, please refe
 
 	`The ${type} in the ${location} changed to ${value}°C`
 
+	**NOTE AND RESTRICTIONS:**
+
+    1. If you are trying to access an attribute with a key containing dots (`.`) you have to escape them with the chars `/-`!
+
+    	e.g. if your message object value look like this:
+    
+    	```JSON
+    	{
+            "category": {
+                "instances": {
+                    "system.adapter.notification-manager.0": {
+                        "notification": "Test notification",
+                    }
+                }
+            }
+        }
+    	```
+        
+    	and you want to access the attribute `notification`, your pattern will be `${category.instances.system/-adapter/-notification-manager/-0.notification}`
+	
+	2. It is not possible to access specific items in arrays.
+	    
+		e.g. if your message object value look like this:
+    
+    	```JSON
+    	{
+            "messages": [
+                {
+                "text": "Lorem"
+                },
+                {
+                "text": "Ipsum"
+                }
+            ]
+        }
+    	```
+        
+		you cannot access the `text` attribute in the `message` object. In this case you need to prepare the object value outside this adapter before passing it to the `synochat` channel message object.
 
 	* **Template for sending messages received via ioBroker Notification-Manager**
   
@@ -220,6 +260,8 @@ For more details on how to handle integrations within Synology chat, please refe
 		You can access these data via the `message` attribute by using the pattern `${message.NOTIFICATION_MANAGER_ATTRIBUTES}`. More details on what 
 
         More information about the structure of the [Notification-Manager](https://github.com/foxriver76/ioBroker.notification-manager) message object can be found in the [README](https://github.com/foxriver76/ioBroker.notification-manager).
+        
+		> Note: Please make sure not to select the '*react on*' options for outgoing channels
 
     * **Template for sending messages of all other received messages**
         
@@ -249,6 +291,8 @@ For more details on how to handle integrations within Synology chat, please refe
 		* `${_id}`
 
         The pattern `${message}` is always the one what will contain the information from the corresponding sender. If the message is only containing a `String` you only need to provide the pattern `${message}`. Is it providing a JSON value you can also access the inner attributes by providing the path to the value like `${message.foo.bar}`.
+
+		> Note: Please make sure not to select the '*react on*' options for outgoing channels
 
     * **Template 1-10 - Template to be applied on a specific channel**
 

@@ -404,17 +404,39 @@ class Synochat extends utils.Adapter {
 			return "Unable to parse provided object message to JSON!";
 		}
 
-		while(formatTemplate.match(/\$\{(.+?)\}/)){
-			let currentMatch = formatTemplate.match(/\$\{(.+?)\}/)[1];
-			currentMatch = currentMatch.split(".")[0];
+		let maxItter = 1000;
+		while(formatTemplate.match(/\$\{(.+?)\}/) && maxItter > 0){
+			let wholeMatch = formatTemplate.match(/\$\{(.+?)\}/)[1];
+			let currentMatch = wholeMatch.split(".")[0];
 
-			while(formatTemplate.match(`\\$\\{${currentMatch}\\.(.+?)\\}`)){
-				let replacePattern = currentMatch + "." + formatTemplate.match(`\\$\\{${currentMatch}\\.(.+?)\\}`)[1];
-				// https://stackoverflow.com/questions/37611143/access-json-data-with-string-path
-				let replaceValue = replacePattern.split(".").reduce(function(o, k) { return o && o[k]; }, obj);
-				formatTemplate = formatTemplate.replaceAll(String("${" + replacePattern + "}"), String(replaceValue));
+			if(wholeMatch === currentMatch){
+				var replaceValue = currentMatch.split('.').reduce(function(o, k) { return o && o[k]; }, obj);
+				formatTemplate = formatTemplate.replaceAll(String("${" + currentMatch + "}"), String(replaceValue));
+
+			} else {
+				let maxItterB = 1000;
+				while(formatTemplate.match(`\\$\\{${currentMatch}\\.(.+?)\\}`) && maxItter > 0){
+					let replacePattern = currentMatch + "." + formatTemplate.match(`\\$\\{${currentMatch}\\.(.+?)\\}`)[1];
+					// https://stackoverflow.com/questions/37611143/access-json-data-with-string-path
+					let replaceValue = replacePattern.split(".").reduce(function(o, k) { return o && o[k.replaceAll("/-", ".")]; }, obj);
+					formatTemplate = formatTemplate.replaceAll(String("${" + replacePattern + "}"), String(replaceValue));
+
+					maxItterB --;
+				}
+				if(maxItterB <= 0){
+					maxItter = 0;
+				}
 			}
+
+
+			maxItter --;
 		}
+
+		if(maxItter <= 0){
+			this.log.error(`Infinite loop while parsing JSON detected! Returning raw text!`);
+			formatTemplate = JSON.stringify(obj, undefined, 4);
+		}
+
 		return formatTemplate;
 	}
 
@@ -425,10 +447,18 @@ class Synochat extends utils.Adapter {
 		formattedMessage = formattedMessage.replaceAll("${_id}", String(obj._id));
 		formattedMessage = formattedMessage.replaceAll("${message}", String(JSON.stringify(obj.message, undefined, 4)));
 
-		while(formattedMessage.match(/\$\{message\.(.+?)\}/)){
+		let maxItter = 1000;
+		while(formattedMessage.match(/\$\{message\.(.+?)\}/) && maxItter > 0){
 			let replacePattern = formattedMessage.match(/\$\{message\.(.+?)\}/)[1];
-			let replaceValue = replacePattern.split(".").reduce(function(o, k) { return o && o[k]; }, obj.message);
+			let replaceValue = replacePattern.split(".").reduce(function(o, k) { return o && o[k.replaceAll("/-", ".")]; }, obj.message);
 			formattedMessage = formattedMessage.replaceAll(String("${message." + replacePattern + "}"), String(replaceValue));
+
+			maxItter --;
+		}
+
+		if(maxItter <= 0){
+			this.log.error(`Infinite loop while parsing JSON detected! Returning raw text!`);
+			formattedMessage = obj.message;
 		}
 
 		return formattedMessage;
