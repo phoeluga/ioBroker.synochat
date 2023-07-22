@@ -69,7 +69,7 @@ class Synochat extends utils.Adapter {
 					let webInstanceIds = [];
 					if (webInstanceObjects && webInstanceObjects.rows){
 						webInstanceObjects.rows.forEach(row => {
-							webInstanceIds.push({id: row.id.replace("system.adapter.", ""), config: row.value.native.type})
+							webInstanceIds.push({id: row.id.replace("system.adapter.", ""), config: row.value.native.type});
 						});
 						if(webInstanceIds.length >= 1){
 							this.config.webInstance = webInstanceIds[0].id.toString();
@@ -94,8 +94,8 @@ class Synochat extends utils.Adapter {
 							}
 						});
 					});
-					
-					this.log.debug(`Hostname for 'iobrokerHost' is unset! > Set default value of current local IP '${ipAddress}'.\nNOTE: This might be incorrect when using an Docker instance!`);	
+
+					this.log.debug(`Hostname for 'iobrokerHost' is unset! > Set default value of current local IP '${ipAddress}'.\nNOTE: This might be incorrect when using an Docker instance!`);
 
 					this.config.iobrokerHost = ipAddress;
 					configChanged = true;
@@ -112,7 +112,7 @@ class Synochat extends utils.Adapter {
 					"channelReactOnAllIobrokerMessages": false,
 					"channelValidateCert": this.config.channelContentCertCheck
 				};
-				
+
 				if(this.config.channels.length == 1 && this.config.channels[0].channelName == "" && this.config.channels[0].channelAccessToken == ""){
 					this.log.debug("Found empty initial channel item! > Deleting this item for migration...");
 					this.config.channels.pop();
@@ -124,7 +124,7 @@ class Synochat extends utils.Adapter {
 				this.config.channelToken = null;
 				this.config.channelType = null;
 				this.config.channelObjectValueTemplate = null;
-				
+
 				this.log.debug("Migration data of of older version done! > Old config data was deleted!");
 				configChanged = true;
 			}
@@ -142,7 +142,7 @@ class Synochat extends utils.Adapter {
 				this.log.error(`Adapter instance not in a usable state!`);
 				return;
 			}
-			
+
 			for (let i = 0; i < this.config.channels.length; i++) {
 				if (!this.config.channels[i].channelName ||
 					!this.config.channels[i].channelAccessToken ||
@@ -196,7 +196,7 @@ class Synochat extends utils.Adapter {
 					}
 				}
 			}
-			
+
 			await this.setObjectNotExistsAsync("info.webHookUrl", {
 				type: "state",
 				common: {
@@ -211,7 +211,7 @@ class Synochat extends utils.Adapter {
 		}
 
 		this.synoChatRequestHandler = new SynoChatRequests.SynoChatRequests(this, this.config.synoUrl, this.config.certCheck);
-		
+
 		if (await this.synoChatRequestHandler.initialConnectivityCheck()) {
 			this.setState("info.connection", true, true);
 
@@ -250,7 +250,7 @@ class Synochat extends utils.Adapter {
 	 * @param {string} id
 	 * @param {ioBroker.State | null | undefined} state
 	 */
-	 async onStateChange(id, state) {
+	async onStateChange(id, state) {
 		if (state) {
 			if (id.endsWith("info.connection")){
 				return "managementStateChange";
@@ -260,7 +260,7 @@ class Synochat extends utils.Adapter {
 			}
 			if (state.ack) {
 				//only continue when application triggered a change without ack flag, filter out reception state changes
-	
+
 				//enable this for system testing
 				//this.interfaceTest(id, state);
 				this.log.debug(`State for object '${id}' changed to value '${state.val}' but ack flag is set. > Request will not be processed!`);
@@ -279,16 +279,16 @@ class Synochat extends utils.Adapter {
 			for (let i = 0; i < this.config.channels.length; i++) {
 				if(id.split(".")[id.split(".").length - 2].toLowerCase() == this.config.channels[i].channelName.toLowerCase()){
 					this.log.debug(`Found channel '${this.config.channels[i].channelName}' for requested message to be sent to the Synology chat server with object id '${id}'.`);
-					
-					sendingResult = await this.enqueueAndSendMessage(i, state.val, msgUuid) 
-					
+
+					sendingResult = await this.enqueueAndSendMessage(i, state.val, msgUuid);
+
 					if (sendingResult){
 						this.setState(id, {ack: true});
 						return;
 					}
 				}
 			}
-			
+
 			this.log.debug(`Unable to find an incoming remote channel for the requested object '${id}' on the Synology chat server! > Request will not be processed!`);
 		} else {
 			// The state was deleted
@@ -313,7 +313,7 @@ class Synochat extends utils.Adapter {
 			for (let i = 0; i < this.config.channels.length; i++) {
 				if(this.config.channels[i].channelReactOnNotificationmanager == true){
 					this.log.debug(`Found channel '${this.config.channels[i].channelName}' for requested message to react on messages from Notification-Manager.`);
-					sendingResult = await this.enqueueAndSendMessage(i, obj, msgUuid, this.config.receivedNotificationMamagerTemplate) 
+					sendingResult = await this.enqueueAndSendMessage(i, obj, msgUuid, this.config.receivedNotificationMamagerTemplate);
 					if (!sendingResult){
 						this.sendTo(obj.from, "sendNotification", { sent: false }, obj.callback);
 						this.log.error(`Unable to send the received message '${obj._id}' from Notification-Manager! > Request will not be processed!`);
@@ -321,7 +321,7 @@ class Synochat extends utils.Adapter {
 					}
 				}
 			}
-			
+
 			if (sendingResult){
 				this.sendTo(obj.from, "sendNotification", { sent: true }, obj.callback);
 			} else {
@@ -334,23 +334,23 @@ class Synochat extends utils.Adapter {
 			for (let i = 0; i < this.config.channels.length; i++) {
 				if(this.config.channels[i].channelReactOnAllIobrokerMessages == true){
 					this.log.debug(`Found channel '${this.config.channels[i].channelName}' for requested message to react on messages default messages.`);
-					await this.enqueueAndSendMessage(i, obj, msgUuid, this.config.receivedMessageTemplate)
+					await this.enqueueAndSendMessage(i, obj, msgUuid, this.config.receivedMessageTemplate);
 				}
 			}
-		
+
 		} else {
 			this.log.debug(`Unable to process received message from unknown provider '${obj.from}' with object message ID: '${obj._id}'. None or empty inner Message object was provided!`);
 		}
 	}
-	
+
 	async enqueueAndSendMessage(channelIndex, messageObject, msgUuid, messageTemplate = null) {
 		let lookupChannelEnabled = this.config.channels[channelIndex].channelEnabled;
 		let lookupChannelName = this.config.channels[channelIndex].channelName;
 		let lookupChannelToken = this.config.channels[channelIndex].channelAccessToken;
 		let lookupChannelContentCertCheck = this.config.channels[channelIndex].channelValidateCert;
 		let lookupChannelType = this.config.channels[channelIndex].channelType;
-		let lookupChannelObjectValueTemplate = this.config.channels[channelIndex].channelObjectValueTemplate
-		
+		let lookupChannelObjectValueTemplate = this.config.channels[channelIndex].channelObjectValueTemplate;
+
 		if(!lookupChannelEnabled){
 			this.log.debug(`Channel '${lookupChannelName}' was disabled in the adapter instance configuration! > Checking next channel...`);
 		} else if(lookupChannelType.toLowerCase() == "incoming"){
@@ -361,7 +361,7 @@ class Synochat extends utils.Adapter {
 			let j = 0;
 			for(j = 0; j < 30; j++){
 				if(this.messageQueue[0] == msgUuid){
-					let formattedMessage = ""
+					let formattedMessage = "";
 					if(messageTemplate){
 						formattedMessage = this.formatReceivedOnMessageData(messageObject, messageTemplate);
 					} else {
@@ -381,7 +381,7 @@ class Synochat extends utils.Adapter {
 				}
 
 				// Math.floor(Math.random() * (max - min + 1) + min)
-				await sleep(Math.floor(Math.random() * (1450 - 890 + 1) + 890))
+				await sleep(Math.floor(Math.random() * (1450 - 890 + 1) + 890));
 			}
 			if(j >= 30){
 				this.log.error(`Timeout for sending message '${msgUuid}'. Message will be discarded!`);
@@ -389,7 +389,7 @@ class Synochat extends utils.Adapter {
 			} else {
 				this.log.debug(`Message '${msgUuid}' not successfully sent. > Lookup next configured channel...`);
 			}
-			
+
 		} else {
 			this.log.debug(`WARN: The found channel '${lookupChannelName}' for message '${msgUuid}' is not an incoming channel! > Checking next channel...`);
 		}
@@ -405,11 +405,11 @@ class Synochat extends utils.Adapter {
 		}
 
 		while(formatTemplate.match(/\$\{(.+?)\}/)){
-			let currentMatch = formatTemplate.match(/\$\{(.+?)\}/)[1]
-			currentMatch = currentMatch.split(".")[0]
+			let currentMatch = formatTemplate.match(/\$\{(.+?)\}/)[1];
+			currentMatch = currentMatch.split(".")[0];
 
 			while(formatTemplate.match(`\\$\\{${currentMatch}\\.(.+?)\\}`)){
-				let replacePattern = currentMatch + "." + formatTemplate.match(`\\$\\{${currentMatch}\\.(.+?)\\}`)[1]
+				let replacePattern = currentMatch + "." + formatTemplate.match(`\\$\\{${currentMatch}\\.(.+?)\\}`)[1];
 				// https://stackoverflow.com/questions/37611143/access-json-data-with-string-path
 				let replaceValue = replacePattern.split(".").reduce(function(o, k) { return o && o[k]; }, obj);
 				formatTemplate = formatTemplate.replaceAll(String("${" + replacePattern + "}"), String(replaceValue));
@@ -424,9 +424,9 @@ class Synochat extends utils.Adapter {
 		formattedMessage = formattedMessage.replaceAll("${from}", String(obj.from));
 		formattedMessage = formattedMessage.replaceAll("${_id}", String(obj._id));
 		formattedMessage = formattedMessage.replaceAll("${message}", String(JSON.stringify(obj.message, undefined, 4)));
-		
+
 		while(formattedMessage.match(/\$\{message\.(.+?)\}/)){
-			let replacePattern = formattedMessage.match(/\$\{message\.(.+?)\}/)[1]
+			let replacePattern = formattedMessage.match(/\$\{message\.(.+?)\}/)[1];
 			let replaceValue = replacePattern.split(".").reduce(function(o, k) { return o && o[k]; }, obj.message);
 			formattedMessage = formattedMessage.replaceAll(String("${message." + replacePattern + "}"), String(replaceValue));
 		}
