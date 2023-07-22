@@ -410,7 +410,7 @@ class Synochat extends utils.Adapter {
 			let currentMatch = wholeMatch.split(".")[0];
 
 			if(wholeMatch === currentMatch){
-				var replaceValue = currentMatch.split('.').reduce(function(o, k) { return o && o[k]; }, obj);
+				let replaceValue = currentMatch.split(".").reduce(function(o, k) { return o && o[k]; }, obj);
 				formatTemplate = formatTemplate.replaceAll(String("${" + currentMatch + "}"), String(replaceValue));
 
 			} else {

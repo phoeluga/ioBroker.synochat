@@ -238,5 +238,5 @@ systemDictionary = {
 		"pl": "Adaptacja może otrzymać wiadomości. Wiadomości te składają się z obiektu z kilkoma atrybutami, które mogą być zawarte jako parametry w szablonie wiadomości. Parametry te są zastąpione w zależności od przekazu wiadomości. br><br – szczegółowy opis użycia wzorów, wyczerpujących wzorców i restrykcji można znaleźć w sekcji Help – Chapter 2.2.3 Message.",
 		"uk": "Екземпляр адаптера може отримувати повідомлення. Ці повідомлення складаються з об'єкта з декількома атрибутами, які можуть бути включені в якості параметрів в шаблоні повідомлення. Ці параметри заміщуються відповідно до повідомлення. br><br Детальний опис використання візерунків, схем і обмежень можна знайти в розділі Довідка - Розділ 2.2.3 Шаблони повідомлень.",
 		"zh-cn": "适应者可以收到信息。 这些信息包括一个物体,其特点可以包括作为信息模板的参数。 这些参数在发出该信息之前被相应取代。 导 言."
-	  }
+	}
 };
