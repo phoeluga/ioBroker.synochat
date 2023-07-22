@@ -25,7 +25,7 @@ systemDictionary = {
 		"es": "Gestión de canales",
 		"pl": "Zarządzanie kanałami",
 		"zh-cn": "渠道管理"
-	  },
+	},
 	  "Help": {
 		"en": "Help",
 		"de": "Hilfe",
@@ -37,7 +37,7 @@ systemDictionary = {
 		"es": "Ayudar",
 		"pl": "Pomoc",
 		"zh-cn": "帮助"
-	  },
+	},
 	  "Synology URL/IP": {
 		"en": "Synology URL/IP",
 		"de": "Synology-URL/IP",
@@ -49,7 +49,7 @@ systemDictionary = {
 		"es": "URL/IP de Synology",
 		"pl": "Adres URL/IP firmy Synology",
 		"zh-cn": "Synology URL/IP"
-	  },
+	},
 	  "Validate SSL certificate": {
 		"en": "Validate SSL certificate",
 		"de": "SSL-Zertifikat validieren",
@@ -61,7 +61,7 @@ systemDictionary = {
 		"es": "Validar certificado SSL",
 		"pl": "Zweryfikuj certyfikat SSL",
 		"zh-cn": "验证 SSL 证书"
-	  },
+	},
 	  "Hostname / IP address of ioBroker instance": {
 		"en": "Hostname / IP address of ioBroker instance",
 		"de": "Hostname / IP-Adresse der ioBroker-Instanz",
@@ -73,7 +73,7 @@ systemDictionary = {
 		"es": "Nombre de host/dirección IP de la instancia de ioBroker",
 		"pl": "Nazwa hosta / adres IP instancji ioBroker",
 		"zh-cn": "ioBroker 实例的主机名/IP 地址"
-	  },
+	},
 	  "Web instance for messages send from Synology chat to ioBroker adapter instance": {
 		"en": "Web instance for messages send from Synology chat to ioBroker adapter instance",
 		"de": "Webinstanz für Nachrichten, die vom Synology-Chat an die ioBroker-Adapterinstanz gesendet werden",
@@ -85,7 +85,7 @@ systemDictionary = {
 		"es": "Instancia web para mensajes enviados desde el chat de Synology a la instancia del adaptador ioBroker",
 		"pl": "Instancja internetowa dla wiadomości wysyłanych z czatu Synology do instancji adaptera ioBroker",
 		"zh-cn": "从 Synology 聊天发送到 ioBroker 适配器实例的消息的 Web 实例"
-	  },
+	},
 	  "NOTE: The WebHook URL for receiving data from Synology chat server can be found as object value of 'ADAPTER_INSTANCE.info.webHookUrl' for this adapter instance.": {
 		"en": "NOTE:\nThe WebHook URL for receiving data from Synology chat server can be found as object value of 'ADAPTER_INSTANCE.info.webHookUrl' for this adapter instance.",
 		"de": "HINWEIS:\nDie WebHook-URL zum Empfangen von Daten vom Synology-Chatserver kann als Objektwert von „ADAPTER_INSTANCE.info.webHookUrl“ für diese Adapterinstanz gefunden werden.",
@@ -97,7 +97,7 @@ systemDictionary = {
 		"es": "NOTA:\nLa URL de WebHook para recibir datos del servidor de chat de Synology se puede encontrar como valor de objeto de 'ADAPTER_INSTANCE.info.webHookUrl' para esta instancia de adaptador.",
 		"pl": "UWAGA:\nAdres URL elementu WebHook do odbierania danych z serwera czatu firmy Synology można znaleźć jako wartość obiektu „ADAPTER_INSTANCE.info.webHookUrl” dla tej instancji adaptera.",
 		"zh-cn": "笔记：\n用于从 Synology 聊天服务器接收数据的 WebHook URL 可以作为此适配器实例的“ADAPTER_INSTANCE.info.webHookUrl”的对象值找到。"
-	  },
+	},
 	  "Channel name": {
 		"en": "Channel name",
 		"de": "Kanal Name",
@@ -109,7 +109,7 @@ systemDictionary = {
 		"es": "Nombre del Canal",
 		"pl": "Nazwa kanału",
 		"zh-cn": "频道名称"
-	  },
+	},
 	  "Access token": {
 		"en": "Access token",
 		"de": "Zugangstoken",
@@ -133,7 +133,7 @@ systemDictionary = {
 		"es": "Tipo de canal",
 		"pl": "Typ kanału",
 		"zh-cn": "渠道类型"
-	  },
+	},
 	  "Channel enabled": {
 		"en": "Channel enabled",
 		"de": "Kanal aktiviert",
@@ -145,7 +145,7 @@ systemDictionary = {
 		"es": "Canal habilitado",
 		"pl": "Kanał włączony",
 		"zh-cn": "启用频道"
-	  },
+	},
 	  "Object value template": {
 		"en": "Object value template",
 		"de": "Vorlage des Werts",
@@ -171,7 +171,7 @@ systemDictionary = {
 		"pl": "Oficjalna strona Notification-Manager",
 		"uk": "Реакція на Notification-Manager",
 		"zh-cn": "对通知-Manager的答复"
-	  },
+	},
 	  "React on all ioBroker messages": {
 		"en": "React on all ioBroker messages",
 		"de": "Reaktion auf alle ioBroker-Nachrichten",
@@ -184,7 +184,7 @@ systemDictionary = {
 		"pl": "Wszystkie wiadomości ioBrokera",
 		"uk": "Реакція на всіх ioBroker повідомлень",
 		"zh-cn": "对所有ioBroker信息的反应"
-	  },
+	},
 	  "Message templates": {
 		"en": "Message templates",
 		"de": "Nachrichtenvorlage",
@@ -197,7 +197,7 @@ systemDictionary = {
 		"pl": "Szablon Message",
 		"uk": "Шаблони повідомлень",
 		"zh-cn": "导 言模板"
-	  },
+	},
 	  "Template for sending messages received via ioBroker Notification-Manager": {
 		"en": "Template for sending messages received via ioBroker Notification-Manager",
 		"de": "Vorlage zum Senden von über ioBroker Notification-Manager empfangenen Nachrichten",
@@ -210,7 +210,7 @@ systemDictionary = {
 		"pl": "Przesłanie wiadomości otrzymało za ioBroker Notification-Manager",
 		"uk": "Шаблон відправки повідомлень, отриманих через ioBroker Notification-Manager",
 		"zh-cn": "通过OioBroker通知-Manager收到的发信的实例"
-	  },
+	},
 	  "Template for sending messages of all other received messages": {
 		"en": "Template for sending messages of all other received messages",
 		"de": "Vorlage zum Senden von Nachrichten aller anderen empfangenen Nachrichten",
@@ -223,7 +223,7 @@ systemDictionary = {
 		"pl": "Za wysłanie komunikatów wszystkich pozostałych otrzymało wiadomości",
 		"uk": "Шаблон відправки повідомлень всіх інших отриманих повідомлень",
 		"zh-cn": "发送所有其他收到的信息的实例"
-	  },
+	},
 	  "An adapter instance can receive messages. These messages consist of an object with several attributes that can be included as parameters in a message template. These parameters are replaced accordingly before the message is sent. <br> Details on the usage can be found in the Help section - Chapter 2.2.3 Message templates.": {
 		"en": "An adapter instance can receive messages. These messages consist of an object with several attributes that can be included as parameters in a message template. These parameters are replaced accordingly before the message is sent. <br> Details on the usage can be found in the Help section - Chapter 2.2.3 Message templates.",
 		"de": "Eine Adapterinstanz kann Nachrichten empfangen. Diese Nachrichten bestehen aus einem Objekt mit mehreren Attributen, die als Parameter in einer Nachrichtenvorlage enthalten sein können. Diese Parameter werden entsprechend ersetzt, bevor die Nachricht gesendet wird. <br> Details zur Nutzung finden Sie im Hilfebereich - Kapitel 2.2.3 Vorlagen.",
@@ -236,5 +236,5 @@ systemDictionary = {
 		"pl": "Adaptacja może otrzymać wiadomości. Wiadomości te składają się z obiektu z kilkoma atrybutami, które mogą być zawarte jako parametry w szablonie wiadomości. Parametry te są zastąpione w zależności od przekazu wiadomości. <br> Detail on the usage can be found in the Help section – Chapter 2.2.3 Message.",
 		"uk": "Екземпляр адаптера може отримувати повідомлення. Ці повідомлення складаються з об'єкта з декількома атрибутами, які можуть бути включені в якості параметрів в шаблоні повідомлення. Ці параметри заміщуються відповідно до повідомлення. <br> Деталі на використанні можна знайти в розділі Довідка - розділ 2.2.3 Шаблони повідомлень.",
 		"zh-cn": "适应者可以收到信息。 这些信息包括一个物体,其特点可以包括作为信息模板的参数。 这些参数在发出该信息之前被相应取代。 <br>有关使用情况的详情见助科-第2.3章的样板。."
-	  }
+	}
 };

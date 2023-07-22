@@ -9,10 +9,10 @@
 const utils = require("@iobroker/adapter-core");
 
 const SynoChatRequests = require("./lib/synoChatRequests.js");
-const iFaces = require('os').networkInterfaces();
-const uuid = require('uuid');
+const iFaces = require("os").networkInterfaces();
+const uuid = require("uuid");
 
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 class Synochat extends utils.Adapter {
 
 	/**
@@ -25,7 +25,7 @@ class Synochat extends utils.Adapter {
 		});
 		this.connected = false;
 		this.on("ready", this.onReady.bind(this));
-		this.on('message', this.onMessage.bind(this));
+		this.on("message", this.onMessage.bind(this));
 		this.on("stateChange", this.onStateChange.bind(this));
 		this.on("unload", this.onUnload.bind(this));
 
@@ -38,7 +38,7 @@ class Synochat extends utils.Adapter {
 	 */
 	async onReady() {
 		this.messageQueue = [];
-		var configChanged = false;
+		let configChanged = false;
 
 		this.setState("info.connection", false, true);
 		//this.log.info("Got instance configuration. SynoChat adapter instance not yet ready!");
@@ -46,10 +46,10 @@ class Synochat extends utils.Adapter {
 		this.log.info("Initializing SynoChat...");
 
 		if (this.config && Object.keys(this.config).length === 0 && Object.getPrototypeOf(this.config) === Object.prototype) {
-            this.log.error("Instance configuration missing! Please update the instance configuration!");
-            this.log.error(`Adapter instance not in a usable state!`);
+			this.log.error("Instance configuration missing! Please update the instance configuration!");
+			this.log.error(`Adapter instance not in a usable state!`);
 			return;
-        } else {
+		} else {
 			this.log.info("Instance configuration found! > Checking configuration...");
 
 			// Migration from older versions
@@ -58,12 +58,12 @@ class Synochat extends utils.Adapter {
 				this.config.channelType) {
 
 				this.log.warn("Configuration data from older version found! > Migrating data to new channel object...");
-				
+
 				// Adding first web instance
 				if (!this.config.webInstance) {
 					this.log.warn("Web adapter instance not configured! > Checking current Web adapter instances...");
 
-					var webInstanceObjects = await this.getObjectViewAsync('system', 'instance', {startkey: 'system.adapter.web.', endkey: 'system.adapter.web.\u9999'});
+					let webInstanceObjects = await this.getObjectViewAsync("system", "instance", {startkey: "system.adapter.web.", endkey: "system.adapter.web.\u9999"});
 					let webInstanceIds = [];
 					if (webInstanceObjects && webInstanceObjects.rows){
 						webInstanceObjects.rows.forEach(row => {
@@ -83,7 +83,7 @@ class Synochat extends utils.Adapter {
 
 				// Set ioBroker Host address to the first address in the listed network interfaces
 				if(this.config.iobrokerHost == ""){
-					var ipAddress = "localhost";
+					let ipAddress = "localhost";
 
 					Object.keys(iFaces).forEach(dev => {
 						iFaces[dev].filter(details => {
@@ -100,7 +100,7 @@ class Synochat extends utils.Adapter {
 				}
 
 				// Main migration of previous data
-				var migrationChannel = {
+				let migrationChannel = {
 					"channelEnabled": true,
 					"channelName": this.config.channelName,
 					"channelAccessToken": this.config.channelToken,
@@ -180,7 +180,7 @@ class Synochat extends utils.Adapter {
 			for(const adapterInstanceObject in await this.getAdapterObjectsAsync()){
 				if(adapterInstanceObject.split(".").length === 3){
 					if((await this.getObjectAsync(adapterInstanceObject)).type == "folder" && adapterInstanceObject.split(".")[2] != "info"){
-						var deleteObj = true;
+						let deleteObj = true;
 						for (let i = 0; i < this.config.channels.length; i++) {
 							if(this.config.channels[i].channelName == adapterInstanceObject.split(".")[2]){
 								deleteObj = false;
@@ -269,10 +269,10 @@ class Synochat extends utils.Adapter {
 				return "instanceNotReady";
 			}
 
-			var msgUuid =  uuid.v1();
+			let msgUuid =  uuid.v1();
 			this.log.debug(`State for object '${id}' changed to value '${state.val}' with ack=${state.ack}. ID of message: '${msgUuid}'`);
 
-			var sendingResult = false;
+			let sendingResult = false;
 
 			for (let i = 0; i < this.config.channels.length; i++) {
 				if(id.split(".")[id.split(".").length - 2].toLowerCase() == this.config.channels[i].channelName.toLowerCase()){
@@ -301,12 +301,12 @@ class Synochat extends utils.Adapter {
 	 */
 	async onMessage(obj) {
 		this.log.debug("Received message object. Processing...");
-		var msgUuid =  uuid.v1();
+		let msgUuid =  uuid.v1();
 
 		if (obj && obj.command === 'sendNotification' && obj.message) {
 			this.log.debug(`Process message from Notification-Manager with internal message ID: '${msgUuid}'`);
 
-			var sendingResult = 1;
+			let sendingResult = 1;
 
 			for (let i = 0; i < this.config.channels.length; i++) {
 				if(this.config.channels[i].channelReactOnNotificationmanager == true){
@@ -327,7 +327,7 @@ class Synochat extends utils.Adapter {
 				this.log.error(`Unable to send the received message '${obj._id}' from Notification-Manager! > Request will not be processed!`);
 			}
 
-        } else if (obj && obj.message){
+		} else if (obj && obj.message){
 			this.log.debug(`Process message from unknown provider '${obj.from}' with internal message ID: '${msgUuid}'`);
 			for (let i = 0; i < this.config.channels.length; i++) {
 				if(this.config.channels[i].channelReactOnAllIobrokerMessages == true){
@@ -337,17 +337,17 @@ class Synochat extends utils.Adapter {
 			}
 		
 		} else {
-            this.log.debug(`Unable to process received message from unknown provider '${obj.from}' with object message ID: '${obj._id}'. None or empty inner Message object was provided!`);
-        }
+			this.log.debug(`Unable to process received message from unknown provider '${obj.from}' with object message ID: '${obj._id}'. None or empty inner Message object was provided!`);
+		}
 	}
 	
 	async enqueueAndSendMessage(channelIndex, messageObject, msgUuid, messageTemplate = null) {
-		var lookupChannelEnabled = this.config.channels[channelIndex].channelEnabled;
-		var lookupChannelName = this.config.channels[channelIndex].channelName;
-		var lookupChannelToken = this.config.channels[channelIndex].channelAccessToken;
-		var lookupChannelContentCertCheck = this.config.channels[channelIndex].channelValidateCert;
-		var lookupChannelType = this.config.channels[channelIndex].channelType;
-		var lookupChannelObjectValueTemplate = this.config.channels[channelIndex].channelObjectValueTemplate
+		let lookupChannelEnabled = this.config.channels[channelIndex].channelEnabled;
+		let lookupChannelName = this.config.channels[channelIndex].channelName;
+		let lookupChannelToken = this.config.channels[channelIndex].channelAccessToken;
+		let lookupChannelContentCertCheck = this.config.channels[channelIndex].channelValidateCert;
+		let lookupChannelType = this.config.channels[channelIndex].channelType;
+		let lookupChannelObjectValueTemplate = this.config.channels[channelIndex].channelObjectValueTemplate
 		
 		if(!lookupChannelEnabled){
 			this.log.debug(`Channel '${lookupChannelName}' was disabled in the adapter instance configuration! > Checking next channel...`);
@@ -356,10 +356,10 @@ class Synochat extends utils.Adapter {
 			this.messageQueue.push(msgUuid);
 
 			// Adding message queue to ensure messages will send in the incoming order
-			var j = 0;
+			let j = 0;
 			for(j = 0; j < 30; j++){
 				if(this.messageQueue[0] == msgUuid){
-					var formattedMessage = ""
+					let formattedMessage = ""
 					if(messageTemplate){
 						formattedMessage = this.formatReceivedOnMessageData(messageObject, messageTemplate);
 					} else {
@@ -371,7 +371,7 @@ class Synochat extends utils.Adapter {
 						}
 					}
 
-					var messageWasSend = await this.synoChatRequestHandler.sendMessage(lookupChannelToken, lookupChannelType, lookupChannelContentCertCheck, String(formattedMessage), msgUuid);
+					let messageWasSend = await this.synoChatRequestHandler.sendMessage(lookupChannelToken, lookupChannelType, lookupChannelContentCertCheck, String(formattedMessage), msgUuid);
 					this.messageQueue.splice(this.messageQueue.indexOf(msgUuid), 1);
 					return messageWasSend;
 				} else {
@@ -403,13 +403,13 @@ class Synochat extends utils.Adapter {
 		}
 
 		while(formatTemplate.match(/\$\{(.+?)\}/)){
-			var currentMatch = formatTemplate.match(/\$\{(.+?)\}/)[1]
+			let currentMatch = formatTemplate.match(/\$\{(.+?)\}/)[1]
 			currentMatch = currentMatch.split(".")[0]
 
 			while(formatTemplate.match(`\\$\\{${currentMatch}\\.(.+?)\\}`)){
-				var replacePattern = currentMatch + "." + formatTemplate.match(`\\$\\{${currentMatch}\\.(.+?)\\}`)[1]
+				let replacePattern = currentMatch + "." + formatTemplate.match(`\\$\\{${currentMatch}\\.(.+?)\\}`)[1]
 				// https://stackoverflow.com/questions/37611143/access-json-data-with-string-path
-				var replaceValue = replacePattern.split('.').reduce(function(o, k) { return o && o[k]; }, obj);
+				let replaceValue = replacePattern.split('.').reduce(function(o, k) { return o && o[k]; }, obj);
 				formatTemplate = formatTemplate.replaceAll(String("${" + replacePattern + "}"), String(replaceValue));
 			}
 		}
@@ -417,15 +417,15 @@ class Synochat extends utils.Adapter {
 	}
 
 	formatReceivedOnMessageData(obj, formatTemplate){
-		var formattedMessage = formatTemplate;
+		let formattedMessage = formatTemplate;
 		formattedMessage = formattedMessage.replaceAll("${command}", String(obj.command));
 		formattedMessage = formattedMessage.replaceAll("${from}", String(obj.from));
 		formattedMessage = formattedMessage.replaceAll("${_id}", String(obj._id));
 		formattedMessage = formattedMessage.replaceAll("${message}", String(JSON.stringify(obj.message, undefined, 4)));
 		
 		while(formattedMessage.match(/\$\{message\.(.+?)\}/)){
-			var replacePattern = formattedMessage.match(/\$\{message\.(.+?)\}/)[1]
-			var replaceValue = replacePattern.split('.').reduce(function(o, k) { return o && o[k]; }, obj.message);
+			let replacePattern = formattedMessage.match(/\$\{message\.(.+?)\}/)[1]
+			let replaceValue = replacePattern.split('.').reduce(function(o, k) { return o && o[k]; }, obj.message);
 			formattedMessage = formattedMessage.replaceAll(String("${message." + replacePattern + "}"), String(replaceValue));
 		}
 
