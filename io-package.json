@@ -152,15 +152,20 @@
 		"connectionType": "local",
 		"dataSource": "push",
 		"materialize": true,
-    "messagebox": true,
+    	"messagebox": true,
 		"dependencies": [
 			{
 				"web": ">=3.0.12",
 				"js-controller": ">=2.0.0"
 			}
 		],
+		"globalDependencies": [
+			{
+			  "admin": ">=5.0.0"
+			}
+		],
 		"supportedMessages": {
-      "custom": true,
+      		"custom": true,
 			"notifications": true
 		}
 	},
