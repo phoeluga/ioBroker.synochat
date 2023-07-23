@@ -472,7 +472,7 @@ class Synochat extends utils.Adapter {
 		while(formattedMessage.match(/\$\{message\.(.+?)\}/) && maxItter > 0){
 			let replacePattern = formattedMessage.match(/\$\{message\.(.+?)\}/)[1];
 			let replaceValue = replacePattern.split(".").reduce(function(o, k) { return o && o[k.replaceAll("/-", ".")]; }, obj.message);
-			formattedMessage = formattedMessage.replaceAll(String("${message." + replacePattern + "}"), String(replaceValue));
+			formattedMessage = formattedMessage.replaceAll(String("${message." + replacePattern + "}"), JSON.stringify(replaceValue));
 
 			maxItter --;
 		}
