@@ -1,192 +1,230 @@
 {
 	"common": {
-		"name": "synochat",
-		"version": "1.2.1",
-		"news": {
-			"1.2.1": {
-				"en": "The IP family check to determine the local IP address of the ioBroker instance has been adjusted.",
-				"de": "Die IP-Familienprüfung zur Ermittlung der lokalen IP-Adresse der ioBroker-Instanz wurde angepasst.",
-				"ru": "Проверка семейства IP-адресов для определения локального IP-адреса экземпляра ioBroker была скорректирована.",
-				"pt": "A verificação da família IP para determinar o endereço IP local da instância ioBroker foi ajustada.",
-				"nl": "De IP-familiecontrole om het lokale IP-adres van de ioBroker-instantie te bepalen, is aangepast.",
-				"fr": "La vérification de la famille IP pour déterminer l'adresse IP locale de l'instance ioBroker a été ajustée.",
-				"it": "Il controllo della famiglia IP per determinare l'indirizzo IP locale dell'istanza ioBroker è stato modificato.",
-				"es": "Se ha ajustado la comprobación de la familia de IP para determinar la dirección IP local de la instancia de ioBroker.",
-				"pl": "Sprawdzenie rodziny IP w celu określenia lokalnego adresu IP instancji ioBroker zostało dostosowane.",
-				"zh-cn": "已调整用于确定 ioBroker 实例的本地 IP 地址的 IP 系列检查。"
-			  },
-			"1.2.0": {
-				"en": "Added enhancement #6 - Delayed sending of messages has been added to work around the limitations of messages sent to the Synology Chat Server in a certain time interval.\nRegarding #6, a message queue has been added to ensure that the order of messages to be sent is respected when the sending of messages is delayed.\nImplementation of the [requirements](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) for adding the adapter in the ioBroker repository - Adding MIT license hint to the Readme.\nmplementation of the [requirements](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) for adding the adapter in the ioBroker repository - Moved adapter instance object subscription after initial connectivity check.\nImplementation of the [requirements](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) for adding the adapter in the ioBroker repository - Added exception handling to cover https://github.com/nodejs/node/issues/43014 in Nodejs 18\nImplementation of the [requirements](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127527703) for adding the adapter in the ioBroker repository - Added axios as dependency in package.json",
-				"de": "Verbesserung Nr. 6 hinzugefügt – Verzögertes Senden von Nachrichten wurde hinzugefügt, um die Beschränkungen von Nachrichten zu umgehen, die in einem bestimmten Zeitintervall an den Synology Chat-Server gesendet werden.\nIn Bezug auf #6 wurde eine Nachrichtenwarteschlange hinzugefügt, um sicherzustellen, dass die Reihenfolge der zu sendenden Nachrichten eingehalten wird, wenn das Senden von Nachrichten verzögert wird.\nImplementierung der [Anforderungen](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) zum Hinzufügen des Adapters im ioBroker-Repository - Hinzufügen eines MIT-Lizenzhinweises zur Readme.\nImplementierung der [Anforderungen](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) zum Hinzufügen des Adapters im ioBroker-Repository – Abonnement des Adapterinstanzobjekts nach anfänglicher Verbindungsprüfung verschoben.\nImplementierung der [Anforderungen](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) zum Hinzufügen des Adapters im ioBroker-Repository – Ausnahmebehandlung hinzugefügt, um https://github.com abzudecken /nodejs/node/issues/43014 in Nodejs 18\nImplementierung der [Anforderungen](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127527703) zum Hinzufügen des Adapters im ioBroker-Repository – Axios als Abhängigkeit in package.json hinzugefügt",
-				"ru": "Добавлено улучшение №6. Добавлена отложенная отправка сообщений, чтобы обойти ограничения сообщений, отправляемых на сервер Synology Chat Server в определенный интервал времени.\nЧто касается № 6, была добавлена очередь сообщений, чтобы гарантировать соблюдение порядка отправки сообщений, когда отправка сообщений задерживается.\nРеализация [требований](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) для добавления адаптера в репозиторий ioBroker — Добавление подсказки о лицензии MIT в файл Readme.\nреализация [требований](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) для добавления адаптера в репозиторий ioBroker — Перемещена подписка на объект экземпляра адаптера после первоначальной проверки подключения.\nРеализация [требований](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) для добавления адаптера в репозиторий ioBroker — добавлена обработка исключений для охвата https://github.com /nodejs/node/issues/43014 в Nodejs 18\nРеализация [требований](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127527703) для добавления адаптера в репозиторий ioBroker - Добавлены аксиомы как зависимость в package.json",
-				"pt": "Aprimoramento adicionado nº 6 - O envio atrasado de mensagens foi adicionado para contornar as limitações de mensagens enviadas ao Synology Chat Server em um determinado intervalo de tempo.\nEm relação ao #6, foi adicionada uma fila de mensagens para garantir que a ordem das mensagens a serem enviadas seja respeitada quando o envio das mensagens estiver atrasado.\nImplementação dos [requisitos](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) para adicionar o adaptador no repositório ioBroker - Adicionando dica de licença MIT ao Readme.\nimplementação dos [requisitos](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) para adicionar o adaptador no repositório ioBroker - Subscrição de objeto de instância do adaptador movida após verificação de conectividade inicial.\nImplementação dos [requisitos](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) para adicionar o adaptador no repositório ioBroker - Adicionado tratamento de exceção para cobrir https://github.com /nodejs/node/issues/43014 no Nodejs 18\nImplementação dos [requisitos](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127527703) para adicionar o adaptador no repositório ioBroker - Adicionado axios como dependência no package.json",
-				"nl": "Verbetering #6 toegevoegd - Uitgestelde verzending van berichten is toegevoegd om de beperkingen te omzeilen van berichten die in een bepaald tijdsinterval naar de Synology Chat Server worden verzonden.\nMet betrekking tot #6 is een berichtenwachtrij toegevoegd om ervoor te zorgen dat de volgorde van te verzenden berichten wordt gerespecteerd wanneer het verzenden van berichten wordt vertraagd.\nImplementatie van de [vereisten](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) voor het toevoegen van de adapter in de ioBroker-repository - MIT-licentiehint toevoegen aan de Readme.\nimplementatie van de [vereisten](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) voor het toevoegen van de adapter in de ioBroker-repository - Verplaatst adapterinstantie-objectabonnement na initiële connectiviteitscontrole.\nImplementatie van de [vereisten](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) voor het toevoegen van de adapter in de ioBroker-repository - Afhandeling van uitzonderingen toegevoegd om https://github.com te dekken /nodejs/node/issues/43014 in Nodejs 18\nImplementatie van de [vereisten](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127527703) voor het toevoegen van de adapter in de ioBroker-repository - Toegevoegde axios als afhankelijkheid in package.json",
-				"fr": "Amélioration ajoutée n° 6 - L'envoi différé de messages a été ajouté pour contourner les limitations des messages envoyés au Synology Chat Server dans un certain intervalle de temps.\nConcernant #6, une file d'attente de messages a été ajoutée pour s'assurer que l'ordre des messages à envoyer est respecté lorsque l'envoi des messages est retardé.\nImplémentation des [exigences](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) pour ajouter l'adaptateur dans le référentiel ioBroker - Ajout d'un indice de licence MIT au fichier Lisezmoi.\nMise en œuvre des [exigences](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) pour ajouter l'adaptateur dans le référentiel ioBroker - Abonnement à l'objet d'instance d'adaptateur déplacé après la vérification initiale de la connectivité.\nImplémentation des [exigences](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) pour ajouter l'adaptateur dans le référentiel ioBroker - Ajout de la gestion des exceptions pour couvrir https://github.com /nodejs/node/issues/43014 dans Nodejs 18\nImplémentation des [exigences](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127527703) pour ajouter l'adaptateur dans le référentiel ioBroker - Ajout d'axios en tant que dépendance dans package.json",
-				"it": "Aggiunto miglioramento n. 6 - È stato aggiunto l'invio ritardato dei messaggi per aggirare le limitazioni dei messaggi inviati al Synology Chat Server in un determinato intervallo di tempo.\nPer quanto riguarda #6, è stata aggiunta una coda di messaggi per garantire che l'ordine dei messaggi da inviare venga rispettato quando l'invio dei messaggi è ritardato.\nImplementazione dei [requirements](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) per l'aggiunta dell'adattatore nel repository ioBroker - Aggiunta di un suggerimento per la licenza MIT al Readme.\nimplementazione di [requirements](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) per l'aggiunta dell'adattatore nel repository ioBroker - Abbonamento oggetto istanza adattatore spostato dopo il controllo della connettività iniziale.\nImplementazione dei [requisiti](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) per l'aggiunta dell'adattatore nel repository ioBroker - Aggiunta la gestione delle eccezioni per coprire https://github.com /nodejs/node/issues/43014 in Nodejs 18\nImplementazione dei [requisiti](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127527703) per l'aggiunta dell'adattatore nel repository ioBroker - Aggiunto axios come dipendenza in package.json",
-				"es": "Mejora añadida n.º 6: se ha añadido el envío retrasado de mensajes para solucionar las limitaciones de los mensajes enviados al Synology Chat Server en un determinado intervalo de tiempo.\nEn cuanto al #6, se ha agregado una cola de mensajes para garantizar que se respete el orden de envío de los mensajes cuando se retrasa el envío de mensajes.\nImplementación de los [requisitos](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) para agregar el adaptador en el repositorio de ioBroker: agregar una sugerencia de licencia de MIT al Léame.\nimplementación de los [requisitos](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) para agregar el adaptador en el repositorio de ioBroker: suscripción de objeto de instancia de adaptador movida después de la verificación de conectividad inicial.\nImplementación de los [requisitos](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) para agregar el adaptador en el repositorio de ioBroker - Manejo de excepciones agregado para cubrir https://github.com /nodejs/node/issues/43014 en Nodejs 18\nImplementación de los [requisitos](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127527703) para agregar el adaptador en el repositorio de ioBroker - Se agregó axios como dependencia en package.json",
-				"pl": "Dodano ulepszenie nr 6 — Dodano opóźnione wysyłanie wiadomości w celu obejścia ograniczeń wiadomości wysyłanych do serwera Synology Chat w określonym przedziale czasu.\nW odniesieniu do punktu 6 dodano kolejkę wiadomości, aby zapewnić, że kolejność wiadomości do wysłania jest przestrzegana, gdy wysyłanie wiadomości jest opóźnione.\nImplementacja [wymagań](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) w celu dodania adaptera w repozytorium ioBroker - Dodawanie podpowiedzi do licencji MIT do pliku Readme.\nimplementacja [wymagań](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) w celu dodania adaptera w repozytorium ioBroker — przeniesiona subskrypcja obiektu instancji adaptera po wstępnym sprawdzeniu łączności.\nImplementacja [wymagań](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) do dodania adaptera w repozytorium ioBroker - Dodano obsługę wyjątków dla https://github.com /nodejs/node/issues/43014 w Nodejs 18\nImplementacja [wymagań](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127527703) do dodania adaptera w repozytorium ioBroker - Dodano axios jako zależność w package.json",
-				"zh-cn": "添加了增强功能 #6 - 添加了延迟发送消息以解决在特定时间间隔内发送到 Synology Chat Server 的消息限制。\n关于#6，添加了一个消息队列，以确保在延迟发送消息时遵守要发送的消息顺序。\n在 ioBroker 存储库中添加适配器的 [要求](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) 的实施 - 将 MIT 许可证提示添加到自述文件。\n在 ioBroker 存储库中添加适配器的 [要求](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) 的实施 - 在初始连接检查后移动了适配器实例对象订阅。\n在 ioBroker 存储库中添加适配器的 [要求](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) 的实施 - 添加了异常处理以涵盖 https://github.com /nodejs/node/issues/43014 在 Nodejs 18\n在 ioBroker 存储库中添加适配器的 [要求](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127527703) 的实现 - 在 package.json 中添加 axios 作为依赖项"
-			  },
-			"1.1.1": {
-				"en": "Fixed issue #4 - Issue while migrating data from version < 1.1.0\nAdded collecting and loading of default values when loading the initial configuration of the adapter instance\nThe channel search behavior has been adjusted to react accordingly to deactivated channels and to query the remaining channels.",
-				"de": "Behobenes Problem Nr. 4 – Problem beim Migrieren von Daten von Version < 1.1.0\nSammeln und Laden von Standardwerten beim Laden der Erstkonfiguration der Adapterinstanz hinzugefügt\nDas Kanalsuchverhalten wurde angepasst, um auf deaktivierte Kanäle entsprechend zu reagieren und die verbleibenden Kanäle abzufragen.",
-				"ru": "Исправлена проблема № 4 — проблема при переносе данных из версии < 1.1.0\nДобавлен сбор и загрузка значений по умолчанию при загрузке начальной конфигурации экземпляра адаптера\nПоведение поиска каналов было скорректировано, чтобы соответствующим образом реагировать на деактивированные каналы и запрашивать оставшиеся каналы.",
-				"pt": "Corrigido o problema nº 4 - Problema ao migrar dados da versão < 1.1.0\nAdição de coleta e carregamento de valores padrão ao carregar a configuração inicial da instância do adaptador\nO comportamento de busca de canais foi ajustado para reagir de acordo com os canais desativados e para consultar os canais restantes.",
-				"nl": "Probleem #4 opgelost - Probleem bij het migreren van gegevens van versie < 1.1.0\nVerzamelen en laden van standaardwaarden toegevoegd bij het laden van de initiële configuratie van de adapterinstantie\nHet zenderzoekgedrag is aangepast om overeenkomstig te reageren op gedeactiveerde zenders en om de overige zenders te bevragen.",
-				"fr": "Problème résolu #4 - Problème lors de la migration des données depuis la version < 1.1.0\nAjout de la collecte et du chargement des valeurs par défaut lors du chargement de la configuration initiale de l'instance de l'adaptateur\nLe comportement de recherche de chaînes a été ajusté pour réagir en conséquence aux chaînes désactivées et pour interroger les chaînes restantes.",
-				"it": "Risolto problema n. 4 - Problema durante la migrazione dei dati dalla versione < 1.1.0\nAggiunta la raccolta e il caricamento dei valori predefiniti durante il caricamento della configurazione iniziale dell'istanza dell'adattatore\nIl comportamento di ricerca dei canali è stato regolato per reagire di conseguenza ai canali disattivati e per interrogare i canali rimanenti.",
-				"es": "Problema solucionado n.º 4: problema al migrar datos de la versión < 1.1.0\nSe agregó la recopilación y carga de valores predeterminados al cargar la configuración inicial de la instancia del adaptador.\nEl comportamiento de búsqueda de canales se ha ajustado para reaccionar en consecuencia a los canales desactivados y consultar los canales restantes.",
-				"pl": "Naprawiono problem nr 4 - Problem podczas migracji danych z wersji < 1.1.0\nDodano zbieranie i ładowanie wartości domyślnych podczas ładowania początkowej konfiguracji instancji adaptera\nZachowanie wyszukiwania kanałów zostało dostosowane tak, aby odpowiednio reagować na dezaktywowane kanały i odpytywać pozostałe kanały.",
-				"zh-cn": "修复了问题 #4 - 从版本 < 1.1.0 迁移数据时出现问题\n在加载适配器实例的初始配置时增加了默认值的收集和加载\n频道搜索行为已调整为对停用的频道做出相应反应并查询剩余频道。"
-			  },
-			"1.1.0": {
-				"en": "Added the ability to manage multiple channels in one adapter instance per Synology chat server.\nA possibility of ioBroker hostname / IP address configuration has been introduced. (May be helpful when using an ioBroker Docker instance).\nA functionality to receive incoming messages from the Synology chat server using WebHooks has been added. (An instance of the web adapter is required to use this feature)\nThe translation of the UI properties was added.\nAdded function to migrate channel data from an older version to a new channel object in the list approach.\nAdded possibility for a user to disable dedicated channels from being processed.",
-				"de": "Möglichkeit hinzugefügt, mehrere Kanäle in einer Adapterinstanz pro Synology-Chatserver zu verwalten.\nEine Möglichkeit zur Konfiguration von ioBroker-Hostnamen / IP-Adressen wurde eingeführt. (Kann hilfreich sein, wenn Sie eine ioBroker Docker-Instanz verwenden).\nEine Funktion zum Empfangen eingehender Nachrichten vom Synology-Chatserver mit WebHooks wurde hinzugefügt. (Zur Verwendung dieser Funktion ist eine Instanz des Web Adaptors erforderlich.)\nDie Übersetzung der UI-Eigenschaften wurde hinzugefügt.\nFunktion hinzugefügt, um Kanaldaten von einer älteren Version in ein neues Kanalobjekt im Listenansatz zu migrieren.\nMöglichkeit für einen Benutzer hinzugefügt, die Verarbeitung dedizierter Kanäle zu deaktivieren.",
-				"ru": "Добавлена возможность управлять несколькими каналами в одном экземпляре адаптера для каждого сервера чата Synology.\nДобавлена возможность настройки имени хоста / IP-адреса ioBroker. (Может быть полезно при использовании экземпляра ioBroker Docker).\nДобавлена возможность получать входящие сообщения с сервера чата Synology с помощью WebHooks. (Для использования этой функции требуется экземпляр веб-адаптера)\nДобавлен перевод свойств пользовательского интерфейса.\nДобавлена функция для переноса данных канала из более старой версии в новый объект канала в подходе списка.\nДобавлена возможность для пользователя отключить обработку выделенных каналов.",
-				"pt": "Adicionada a capacidade de gerenciar vários canais em uma instância do adaptador por servidor de bate-papo Synology.\nUma possibilidade de configuração de nome de host/endereço IP do ioBroker foi introduzida. (Pode ser útil ao usar uma instância do ioBroker Docker).\nFoi adicionada uma funcionalidade para receber mensagens do servidor de bate-papo Synology usando WebHooks. (É necessária uma instância do adaptador da Web para usar esse recurso)\nA tradução das propriedades da interface do usuário foi adicionada.\nFunção adicionada para migrar dados de canal de uma versão mais antiga para um novo objeto de canal na abordagem de lista.\nAdicionada a possibilidade de um usuário desativar o processamento de canais dedicados.",
-				"nl": "De mogelijkheid toegevoegd om meerdere kanalen in één adapterinstantie per Synology-chatserver te beheren.\nEen mogelijkheid voor ioBroker hostnaam / IP-adresconfiguratie is geïntroduceerd. (Kan handig zijn bij het gebruik van een ioBroker Docker-instantie).\nEr is een functionaliteit toegevoegd om inkomende berichten van de Synology-chatserver te ontvangen met behulp van WebHooks. (Een exemplaar van de webadapter is vereist om deze functie te gebruiken)\nDe vertaling van de UI-eigenschappen is toegevoegd.\nFunctie toegevoegd om kanaalgegevens van een oudere versie naar een nieuw kanaalobject in de lijstbenadering te migreren.\nMogelijkheid toegevoegd voor een gebruiker om de verwerking van toegewezen kanalen uit te schakelen.",
-				"fr": "Ajout de la possibilité de gérer plusieurs canaux dans une instance d'adaptateur par serveur de discussion Synology.\nUne possibilité de configuration du nom d'hôte / de l'adresse IP ioBroker a été introduite. (Peut être utile lors de l'utilisation d'une instance ioBroker Docker).\nUne fonctionnalité permettant de recevoir des messages entrants du serveur de discussion Synology à l'aide de WebHooks a été ajoutée. (Une instance de l'adaptateur Web est requise pour utiliser cette fonctionnalité)\nLa traduction des propriétés de l'interface utilisateur a été ajoutée.\nAjout d'une fonction pour migrer les données de canal d'une ancienne version vers un nouvel objet de canal dans l'approche de liste.\nAjout de la possibilité pour un utilisateur de désactiver le traitement des canaux dédiés.",
-				"it": "Aggiunta la possibilità di gestire più canali in un'istanza dell'adattatore per server di chat Synology.\nÈ stata introdotta una possibilità di configurazione del nome host/indirizzo IP di ioBroker. (Può essere utile quando si utilizza un'istanza ioBroker Docker).\nÈ stata aggiunta una funzionalità per ricevere i messaggi in arrivo dal server di chat Synology utilizzando WebHooks. (Per utilizzare questa funzione è necessaria un'istanza dell'adattatore Web)\nÈ stata aggiunta la traduzione delle proprietà dell'interfaccia utente.\nAggiunta funzione per migrare i dati del canale da una versione precedente a un nuovo oggetto canale nell'approccio elenco.\nAggiunta la possibilità per un utente di disabilitare l'elaborazione dei canali dedicati.",
-				"es": "Se agregó la capacidad de administrar varios canales en una instancia de adaptador por servidor de chat de Synology.\nSe ha introducido la posibilidad de configurar el nombre de host/dirección IP de ioBroker. (Puede ser útil al usar una instancia de ioBroker Docker).\nSe ha agregado una funcionalidad para recibir mensajes entrantes del servidor de chat de Synology mediante WebHooks. (Se requiere una instancia del adaptador web para usar esta función)\nSe agregó la traducción de las propiedades de la interfaz de usuario.\nFunción agregada para migrar datos de canal de una versión anterior a un nuevo objeto de canal en el enfoque de lista.\nSe agregó la posibilidad de que un usuario deshabilite el procesamiento de canales dedicados.",
-				"pl": "Dodano możliwość zarządzania wieloma kanałami w jednej instancji adaptera na serwer czatu firmy Synology.\nWprowadzono możliwość konfiguracji nazwy hosta / adresu IP w ioBroker. (Może być pomocne podczas korzystania z instancji ioBroker Docker).\nDodano funkcję odbierania wiadomości przychodzących z serwera czatu Synology za pomocą uchwytów WebHook. (Do korzystania z tej funkcji wymagana jest instancja karty sieciowej)\nDodano tłumaczenie właściwości interfejsu użytkownika.\nDodano funkcję migracji danych kanału ze starszej wersji do nowego obiektu kanału w podejściu listowym.\nDodano możliwość wyłączenia przez użytkownika przetwarzania dedykowanych kanałów.",
-				"zh-cn": "添加了在每个 Synology 聊天服务器的一个适配器实例中管理多个通道的功能。\n引入了 ioBroker 主机名/IP 地址配置的可能性。 （在使用 ioBroker Docker 实例时可能会有所帮助）。\n添加了使用 WebHooks 从 Synology 聊天服务器接收传入消息的功能。 （使用此功能需要 Web 适配器实例）\n添加了 UI 属性的翻译。\n添加了将频道数据从旧版本迁移到列表方法中的新频道对象的功能。\n增加了用户禁用处理专用频道的可能性。"
-			  },
-			"1.0.1": {
-				"en": "Resolved issue #1 - Unable to send messages with special characters\nResolved issue #2 - Send images",
-				"de": "Behobenes Problem Nr. 1 – Nachrichten mit Sonderzeichen können nicht gesendet werden\nBehobenes Problem Nr. 2 – Bilder senden",
-				"ru": "Решенная проблема №1 — невозможно отправлять сообщения со специальными символами\nРешенная проблема № 2 – отправка изображений",
-				"pt": "Problema resolvido nº 1 - Não é possível enviar mensagens com caracteres especiais\nProblema resolvido nº 2 - Enviar imagens",
-				"nl": "Opgelost probleem #1 - Kan geen berichten met speciale tekens verzenden\nProbleem #2 opgelost - Afbeeldingen verzenden",
-				"fr": "Problème résolu #1 - Impossible d'envoyer des messages avec des caractères spéciaux\nProblème résolu #2 - Envoyer des images",
-				"it": "Risolto problema n. 1: impossibile inviare messaggi con caratteri speciali\nRisolto problema n. 2 - Invia immagini",
-				"es": "Problema resuelto n.º 1: no se pueden enviar mensajes con caracteres especiales\nProblema resuelto #2 - Enviar imágenes",
-				"pl": "Rozwiązany problem nr 1 – Nie można wysyłać wiadomości ze znakami specjalnymi\nRozwiązany problem nr 2 – Wyślij obrazy",
-				"zh-cn": "已解决的问题 #1 - 无法发送带有特殊字符的消息\n已解决的问题 #2 - 发送图像"
-			  },
-			"1.0.0": {
-				"en": "Initial release",
-				"de": "Erstveröffentlichung",
-				"ru": "Первый выпуск",
-				"pt": "lançamento inicial",
-				"nl": "Eerste uitgave",
-				"fr": "Première version",
-				"it": "Versione iniziale",
-				"es": "Versión inicial",
-				"pl": "Pierwsze wydanie",
-				"zh-cn": "初始发行"
-			  },
-			"0.0.1": {
-				"en": "Start of development",
-				"de": "Beginn der Entwicklung",
-				"ru": "Начало разработки",
-				"pt": "Começo do desenvolvimento",
-				"nl": "Begin van ontwikkeling",
-				"fr": "Début du développement",
-				"it": "Inizio dello sviluppo",
-				"es": "Comienzo del desarrollo",
-				"pl": "Początek rozwoju",
-				"zh-cn": "开发开始"
-			  }
+	  "name": "synochat",
+	  "version": "1.3.0",
+	  "news": {
+		"1.3.0": {
+		  "en": "Added feature to react on messages from Notification-Manager\nAdded feature to react on general received messages sent to the `synochat` adapter instance.\nAdded message templates for received messages from other adapters.\nAdded message templates for object values related to an associated channel.",
+		  "de": "Zusätzlich zum Reagieren auf Nachrichten von Notification-Manager\nEs wurde ein Feature hinzugefügt, um auf allgemein empfangenen Nachrichten zu reagieren, die an die Synochat-Adapter-Instanz gesendet werden.\nHinzugefügt Nachrichtenvorlagen für empfangene Nachrichten von anderen Adaptern.\nHinzugefügt Nachrichtenvorlagen für Objektwerte im Zusammenhang mit einem zugehörigen Kanal.",
+		  "ru": "Добавлена возможность реагировать на сообщения от Notification-Manager\nДобавлена функция для реагирования на общепринятые сообщения, отправленные в экземпляр адаптера Synochat.\nДобавлены шаблоны сообщений для полученных сообщений от других адаптеров.\nДобавлены шаблоны сообщений для значений объектов, связанных с соответствующим каналом.",
+		  "pt": "Adicionado recurso para reagir em mensagens de Notificação-Manager\nAdicionado recurso para reagir em mensagens recebidas gerais enviadas para a instância do adaptador de synochat.\nModelos de mensagem adicionados para mensagens recebidas de outros adaptadores.\nAdicionado modelos de mensagem para valores de objeto relacionados a um canal associado.",
+		  "nl": "Vermeldde kenmerken om op berichten te reageren\nGeadresseerd op algemene berichten gestuurd naar het synochat adapter instance.\nToegevoegd berichten voor ontvangen berichten van andere adapters.\nToegevoegd berichten voor objectenwaarden gerelateerd aan een geassocieerd kanaal.",
+		  "fr": "Fonction ajoutée pour réagir aux messages de Notification-Manager\nAjout de la fonctionnalité pour réagir sur les messages reçus généraux envoyés à l'instance d'adaptation de synochat.\nAjout de modèles de message pour les messages reçus d'autres adaptateurs.\nAjout de modèles de message pour les valeurs d'objets liées à un canal associé.",
+		  "it": "Funzione aggiunta per reagire ai messaggi da Notification-Manager\nFunzione aggiunta per reagire su messaggi ricevuti generali inviati all'istanza adattatore sinochat.\nAggiunti i modelli di messaggi per i messaggi ricevuti da altri adattatori.\nAggiunti i modelli di messaggi per i valori degli oggetti relativi a un canale associato.",
+		  "es": "Función agregada para reaccionar en los mensajes de Notification-Manager\nFunción agregada para reaccionar en general recibido mensajes enviados a la instancia de adaptador de sinochat.\nPlantillas de mensajes adicionales para mensajes recibidos de otros adaptadores.\nPlantillas de mensajes adicionales para los valores de objetos relacionados con un canal asociado.",
+		  "pl": "Wykorzystywanie zareagowało na wiadomości z Notification-Manager\nDodana cecha reagowania na ogólnych komunikatach wysyłanych do przykładu adaptera synochat.\nWtedy szablony wiadomości otrzymały wiadomości od innych adapterów.\nDodawane szablony wiadomości dla wartości obiektów związanych z kanałem.",
+		  "uk": "Додано функцію для реагування повідомлень від Notification-Manager\nДодана функція для реагування на загальних отриманих повідомленнях, надісланих на екземпляр адаптера synochat.\nДодано шаблони повідомлень для отримання повідомлень з інших адаптерів.\nДодано шаблони повідомлень для значень об'єкта, пов'язаних з пов'язаним каналом.",
+		  "zh-cn": "对通知-Manager的信息作出反应的附加特点\n对一般收到的信息作出反应的附加特点是发送给综合时代适应者。.\n添加了其他适应者收到信息的信息模板。.\n添加与相关渠道有关的物体价值的信息模板。."
 		},
-		"title": "Synology-Chat",
-		"titleLang": {
-			"en": "Synology-Chat",
-			"de": "Synology-Chat",
-			"ru": "Synology-Чат",
-			"pt": "Synology-Chat",
-			"nl": "Synology-Chat",
-			"fr": "Synology-Chat",
-			"it": "Synology-Chat",
-			"es": "Chat de Synology",
-			"pl": "Synology-Chat",
-			"zh-cn": "Synology-聊天"
+		"1.2.1": {
+		  "en": "The IP family check to determine the local IP address of the ioBroker instance has been adjusted.",
+		  "de": "Die IP-Familienprüfung zur Ermittlung der lokalen IP-Adresse der ioBroker-Instanz wurde angepasst.",
+		  "ru": "Проверка семейства IP-адресов для определения локального IP-адреса экземпляра ioBroker была скорректирована.",
+		  "pt": "A verificação da família IP para determinar o endereço IP local da instância ioBroker foi ajustada.",
+		  "nl": "De IP-familiecontrole om het lokale IP-adres van de ioBroker-instantie te bepalen, is aangepast.",
+		  "fr": "La vérification de la famille IP pour déterminer l'adresse IP locale de l'instance ioBroker a été ajustée.",
+		  "it": "Il controllo della famiglia IP per determinare l'indirizzo IP locale dell'istanza ioBroker è stato modificato.",
+		  "es": "Se ha ajustado la comprobación de la familia de IP para determinar la dirección IP local de la instancia de ioBroker.",
+		  "pl": "Sprawdzenie rodziny IP w celu określenia lokalnego adresu IP instancji ioBroker zostało dostosowane.",
+		  "zh-cn": "已调整用于确定 ioBroker 实例的本地 IP 地址的 IP 系列检查。"
 		},
-		"desc": {
-			"en": "This adapter provides an interface of Synology Chat and ioBroker.",
-			"de": "Dieser Adapter bietet eine Schnittstelle von Synology Chat und ioBroker.",
-			"ru": "Этот адаптер обеспечивает интерфейс Synology Chat и ioBroker.",
-			"pt": "Este adaptador fornece uma interface de Synology Chat e ioBroker.",
-			"nl": "Deze adapter biedt een interface van Synology Chat en ioBroker.",
-			"fr": "Cet adaptateur fournit une interface de Synology Chat et ioBroker.",
-			"it": "Questo adattatore fornisce un'interfaccia di Synology Chat e ioBroker.",
-			"es": "Este adaptador proporciona una interfaz de Synology Chat e ioBroker.",
-			"pl": "Ten adapter zapewnia interfejs Synology Chat i ioBroker.",
-			"zh-cn": "此适配器提供 Synology Chat 和 ioBroker 的接口。"
+		"1.2.0": {
+		  "en": "Added enhancement #6 - Delayed sending of messages has been added to work around the limitations of messages sent to the Synology Chat Server in a certain time interval.\nRegarding #6, a message queue has been added to ensure that the order of messages to be sent is respected when the sending of messages is delayed.\nImplementation of the [requirements](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) for adding the adapter in the ioBroker repository - Adding MIT license hint to the Readme.\nmplementation of the [requirements](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) for adding the adapter in the ioBroker repository - Moved adapter instance object subscription after initial connectivity check.\nImplementation of the [requirements](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) for adding the adapter in the ioBroker repository - Added exception handling to cover https://github.com/nodejs/node/issues/43014 in Nodejs 18\nImplementation of the [requirements](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127527703) for adding the adapter in the ioBroker repository - Added axios as dependency in package.json",
+		  "de": "Verbesserung Nr. 6 hinzugefügt – Verzögertes Senden von Nachrichten wurde hinzugefügt, um die Beschränkungen von Nachrichten zu umgehen, die in einem bestimmten Zeitintervall an den Synology Chat-Server gesendet werden.\nIn Bezug auf #6 wurde eine Nachrichtenwarteschlange hinzugefügt, um sicherzustellen, dass die Reihenfolge der zu sendenden Nachrichten eingehalten wird, wenn das Senden von Nachrichten verzögert wird.\nImplementierung der [Anforderungen](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) zum Hinzufügen des Adapters im ioBroker-Repository - Hinzufügen eines MIT-Lizenzhinweises zur Readme.\nImplementierung der [Anforderungen](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) zum Hinzufügen des Adapters im ioBroker-Repository – Abonnement des Adapterinstanzobjekts nach anfänglicher Verbindungsprüfung verschoben.\nImplementierung der [Anforderungen](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) zum Hinzufügen des Adapters im ioBroker-Repository – Ausnahmebehandlung hinzugefügt, um https://github.com abzudecken /nodejs/node/issues/43014 in Nodejs 18\nImplementierung der [Anforderungen](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127527703) zum Hinzufügen des Adapters im ioBroker-Repository – Axios als Abhängigkeit in package.json hinzugefügt",
+		  "ru": "Добавлено улучшение №6. Добавлена отложенная отправка сообщений, чтобы обойти ограничения сообщений, отправляемых на сервер Synology Chat Server в определенный интервал времени.\nЧто касается № 6, была добавлена очередь сообщений, чтобы гарантировать соблюдение порядка отправки сообщений, когда отправка сообщений задерживается.\nРеализация [требований](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) для добавления адаптера в репозиторий ioBroker — Добавление подсказки о лицензии MIT в файл Readme.\nреализация [требований](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) для добавления адаптера в репозиторий ioBroker — Перемещена подписка на объект экземпляра адаптера после первоначальной проверки подключения.\nРеализация [требований](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) для добавления адаптера в репозиторий ioBroker — добавлена обработка исключений для охвата https://github.com /nodejs/node/issues/43014 в Nodejs 18\nРеализация [требований](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127527703) для добавления адаптера в репозиторий ioBroker - Добавлены аксиомы как зависимость в package.json",
+		  "pt": "Aprimoramento adicionado nº 6 - O envio atrasado de mensagens foi adicionado para contornar as limitações de mensagens enviadas ao Synology Chat Server em um determinado intervalo de tempo.\nEm relação ao #6, foi adicionada uma fila de mensagens para garantir que a ordem das mensagens a serem enviadas seja respeitada quando o envio das mensagens estiver atrasado.\nImplementação dos [requisitos](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) para adicionar o adaptador no repositório ioBroker - Adicionando dica de licença MIT ao Readme.\nimplementação dos [requisitos](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) para adicionar o adaptador no repositório ioBroker - Subscrição de objeto de instância do adaptador movida após verificação de conectividade inicial.\nImplementação dos [requisitos](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) para adicionar o adaptador no repositório ioBroker - Adicionado tratamento de exceção para cobrir https://github.com /nodejs/node/issues/43014 no Nodejs 18\nImplementação dos [requisitos](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127527703) para adicionar o adaptador no repositório ioBroker - Adicionado axios como dependência no package.json",
+		  "nl": "Verbetering #6 toegevoegd - Uitgestelde verzending van berichten is toegevoegd om de beperkingen te omzeilen van berichten die in een bepaald tijdsinterval naar de Synology Chat Server worden verzonden.\nMet betrekking tot #6 is een berichtenwachtrij toegevoegd om ervoor te zorgen dat de volgorde van te verzenden berichten wordt gerespecteerd wanneer het verzenden van berichten wordt vertraagd.\nImplementatie van de [vereisten](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) voor het toevoegen van de adapter in de ioBroker-repository - MIT-licentiehint toevoegen aan de Readme.\nimplementatie van de [vereisten](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) voor het toevoegen van de adapter in de ioBroker-repository - Verplaatst adapterinstantie-objectabonnement na initiële connectiviteitscontrole.\nImplementatie van de [vereisten](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) voor het toevoegen van de adapter in de ioBroker-repository - Afhandeling van uitzonderingen toegevoegd om https://github.com te dekken /nodejs/node/issues/43014 in Nodejs 18\nImplementatie van de [vereisten](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127527703) voor het toevoegen van de adapter in de ioBroker-repository - Toegevoegde axios als afhankelijkheid in package.json",
+		  "fr": "Amélioration ajoutée n° 6 - L'envoi différé de messages a été ajouté pour contourner les limitations des messages envoyés au Synology Chat Server dans un certain intervalle de temps.\nConcernant #6, une file d'attente de messages a été ajoutée pour s'assurer que l'ordre des messages à envoyer est respecté lorsque l'envoi des messages est retardé.\nImplémentation des [exigences](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) pour ajouter l'adaptateur dans le référentiel ioBroker - Ajout d'un indice de licence MIT au fichier Lisezmoi.\nMise en œuvre des [exigences](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) pour ajouter l'adaptateur dans le référentiel ioBroker - Abonnement à l'objet d'instance d'adaptateur déplacé après la vérification initiale de la connectivité.\nImplémentation des [exigences](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) pour ajouter l'adaptateur dans le référentiel ioBroker - Ajout de la gestion des exceptions pour couvrir https://github.com /nodejs/node/issues/43014 dans Nodejs 18\nImplémentation des [exigences](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127527703) pour ajouter l'adaptateur dans le référentiel ioBroker - Ajout d'axios en tant que dépendance dans package.json",
+		  "it": "Aggiunto miglioramento n. 6 - È stato aggiunto l'invio ritardato dei messaggi per aggirare le limitazioni dei messaggi inviati al Synology Chat Server in un determinato intervallo di tempo.\nPer quanto riguarda #6, è stata aggiunta una coda di messaggi per garantire che l'ordine dei messaggi da inviare venga rispettato quando l'invio dei messaggi è ritardato.\nImplementazione dei [requirements](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) per l'aggiunta dell'adattatore nel repository ioBroker - Aggiunta di un suggerimento per la licenza MIT al Readme.\nimplementazione di [requirements](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) per l'aggiunta dell'adattatore nel repository ioBroker - Abbonamento oggetto istanza adattatore spostato dopo il controllo della connettività iniziale.\nImplementazione dei [requisiti](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) per l'aggiunta dell'adattatore nel repository ioBroker - Aggiunta la gestione delle eccezioni per coprire https://github.com /nodejs/node/issues/43014 in Nodejs 18\nImplementazione dei [requisiti](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127527703) per l'aggiunta dell'adattatore nel repository ioBroker - Aggiunto axios come dipendenza in package.json",
+		  "es": "Mejora añadida n.º 6: se ha añadido el envío retrasado de mensajes para solucionar las limitaciones de los mensajes enviados al Synology Chat Server en un determinado intervalo de tiempo.\nEn cuanto al #6, se ha agregado una cola de mensajes para garantizar que se respete el orden de envío de los mensajes cuando se retrasa el envío de mensajes.\nImplementación de los [requisitos](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) para agregar el adaptador en el repositorio de ioBroker: agregar una sugerencia de licencia de MIT al Léame.\nimplementación de los [requisitos](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) para agregar el adaptador en el repositorio de ioBroker: suscripción de objeto de instancia de adaptador movida después de la verificación de conectividad inicial.\nImplementación de los [requisitos](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) para agregar el adaptador en el repositorio de ioBroker - Manejo de excepciones agregado para cubrir https://github.com /nodejs/node/issues/43014 en Nodejs 18\nImplementación de los [requisitos](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127527703) para agregar el adaptador en el repositorio de ioBroker - Se agregó axios como dependencia en package.json",
+		  "pl": "Dodano ulepszenie nr 6 — Dodano opóźnione wysyłanie wiadomości w celu obejścia ograniczeń wiadomości wysyłanych do serwera Synology Chat w określonym przedziale czasu.\nW odniesieniu do punktu 6 dodano kolejkę wiadomości, aby zapewnić, że kolejność wiadomości do wysłania jest przestrzegana, gdy wysyłanie wiadomości jest opóźnione.\nImplementacja [wymagań](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) w celu dodania adaptera w repozytorium ioBroker - Dodawanie podpowiedzi do licencji MIT do pliku Readme.\nimplementacja [wymagań](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) w celu dodania adaptera w repozytorium ioBroker — przeniesiona subskrypcja obiektu instancji adaptera po wstępnym sprawdzeniu łączności.\nImplementacja [wymagań](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) do dodania adaptera w repozytorium ioBroker - Dodano obsługę wyjątków dla https://github.com /nodejs/node/issues/43014 w Nodejs 18\nImplementacja [wymagań](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127527703) do dodania adaptera w repozytorium ioBroker - Dodano axios jako zależność w package.json",
+		  "zh-cn": "添加了增强功能 #6 - 添加了延迟发送消息以解决在特定时间间隔内发送到 Synology Chat Server 的消息限制。\n关于#6，添加了一个消息队列，以确保在延迟发送消息时遵守要发送的消息顺序。\n在 ioBroker 存储库中添加适配器的 [要求](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) 的实施 - 将 MIT 许可证提示添加到自述文件。\n在 ioBroker 存储库中添加适配器的 [要求](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) 的实施 - 在初始连接检查后移动了适配器实例对象订阅。\n在 ioBroker 存储库中添加适配器的 [要求](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127520995) 的实施 - 添加了异常处理以涵盖 https://github.com /nodejs/node/issues/43014 在 Nodejs 18\n在 ioBroker 存储库中添加适配器的 [要求](https://github.com/ioBroker/ioBroker.repositories/pull/1759#issuecomment-1127527703) 的实现 - 在 package.json 中添加 axios 作为依赖项"
 		},
-		"authors": [
-			"phoeluga <phoeluga@gmail.com>"
-		],
-		"keywords": [
-			"Synology",
-			"Chat",
-			"message",
-			"incoming",
-			"outgoing",
-			"channel"
-		],
-		"license": "MIT",
-		"platform": "Javascript/Node.js",
-		"main": "main.js",
-		"icon": "synochat.png",
-		"enabled": true,
-		"extIcon": "https://raw.githubusercontent.com/phoeluga/ioBroker.synochat/master/admin/synochat.png",
-		"readme": "https://github.com/phoeluga/ioBroker.synochat/blob/master/README.md",
-		"loglevel": "info",
-		"webExtension": "lib/web.js",
-		"mode": "daemon",
-		"type": "messaging",
-		"compact": true,
-		"connectionType": "local",
-		"dataSource": "push",
-		"materialize": true,
-		"dependencies": [
-			{
-				"web": ">=3.0.12",
-				"js-controller": ">=2.0.0"
-			}
-		]
+		"1.1.1": {
+		  "en": "Fixed issue #4 - Issue while migrating data from version < 1.1.0\nAdded collecting and loading of default values when loading the initial configuration of the adapter instance\nThe channel search behavior has been adjusted to react accordingly to deactivated channels and to query the remaining channels.",
+		  "de": "Behobenes Problem Nr. 4 – Problem beim Migrieren von Daten von Version < 1.1.0\nSammeln und Laden von Standardwerten beim Laden der Erstkonfiguration der Adapterinstanz hinzugefügt\nDas Kanalsuchverhalten wurde angepasst, um auf deaktivierte Kanäle entsprechend zu reagieren und die verbleibenden Kanäle abzufragen.",
+		  "ru": "Исправлена проблема № 4 — проблема при переносе данных из версии < 1.1.0\nДобавлен сбор и загрузка значений по умолчанию при загрузке начальной конфигурации экземпляра адаптера\nПоведение поиска каналов было скорректировано, чтобы соответствующим образом реагировать на деактивированные каналы и запрашивать оставшиеся каналы.",
+		  "pt": "Corrigido o problema nº 4 - Problema ao migrar dados da versão < 1.1.0\nAdição de coleta e carregamento de valores padrão ao carregar a configuração inicial da instância do adaptador\nO comportamento de busca de canais foi ajustado para reagir de acordo com os canais desativados e para consultar os canais restantes.",
+		  "nl": "Probleem #4 opgelost - Probleem bij het migreren van gegevens van versie < 1.1.0\nVerzamelen en laden van standaardwaarden toegevoegd bij het laden van de initiële configuratie van de adapterinstantie\nHet zenderzoekgedrag is aangepast om overeenkomstig te reageren op gedeactiveerde zenders en om de overige zenders te bevragen.",
+		  "fr": "Problème résolu #4 - Problème lors de la migration des données depuis la version < 1.1.0\nAjout de la collecte et du chargement des valeurs par défaut lors du chargement de la configuration initiale de l'instance de l'adaptateur\nLe comportement de recherche de chaînes a été ajusté pour réagir en conséquence aux chaînes désactivées et pour interroger les chaînes restantes.",
+		  "it": "Risolto problema n. 4 - Problema durante la migrazione dei dati dalla versione < 1.1.0\nAggiunta la raccolta e il caricamento dei valori predefiniti durante il caricamento della configurazione iniziale dell'istanza dell'adattatore\nIl comportamento di ricerca dei canali è stato regolato per reagire di conseguenza ai canali disattivati e per interrogare i canali rimanenti.",
+		  "es": "Problema solucionado n.º 4: problema al migrar datos de la versión < 1.1.0\nSe agregó la recopilación y carga de valores predeterminados al cargar la configuración inicial de la instancia del adaptador.\nEl comportamiento de búsqueda de canales se ha ajustado para reaccionar en consecuencia a los canales desactivados y consultar los canales restantes.",
+		  "pl": "Naprawiono problem nr 4 - Problem podczas migracji danych z wersji < 1.1.0\nDodano zbieranie i ładowanie wartości domyślnych podczas ładowania początkowej konfiguracji instancji adaptera\nZachowanie wyszukiwania kanałów zostało dostosowane tak, aby odpowiednio reagować na dezaktywowane kanały i odpytywać pozostałe kanały.",
+		  "zh-cn": "修复了问题 #4 - 从版本 < 1.1.0 迁移数据时出现问题\n在加载适配器实例的初始配置时增加了默认值的收集和加载\n频道搜索行为已调整为对停用的频道做出相应反应并查询剩余频道。"
+		},
+		"1.1.0": {
+		  "en": "Added the ability to manage multiple channels in one adapter instance per Synology chat server.\nA possibility of ioBroker hostname / IP address configuration has been introduced. (May be helpful when using an ioBroker Docker instance).\nA functionality to receive incoming messages from the Synology chat server using WebHooks has been added. (An instance of the web adapter is required to use this feature)\nThe translation of the UI properties was added.\nAdded function to migrate channel data from an older version to a new channel object in the list approach.\nAdded possibility for a user to disable dedicated channels from being processed.",
+		  "de": "Möglichkeit hinzugefügt, mehrere Kanäle in einer Adapterinstanz pro Synology-Chatserver zu verwalten.\nEine Möglichkeit zur Konfiguration von ioBroker-Hostnamen / IP-Adressen wurde eingeführt. (Kann hilfreich sein, wenn Sie eine ioBroker Docker-Instanz verwenden).\nEine Funktion zum Empfangen eingehender Nachrichten vom Synology-Chatserver mit WebHooks wurde hinzugefügt. (Zur Verwendung dieser Funktion ist eine Instanz des Web Adaptors erforderlich.)\nDie Übersetzung der UI-Eigenschaften wurde hinzugefügt.\nFunktion hinzugefügt, um Kanaldaten von einer älteren Version in ein neues Kanalobjekt im Listenansatz zu migrieren.\nMöglichkeit für einen Benutzer hinzugefügt, die Verarbeitung dedizierter Kanäle zu deaktivieren.",
+		  "ru": "Добавлена возможность управлять несколькими каналами в одном экземпляре адаптера для каждого сервера чата Synology.\nДобавлена возможность настройки имени хоста / IP-адреса ioBroker. (Может быть полезно при использовании экземпляра ioBroker Docker).\nДобавлена возможность получать входящие сообщения с сервера чата Synology с помощью WebHooks. (Для использования этой функции требуется экземпляр веб-адаптера)\nДобавлен перевод свойств пользовательского интерфейса.\nДобавлена функция для переноса данных канала из более старой версии в новый объект канала в подходе списка.\nДобавлена возможность для пользователя отключить обработку выделенных каналов.",
+		  "pt": "Adicionada a capacidade de gerenciar vários canais em uma instância do adaptador por servidor de bate-papo Synology.\nUma possibilidade de configuração de nome de host/endereço IP do ioBroker foi introduzida. (Pode ser útil ao usar uma instância do ioBroker Docker).\nFoi adicionada uma funcionalidade para receber mensagens do servidor de bate-papo Synology usando WebHooks. (É necessária uma instância do adaptador da Web para usar esse recurso)\nA tradução das propriedades da interface do usuário foi adicionada.\nFunção adicionada para migrar dados de canal de uma versão mais antiga para um novo objeto de canal na abordagem de lista.\nAdicionada a possibilidade de um usuário desativar o processamento de canais dedicados.",
+		  "nl": "De mogelijkheid toegevoegd om meerdere kanalen in één adapterinstantie per Synology-chatserver te beheren.\nEen mogelijkheid voor ioBroker hostnaam / IP-adresconfiguratie is geïntroduceerd. (Kan handig zijn bij het gebruik van een ioBroker Docker-instantie).\nEr is een functionaliteit toegevoegd om inkomende berichten van de Synology-chatserver te ontvangen met behulp van WebHooks. (Een exemplaar van de webadapter is vereist om deze functie te gebruiken)\nDe vertaling van de UI-eigenschappen is toegevoegd.\nFunctie toegevoegd om kanaalgegevens van een oudere versie naar een nieuw kanaalobject in de lijstbenadering te migreren.\nMogelijkheid toegevoegd voor een gebruiker om de verwerking van toegewezen kanalen uit te schakelen.",
+		  "fr": "Ajout de la possibilité de gérer plusieurs canaux dans une instance d'adaptateur par serveur de discussion Synology.\nUne possibilité de configuration du nom d'hôte / de l'adresse IP ioBroker a été introduite. (Peut être utile lors de l'utilisation d'une instance ioBroker Docker).\nUne fonctionnalité permettant de recevoir des messages entrants du serveur de discussion Synology à l'aide de WebHooks a été ajoutée. (Une instance de l'adaptateur Web est requise pour utiliser cette fonctionnalité)\nLa traduction des propriétés de l'interface utilisateur a été ajoutée.\nAjout d'une fonction pour migrer les données de canal d'une ancienne version vers un nouvel objet de canal dans l'approche de liste.\nAjout de la possibilité pour un utilisateur de désactiver le traitement des canaux dédiés.",
+		  "it": "Aggiunta la possibilità di gestire più canali in un'istanza dell'adattatore per server di chat Synology.\nÈ stata introdotta una possibilità di configurazione del nome host/indirizzo IP di ioBroker. (Può essere utile quando si utilizza un'istanza ioBroker Docker).\nÈ stata aggiunta una funzionalità per ricevere i messaggi in arrivo dal server di chat Synology utilizzando WebHooks. (Per utilizzare questa funzione è necessaria un'istanza dell'adattatore Web)\nÈ stata aggiunta la traduzione delle proprietà dell'interfaccia utente.\nAggiunta funzione per migrare i dati del canale da una versione precedente a un nuovo oggetto canale nell'approccio elenco.\nAggiunta la possibilità per un utente di disabilitare l'elaborazione dei canali dedicati.",
+		  "es": "Se agregó la capacidad de administrar varios canales en una instancia de adaptador por servidor de chat de Synology.\nSe ha introducido la posibilidad de configurar el nombre de host/dirección IP de ioBroker. (Puede ser útil al usar una instancia de ioBroker Docker).\nSe ha agregado una funcionalidad para recibir mensajes entrantes del servidor de chat de Synology mediante WebHooks. (Se requiere una instancia del adaptador web para usar esta función)\nSe agregó la traducción de las propiedades de la interfaz de usuario.\nFunción agregada para migrar datos de canal de una versión anterior a un nuevo objeto de canal en el enfoque de lista.\nSe agregó la posibilidad de que un usuario deshabilite el procesamiento de canales dedicados.",
+		  "pl": "Dodano możliwość zarządzania wieloma kanałami w jednej instancji adaptera na serwer czatu firmy Synology.\nWprowadzono możliwość konfiguracji nazwy hosta / adresu IP w ioBroker. (Może być pomocne podczas korzystania z instancji ioBroker Docker).\nDodano funkcję odbierania wiadomości przychodzących z serwera czatu Synology za pomocą uchwytów WebHook. (Do korzystania z tej funkcji wymagana jest instancja karty sieciowej)\nDodano tłumaczenie właściwości interfejsu użytkownika.\nDodano funkcję migracji danych kanału ze starszej wersji do nowego obiektu kanału w podejściu listowym.\nDodano możliwość wyłączenia przez użytkownika przetwarzania dedykowanych kanałów.",
+		  "zh-cn": "添加了在每个 Synology 聊天服务器的一个适配器实例中管理多个通道的功能。\n引入了 ioBroker 主机名/IP 地址配置的可能性。 （在使用 ioBroker Docker 实例时可能会有所帮助）。\n添加了使用 WebHooks 从 Synology 聊天服务器接收传入消息的功能。 （使用此功能需要 Web 适配器实例）\n添加了 UI 属性的翻译。\n添加了将频道数据从旧版本迁移到列表方法中的新频道对象的功能。\n增加了用户禁用处理专用频道的可能性。"
+		},
+		"1.0.1": {
+		  "en": "Resolved issue #1 - Unable to send messages with special characters\nResolved issue #2 - Send images",
+		  "de": "Behobenes Problem Nr. 1 – Nachrichten mit Sonderzeichen können nicht gesendet werden\nBehobenes Problem Nr. 2 – Bilder senden",
+		  "ru": "Решенная проблема №1 — невозможно отправлять сообщения со специальными символами\nРешенная проблема № 2 – отправка изображений",
+		  "pt": "Problema resolvido nº 1 - Não é possível enviar mensagens com caracteres especiais\nProblema resolvido nº 2 - Enviar imagens",
+		  "nl": "Opgelost probleem #1 - Kan geen berichten met speciale tekens verzenden\nProbleem #2 opgelost - Afbeeldingen verzenden",
+		  "fr": "Problème résolu #1 - Impossible d'envoyer des messages avec des caractères spéciaux\nProblème résolu #2 - Envoyer des images",
+		  "it": "Risolto problema n. 1: impossibile inviare messaggi con caratteri speciali\nRisolto problema n. 2 - Invia immagini",
+		  "es": "Problema resuelto n.º 1: no se pueden enviar mensajes con caracteres especiales\nProblema resuelto #2 - Enviar imágenes",
+		  "pl": "Rozwiązany problem nr 1 – Nie można wysyłać wiadomości ze znakami specjalnymi\nRozwiązany problem nr 2 – Wyślij obrazy",
+		  "zh-cn": "已解决的问题 #1 - 无法发送带有特殊字符的消息\n已解决的问题 #2 - 发送图像"
+		},
+		"1.0.0": {
+		  "en": "Initial release",
+		  "de": "Erstveröffentlichung",
+		  "ru": "Первый выпуск",
+		  "pt": "lançamento inicial",
+		  "nl": "Eerste uitgave",
+		  "fr": "Première version",
+		  "it": "Versione iniziale",
+		  "es": "Versión inicial",
+		  "pl": "Pierwsze wydanie",
+		  "zh-cn": "初始发行"
+		},
+		"0.0.1": {
+		  "en": "Start of development",
+		  "de": "Beginn der Entwicklung",
+		  "ru": "Начало разработки",
+		  "pt": "Começo do desenvolvimento",
+		  "nl": "Begin van ontwikkeling",
+		  "fr": "Début du développement",
+		  "it": "Inizio dello sviluppo",
+		  "es": "Comienzo del desarrollo",
+		  "pl": "Początek rozwoju",
+		  "zh-cn": "开发开始"
+		}
+	  },
+	  "title": "Synology-Chat",
+	  "titleLang": {
+		"en": "Synology-Chat",
+		"de": "Synology-Chat",
+		"ru": "Synology-Чат",
+		"pt": "Synology-Chat",
+		"nl": "Synology-Chat",
+		"fr": "Synology-Chat",
+		"it": "Synology-Chat",
+		"es": "Chat de Synology",
+		"pl": "Synology-Chat",
+		"zh-cn": "Synology-聊天"
+	  },
+	  "desc": {
+		"en": "This adapter provides an interface of Synology Chat and ioBroker.",
+		"de": "Dieser Adapter bietet eine Schnittstelle von Synology Chat und ioBroker.",
+		"ru": "Этот адаптер обеспечивает интерфейс Synology Chat и ioBroker.",
+		"pt": "Este adaptador fornece uma interface de Synology Chat e ioBroker.",
+		"nl": "Deze adapter biedt een interface van Synology Chat en ioBroker.",
+		"fr": "Cet adaptateur fournit une interface de Synology Chat et ioBroker.",
+		"it": "Questo adattatore fornisce un'interfaccia di Synology Chat e ioBroker.",
+		"es": "Este adaptador proporciona una interfaz de Synology Chat e ioBroker.",
+		"pl": "Ten adapter zapewnia interfejs Synology Chat i ioBroker.",
+		"zh-cn": "此适配器提供 Synology Chat 和 ioBroker 的接口。"
+	  },
+	  "authors": [
+		"phoeluga <phoeluga@gmail.com>"
+	  ],
+	  "keywords": [
+		"Synology",
+		"Chat",
+		"message",
+		"incoming",
+		"outgoing",
+		"channel"
+	  ],
+	  "license": "MIT",
+	  "platform": "Javascript/Node.js",
+	  "main": "main.js",
+	  "icon": "synochat.png",
+	  "enabled": true,
+	  "extIcon": "https://raw.githubusercontent.com/phoeluga/ioBroker.synochat/master/admin/synochat.png",
+	  "readme": "https://github.com/phoeluga/ioBroker.synochat/blob/master/README.md",
+	  "loglevel": "info",
+	  "webExtension": "lib/web.js",
+	  "mode": "daemon",
+	  "type": "messaging",
+	  "compact": true,
+	  "connectionType": "local",
+	  "dataSource": "push",
+	  "materialize": true,
+	  "messagebox": true,
+	  "dependencies": [
+		{
+		  "web": ">=3.0.12",
+		  "js-controller": ">=2.0.0"
+		}
+	  ],
+	  "globalDependencies": [
+		{
+		  "admin": ">=5.0.0"
+		}
+	  ],
+	  "supportedMessages": {
+		"custom": true,
+		"notifications": true
+	  }
 	},
 	"native": {
-		"synoUrl": "",
-		"certCheck": true,
-		"iobrokerHost": "",
-		"webInstance": "",
-		"channelName": "",
-		"channelToken": "",
-		"channelType": "",
-		"channelContentCertCheck": true,
-		"channels": [
-			{
-			  "channelEnabled": true,
-			  "channelName": "",
-			  "channelAccessToken": "",
-			  "channelType": "incoming",
-			  "channelValidateCert": true
-			}
-		]
+	  "synoUrl": "",
+	  "certCheck": true,
+	  "iobrokerHost": "",
+	  "webInstance": "",
+	  "channelName": "",
+	  "channelToken": "",
+	  "channelType": "",
+	  "channelContentCertCheck": true,
+	  "channels": [
+		{
+		  "channelEnabled": true,
+		  "channelName": "",
+		  "channelAccessToken": "",
+		  "channelType": "incoming",
+		  "channelObjectValueTemplate": "",
+		  "channelReactOnNotificationmanager": false,
+		  "channelReactOnAllIobrokerMessages": false,
+		  "channelValidateCert": true
+		}
+	  ],
+	  "receivedNotificationManagerTemplate": "Message from Notification-Manager:\n- ${message.category.name} -\n${message.category.description}\nAffected instances: ${instances}",
+	  "receivedMessageTemplate": "Message from ioBroker-${from} via ${command}:\n${message}",
+	  "messageTemplate0": "",
+	  "messageTemplate1": "",
+	  "messageTemplate2": "",
+	  "messageTemplate3": "",
+	  "messageTemplate4": "",
+	  "messageTemplate5": "",
+	  "messageTemplate6": "",
+	  "messageTemplate7": "",
+	  "messageTemplate8": "",
+	  "messageTemplate9": ""
 	},
 	"objects": [],
 	"instanceObjects": [
-        {
-            "_id": "info",
-            "type": "channel",
-            "common": {
-                "name": "Information"
-            },
-            "native": {}
-        },
-        {
-            "_id": "info.connection",
-            "type": "state",
-            "common": {
-                "role": "indicator.connected",
-                "name": "Synology chat instance ready for use",
-                "type": "boolean",
-                "read": true,
-                "write": false,
-                "def": false
-            },
-            "native": {}
-        }
+	  {
+		"_id": "info",
+		"type": "channel",
+		"common": {
+		  "name": "Information"
+		},
+		"native": {}
+	  },
+	  {
+		"_id": "info.connection",
+		"type": "state",
+		"common": {
+		  "role": "indicator.connected",
+		  "name": "Synology chat instance ready for use",
+		  "type": "boolean",
+		  "read": true,
+		  "write": false,
+		  "def": false
+		},
+		"native": {}
+	  }
 	]
-}
+  }

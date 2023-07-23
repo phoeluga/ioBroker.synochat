@@ -1,4 +1,6 @@
-/*global systemDictionary:true */
+/* eslint no-unused-vars: off */
+/* eslint no-global-assign: off */
+/* global systemDictionary */
 "use strict";
 
 systemDictionary = {
@@ -25,8 +27,8 @@ systemDictionary = {
 		"es": "Gestión de canales",
 		"pl": "Zarządzanie kanałami",
 		"zh-cn": "渠道管理"
-	  },
-	  "Help": {
+	},
+	"Help": {
 		"en": "Help",
 		"de": "Hilfe",
 		"ru": "Помощь",
@@ -37,8 +39,8 @@ systemDictionary = {
 		"es": "Ayudar",
 		"pl": "Pomoc",
 		"zh-cn": "帮助"
-	  },
-	  "Synology URL/IP": {
+	},
+	"Synology URL/IP": {
 		"en": "Synology URL/IP",
 		"de": "Synology-URL/IP",
 		"ru": "URL-адрес/IP-адрес Synology",
@@ -49,8 +51,8 @@ systemDictionary = {
 		"es": "URL/IP de Synology",
 		"pl": "Adres URL/IP firmy Synology",
 		"zh-cn": "Synology URL/IP"
-	  },
-	  "Validate SSL certificate": {
+	},
+	"Validate SSL certificate": {
 		"en": "Validate SSL certificate",
 		"de": "SSL-Zertifikat validieren",
 		"ru": "Проверить SSL-сертификат",
@@ -61,8 +63,8 @@ systemDictionary = {
 		"es": "Validar certificado SSL",
 		"pl": "Zweryfikuj certyfikat SSL",
 		"zh-cn": "验证 SSL 证书"
-	  },
-	  "Hostname / IP address of ioBroker instance": {
+	},
+	"Hostname / IP address of ioBroker instance": {
 		"en": "Hostname / IP address of ioBroker instance",
 		"de": "Hostname / IP-Adresse der ioBroker-Instanz",
 		"ru": "Имя хоста/IP-адрес экземпляра ioBroker",
@@ -73,8 +75,8 @@ systemDictionary = {
 		"es": "Nombre de host/dirección IP de la instancia de ioBroker",
 		"pl": "Nazwa hosta / adres IP instancji ioBroker",
 		"zh-cn": "ioBroker 实例的主机名/IP 地址"
-	  },
-	  "Web instance for messages send from Synology chat to ioBroker adapter instance": {
+	},
+	"Web instance for messages send from Synology chat to ioBroker adapter instance": {
 		"en": "Web instance for messages send from Synology chat to ioBroker adapter instance",
 		"de": "Webinstanz für Nachrichten, die vom Synology-Chat an die ioBroker-Adapterinstanz gesendet werden",
 		"ru": "Веб-экземпляр для отправки сообщений из чата Synology в экземпляр адаптера ioBroker",
@@ -85,8 +87,8 @@ systemDictionary = {
 		"es": "Instancia web para mensajes enviados desde el chat de Synology a la instancia del adaptador ioBroker",
 		"pl": "Instancja internetowa dla wiadomości wysyłanych z czatu Synology do instancji adaptera ioBroker",
 		"zh-cn": "从 Synology 聊天发送到 ioBroker 适配器实例的消息的 Web 实例"
-	  },
-	  "NOTE: The WebHook URL for receiving data from Synology chat server can be found as object value of 'ADAPTER_INSTANCE.info.webHookUrl' for this adapter instance.": {
+	},
+	"NOTE: The WebHook URL for receiving data from Synology chat server can be found as object value of 'ADAPTER_INSTANCE.info.webHookUrl' for this adapter instance.": {
 		"en": "NOTE:\nThe WebHook URL for receiving data from Synology chat server can be found as object value of 'ADAPTER_INSTANCE.info.webHookUrl' for this adapter instance.",
 		"de": "HINWEIS:\nDie WebHook-URL zum Empfangen von Daten vom Synology-Chatserver kann als Objektwert von „ADAPTER_INSTANCE.info.webHookUrl“ für diese Adapterinstanz gefunden werden.",
 		"ru": "ПРИМЕЧАНИЕ:\nURL-адрес WebHook для получения данных от сервера чата Synology можно найти как значение объекта ADAPTER_INSTANCE.info.webHookUrl для этого экземпляра адаптера.",
@@ -97,8 +99,8 @@ systemDictionary = {
 		"es": "NOTA:\nLa URL de WebHook para recibir datos del servidor de chat de Synology se puede encontrar como valor de objeto de 'ADAPTER_INSTANCE.info.webHookUrl' para esta instancia de adaptador.",
 		"pl": "UWAGA:\nAdres URL elementu WebHook do odbierania danych z serwera czatu firmy Synology można znaleźć jako wartość obiektu „ADAPTER_INSTANCE.info.webHookUrl” dla tej instancji adaptera.",
 		"zh-cn": "笔记：\n用于从 Synology 聊天服务器接收数据的 WebHook URL 可以作为此适配器实例的“ADAPTER_INSTANCE.info.webHookUrl”的对象值找到。"
-	  },
-	  "Channel name": {
+	},
+	"Channel name": {
 		"en": "Channel name",
 		"de": "Kanal Name",
 		"ru": "Название канала",
@@ -109,8 +111,8 @@ systemDictionary = {
 		"es": "Nombre del Canal",
 		"pl": "Nazwa kanału",
 		"zh-cn": "频道名称"
-	  },
-	  "Access token": {
+	},
+	"Access token": {
 		"en": "Access token",
 		"de": "Zugangstoken",
 		"ru": "Токен доступа",
@@ -121,8 +123,8 @@ systemDictionary = {
 		"es": "ficha de acceso",
 		"pl": "Token dostępu",
 		"zh-cn": "访问令牌"
-	  },
-	  "Channel type": {
+	},
+	"Channel type": {
 		"en": "Channel type",
 		"de": "Kanaltyp",
 		"ru": "Тип канала",
@@ -133,8 +135,8 @@ systemDictionary = {
 		"es": "Tipo de canal",
 		"pl": "Typ kanału",
 		"zh-cn": "渠道类型"
-	  },
-	  "Channel enabled": {
+	},
+	"Channel enabled": {
 		"en": "Channel enabled",
 		"de": "Kanal aktiviert",
 		"ru": "Канал включен",
@@ -145,5 +147,96 @@ systemDictionary = {
 		"es": "Canal habilitado",
 		"pl": "Kanał włączony",
 		"zh-cn": "启用频道"
-	  }
+	},
+	"Object value template": {
+		"en": "Object value template",
+		"de": "Vorlage des Werts",
+		"ru": "Шаблон ценности объекта",
+		"pt": "Modelo de valor de objeto",
+		"nl": "Object waarde temp",
+		"fr": "Modèle de valeur d ' objet",
+		"it": "Modello di valore oggetti",
+		"es": "Plantilla de valor de objetos",
+		"pl": "Wartość obiektywna",
+		"uk": "Шаблон значень об'єкта",
+		"zh-cn": "目标模板"
+	},
+	"React on Notification-Manager": {
+		"en": "React on Notification-Manager",
+		"de": "Reaktion auf den Notification-Manager",
+		"ru": "React на Notification-Manager",
+		"pt": "Reagir no Gerenciador de Notificações",
+		"nl": "Reageer op Notificatie-Manager",
+		"fr": "React on Notification-Manager",
+		"it": "Reazione su Notificazione-Manager",
+		"es": "React on Notification-Manager",
+		"pl": "Oficjalna strona Notification-Manager",
+		"uk": "Реакція на Notification-Manager",
+		"zh-cn": "对通知-Manager的答复"
+	},
+	"React on all ioBroker messages": {
+		"en": "React on all ioBroker messages",
+		"de": "Reaktion auf alle ioBroker-Nachrichten",
+		"ru": "React на все сообщения ioBroker",
+		"pt": "Reagir em todas as mensagens ioBroker",
+		"nl": "Reageer op alle ioBroker berichten",
+		"fr": "Réagir sur tous les messages ioBroker",
+		"it": "Reagisci su tutti i messaggi ioBroker",
+		"es": "Reaccionar en todos los mensajes de ioBroker",
+		"pl": "Wszystkie wiadomości ioBrokera",
+		"uk": "Реакція на всіх ioBroker повідомлень",
+		"zh-cn": "对所有ioBroker信息的反应"
+	},
+	"Message templates": {
+		"en": "Message templates",
+		"de": "Nachrichtenvorlage",
+		"ru": "Шаблоны сообщений",
+		"pt": "Modelos de mensagens",
+		"nl": "Vertaling:",
+		"fr": "Modèles de messages",
+		"it": "Modelli di messaggio",
+		"es": "Plantillas de mensajes",
+		"pl": "Szablon Message",
+		"uk": "Шаблони повідомлень",
+		"zh-cn": "导 言模板"
+	},
+	"Template for sending messages received via ioBroker Notification-Manager": {
+		"en": "Template for sending messages received via ioBroker Notification-Manager",
+		"de": "Vorlage zum Senden von über ioBroker Notification-Manager empfangenen Nachrichten",
+		"ru": "Шаблон для отправки сообщений, полученных через ioBroker Notification-Manager",
+		"pt": "Modelo para enviar mensagens recebidas via ioBroker Notificação-Manager",
+		"nl": "Vertaling:",
+		"fr": "Modèle d'envoi de messages reçus par ioBroker Notification-Manager",
+		"it": "Template per l'invio di messaggi ricevuti via ioBroker Notifica-Manager",
+		"es": "Plantilla para enviar mensajes recibidos a través de ioBroker Notification-Manager",
+		"pl": "Przesłanie wiadomości otrzymało za ioBroker Notification-Manager",
+		"uk": "Шаблон відправки повідомлень, отриманих через ioBroker Notification-Manager",
+		"zh-cn": "通过OioBroker通知-Manager收到的发信的实例"
+	},
+	"Template for sending messages of all other received messages": {
+		"en": "Template for sending messages of all other received messages",
+		"de": "Vorlage zum Senden von Nachrichten aller anderen empfangenen Nachrichten",
+		"ru": "Шаблон для отправки сообщений всех других полученных сообщений",
+		"pt": "Modelo para enviar mensagens de todas as outras mensagens recebidas",
+		"nl": "Vertaling:",
+		"fr": "Template for sending messages of all other received messages",
+		"it": "Template per l'invio di messaggi di tutti gli altri messaggi ricevuti",
+		"es": "Plantilla para enviar mensajes de todos los demás mensajes recibidos",
+		"pl": "Za wysłanie komunikatów wszystkich pozostałych otrzymało wiadomości",
+		"uk": "Шаблон відправки повідомлень всіх інших отриманих повідомлень",
+		"zh-cn": "发送所有其他收到的信息的实例"
+	},
+	"An adapter instance can receive messages. These messages consist of an object with several attributes that can be included as parameters in a message template. These parameters are replaced accordingly before the message is sent. <br><br> A detailed description of the usage of patterns, escaping patterns and restrictions can be found in the Help section - Chapter 2.2.3 Message templates.": {
+		"en": "An adapter instance can receive messages. These messages consist of an object with several attributes that can be included as parameters in a message template. These parameters are replaced accordingly before the message is sent. <br><br> A detailed description of the usage of patterns, escaping patterns and restrictions can be found in the Help section - Chapter 2.2.3 Message templates.",
+		"de": "Eine Adapterinstanz kann Nachrichten empfangen. Diese Nachrichten bestehen aus einem Objekt mit mehreren Attributen, die als Parameter in einer Nachrichtenvorlage enthalten sein können. Diese Parameter werden entsprechend ersetzt, bevor die Nachricht gesendet wird. br>br Eine detaillierte Beschreibung der Verwendung von Mustern, Entweichungsmustern und Einschränkungen finden Sie im Hilfebereich - Kapitel 2.2.3 Vorlagen.",
+		"ru": "Пример адаптера может получать сообщения. Эти сообщения состоят из объекта с несколькими атрибутами, которые могут быть включены в качестве параметров в шаблоне сообщений. Эти параметры заменены соответственно до отправки сообщения. br><br Подробное описание использования шаблонов, картин и ограничений можно найти в разделе Помощь - Глава 2.2.3 Шаблоны сообщений.",
+		"pt": "Uma instância do adaptador pode receber mensagens. Estas mensagens consistem em um objeto com vários atributos que podem ser incluídos como parâmetros em um modelo de mensagem. Estes parâmetros são substituídos de acordo antes que a mensagem seja enviada. br><br Uma descrição detalhada do uso de padrões, escapando padrões e restrições pode ser encontrada na seção Ajuda - Capítulo 2.2.3 Modelos de mensagens.",
+		"nl": "Een adapter kan berichten ontvangen. Deze berichten bevatten een object met verschillende attributen die kunnen worden gebruikt als parameters in een boodschap tempet. Deze parameters zijn volgens de boodschap vervangen. Een gedetailleerde beschrijving van het gebruik van patronen, ontsnappingspatronen en beperkingen kunnen gevonden worden in de Help sectie - hoofdstuk 2,2,3 Message templat.",
+		"fr": "Une instance d'adaptation peut recevoir des messages. Ces messages se composent d'un objet avec plusieurs attributs qui peuvent être inclus comme paramètres dans un modèle de message. Ces paramètres sont remplacés en conséquence avant l'envoi du message. brossage Une description détaillée de l'utilisation des motifs, des motifs d'échappement et des restrictions peut être trouvée dans la section Aide - Chapitre 2.2.3 Modèles de messages.",
+		"it": "Un'istanza adattatore può ricevere messaggi. Questi messaggi sono costituiti da un oggetto con diversi attributi che possono essere inclusi come parametri in un modello di messaggio. Questi parametri vengono sostituiti di conseguenza prima dell'invio del messaggio. br> <br Una descrizione dettagliata dell'uso dei modelli, escaping modelli e restrizioni possono essere trovati nella sezione Guida - Capitolo 2.2.3 Modelli di messaggio.",
+		"es": "Una instancia de adaptador puede recibir mensajes. Estos mensajes consisten en un objeto con varios atributos que se pueden incluir como parámetros en una plantilla de mensaje. Estos parámetros se reemplazan en consecuencia antes de enviar el mensaje. br contactos obtenidosbr Una descripción detallada del uso de patrones, patrones de escape y restricciones se puede encontrar en la sección Ayuda - Capítulo 2.2.3 Plantillas de mensaje.",
+		"pl": "Adaptacja może otrzymać wiadomości. Wiadomości te składają się z obiektu z kilkoma atrybutami, które mogą być zawarte jako parametry w szablonie wiadomości. Parametry te są zastąpione w zależności od przekazu wiadomości. br><br – szczegółowy opis użycia wzorów, wyczerpujących wzorców i restrykcji można znaleźć w sekcji Help – Chapter 2.2.3 Message.",
+		"uk": "Екземпляр адаптера може отримувати повідомлення. Ці повідомлення складаються з об'єкта з декількома атрибутами, які можуть бути включені в якості параметрів в шаблоні повідомлення. Ці параметри заміщуються відповідно до повідомлення. br><br Детальний опис використання візерунків, схем і обмежень можна знайти в розділі Довідка - Розділ 2.2.3 Шаблони повідомлень.",
+		"zh-cn": "适应者可以收到信息。 这些信息包括一个物体,其特点可以包括作为信息模板的参数。 这些参数在发出该信息之前被相应取代。 导 言."
+	}
 };
