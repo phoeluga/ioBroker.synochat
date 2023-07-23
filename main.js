@@ -313,7 +313,20 @@ class Synochat extends utils.Adapter {
 			for (let i = 0; i < this.config.channels.length; i++) {
 				if(this.config.channels[i].channelReactOnNotificationmanager == true){
 					this.log.debug(`Found channel '${this.config.channels[i].channelName}' for requested message to react on messages from Notification-Manager.`);
-					sendingResult = await this.enqueueAndSendMessage(i, obj, msgUuid, this.config.receivedNotificationMamagerTemplate);
+					
+					// Telegram default text from Notificaiton-Manager messages:
+					//const subject = obj.message.category.name;
+					//const { instances } = obj.message.category;
+					//
+					//const readableInstances = Object.entries(instances).map(([instance, entry]) => `${instance.substring('system.adapter.'.length)}`);
+					//const text = `${obj.message.category.description}
+					//	${obj.message.host}:   
+					//	${readableInstances.join('\n')}
+					//`;
+					// sample: *Issues with RAM availability* Your system is running out of memory. Please check the number of running adapters and processes or if single processes need too many memory. system.host.iobroker: notification-manager.0
+					//const msg = `*${subject}*\n\n${text}`
+
+					sendingResult = await this.enqueueAndSendMessage(i, obj, msgUuid, this.config.receivedNotificationManagerTemplate);
 					if (!sendingResult){
 						this.sendTo(obj.from, "sendNotification", { sent: false }, obj.callback);
 						this.log.error(`Unable to send the received message '${obj._id}' from Notification-Manager! > Request will not be processed!`);
@@ -404,17 +417,17 @@ class Synochat extends utils.Adapter {
 			return "Unable to parse provided object message to JSON!";
 		}
 
-		let maxItter = 1000;
+		let maxItter = 100000;
 		while(formatTemplate.match(/\$\{(.+?)\}/) && maxItter > 0){
 			let wholeMatch = formatTemplate.match(/\$\{(.+?)\}/)[1];
 			let currentMatch = wholeMatch.split(".")[0];
 
 			if(wholeMatch === currentMatch){
-				let replaceValue = currentMatch.split(".").reduce(function(o, k) { return o && o[k]; }, obj);
+				var replaceValue = currentMatch.split('.').reduce(function(o, k) { return o && o[k]; }, obj);
 				formatTemplate = formatTemplate.replaceAll(String("${" + currentMatch + "}"), String(replaceValue));
 
 			} else {
-				let maxItterB = 1000;
+				let maxItterB = 100000;
 				while(formatTemplate.match(`\\$\\{${currentMatch}\\.(.+?)\\}`) && maxItter > 0){
 					let replacePattern = currentMatch + "." + formatTemplate.match(`\\$\\{${currentMatch}\\.(.+?)\\}`)[1];
 					// https://stackoverflow.com/questions/37611143/access-json-data-with-string-path
@@ -442,12 +455,19 @@ class Synochat extends utils.Adapter {
 
 	formatReceivedOnMessageData(obj, formatTemplate){
 		let formattedMessage = formatTemplate;
+
+		if(formatTemplate === this.config.receivedNotificationManagerTemplate){
+			const { instances } = obj.message.category;
+			const readableInstances = Object.entries(instances).map(([instance, entry]) => `${instance.substring("system.adapter.".length)}`);
+			formattedMessage = formattedMessage.replaceAll("${instances}", String(readableInstances.join(", ")));
+		}
+
 		formattedMessage = formattedMessage.replaceAll("${command}", String(obj.command));
 		formattedMessage = formattedMessage.replaceAll("${from}", String(obj.from));
 		formattedMessage = formattedMessage.replaceAll("${_id}", String(obj._id));
 		formattedMessage = formattedMessage.replaceAll("${message}", String(JSON.stringify(obj.message, undefined, 4)));
 
-		let maxItter = 1000;
+		let maxItter = 100000;
 		while(formattedMessage.match(/\$\{message\.(.+?)\}/) && maxItter > 0){
 			let replacePattern = formattedMessage.match(/\$\{message\.(.+?)\}/)[1];
 			let replaceValue = replacePattern.split(".").reduce(function(o, k) { return o && o[k.replaceAll("/-", ".")]; }, obj.message);

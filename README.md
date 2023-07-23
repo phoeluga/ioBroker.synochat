@@ -257,7 +257,15 @@ For more details on how to handle integrations within Synology chat, please refe
         
 		As per description, the Notification-Manager will provide its own message object embedded in the `message` attribute as part of the `iobroker.Message`.
 
-		You can access these data via the `message` attribute by using the pattern `${message.NOTIFICATION_MANAGER_ATTRIBUTES}`. More details on what 
+		You can access these data via the `message` attribute by using the pattern `${message.NOTIFICATION_MANAGER_ATTRIBUTES}`.
+
+		**Available patterns:**
+
+		* `${command}` - Pattern related to the `iobroker.Message` object
+		* `${message}` - Pattern related to the `iobroker.Message` object
+		* `${from}` - Pattern related to the `iobroker.Message` object
+		* `${_id}` - Pattern related to the `iobroker.Message` object
+		* `${instances}` - Pattern will be replaced with a list of instances related to the received notification of the Notification-Manager
 
         More information about the structure of the [Notification-Manager](https://github.com/foxriver76/ioBroker.notification-manager) message object can be found in the [README](https://github.com/foxriver76/ioBroker.notification-manager).
         
@@ -283,12 +291,14 @@ For more details on how to handle integrations within Synology chat, please refe
         }
 		```
     
-		From this object itself it is possible to use the following patterns to access the values of the related attributes:
+		From this object itself it is possible to use the following patterns to access the values of the related attributes.
 
-		* `${command}`
-		* `${message}`
-		* `${from}`
-		* `${_id}`
+		**Available patterns:**
+
+		* `${command}` - Pattern related to the `iobroker.Message` object
+		* `${message}` - Pattern related to the `iobroker.Message` object
+		* `${from}` - Pattern related to the `iobroker.Message` object
+		* `${_id}` - Pattern related to the `iobroker.Message` object
 
         The pattern `${message}` is always the one what will contain the information from the corresponding sender. If the message is only containing a `String` you only need to provide the pattern `${message}`. Is it providing a JSON value you can also access the inner attributes by providing the path to the value like `${message.foo.bar}`.
 
@@ -301,6 +311,10 @@ For more details on how to handle integrations within Synology chat, please refe
 		The JSON attributes can be accessed by providing the path to the value as a pattern like `${foo.bar}`.
 
 		A template can be associated to a channel in the [Channel configuration](#channel-configuration).
+
+		**Available patterns:**
+
+		The available patterns are related to the customer JSON value that will be provided to the channel message object.
 
 	#### 2.2.4. Help:
    	* This tab usually redirects to the official GitHub page of this project, where detailed help and usage instructions are given.
