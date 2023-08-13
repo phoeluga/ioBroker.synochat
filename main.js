@@ -157,12 +157,44 @@ class Synochat extends utils.Adapter {
 			this.log.info("Instance configuration check passed!");
 			this.log.info("Checking and creating object resources...");
 
-			// Create configured channel ressources
+			// Create configured channel resources
+			let coveredChannels = [];
 			for (let i = 0; i < this.config.channels.length; i++) {
-				await this.setObjectNotExistsAsync(this.config.channels[i].channelName, {
+				if (coveredChannels.includes(i)) {
+					continue;
+				}
+
+				let infoText = this.config.channels[i].channelType + " messages";
+
+				try {
+					switch (this.config.channels[i].channelType.toLowerCase()) {
+						case "incoming":
+							infoText = "sending messages to the Synology chat server";
+							break;
+						case "outgoing":
+							infoText = "receiving messages from the Synology chat server";
+							break;
+					}
+
+					if (i < (this.config.channels.length - 1)) {
+						for (let j = (i+1); j < this.config.channels.length; j++) {
+							if(this.config.channels[i].channelName == this.config.channels[j].channelName){
+								coveredChannels.push(j);
+								infoText = "bidirectional communication";
+								break;
+							}
+						}
+					}
+
+				} catch (e) {
+					this.log.warn(`Unable to parse provided object type for parrent message object descriotion! Set to default! ${e}`);
+					infoText = this.config.channels[i].channelType + " messages";
+				}
+
+				await this.setObjectAsync(this.config.channels[i].channelName, {
 					type: "folder",
 					common: {
-						name: "Synology chat channel for " + this.config.channels[i].channelType + " messages",
+						name: "Synology chat channel for " + infoText,
 					},
 					native: {},
 				});
