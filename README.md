@@ -392,6 +392,7 @@ Since this adapter is using a `web` adapter instance to provide web hooks to the
 ### 1.3.1 (2023-08-13)
 - *[@phoeluga]* Fixed TypeError issue with empty initial value of outgoing channels - #13
 - *[@phoeluga]* Updated information about handling of outgoing channels - #14
+- *[@phoeluga]* Fixed special character escaping issue - #16
 - *[@phoeluga]* Added text mapping for 'human readable' descriptions of the message parent objects - #14
 
 ### 1.3.0 (2023-07-23)
