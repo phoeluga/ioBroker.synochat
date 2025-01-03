@@ -164,12 +164,16 @@
 	  "compact": true,
 	  "connectionType": "local",
 	  "dataSource": "push",
+	  "adminUI": {
+            "config": "materialize"
+        },
+        "eraseOnUpload": true,
 	  "materialize": true,
 	  "messagebox": true,
 	  "dependencies": [
 		{
 		  "web": ">=3.0.12",
-		  "js-controller": ">=2.0.0"
+		  "js-controller": ">=3.3.22"
 		}
 	  ],
 	  "globalDependencies": [
