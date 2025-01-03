@@ -389,6 +389,12 @@ Since this adapter is using a `web` adapter instance to provide web hooks to the
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### 1.3.2 (2025-01-04)
+- *[@phoeluga]* Fixed TypeError issue with empty initial value of outgoing channels - #13
+- *[@phoeluga]* Updated information about handling of outgoing channels - #14
+- *[@phoeluga]* Fixed special character escaping issue - #16
+- *[@phoeluga]* Added text mapping for 'human readable' descriptions of the message parent objects - #14
+
 ### 1.3.1 (2023-08-13)
 - *[@phoeluga]* Fixed TypeError issue with empty initial value of outgoing channels - #13
 - *[@phoeluga]* Updated information about handling of outgoing channels - #14
