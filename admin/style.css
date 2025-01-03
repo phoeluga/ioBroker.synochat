@@ -12,10 +12,12 @@
 	height: 100%;
 	width: 100%;
 	position: relative;
+	overflow-y: scroll;
 }
 .m .select-wrapper + label {
 	/* The positioning for dropdown labels is messed up */
 	transform: none !important;
+	top: 100%;
 }
 
 label > i[title] {

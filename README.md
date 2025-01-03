@@ -390,10 +390,14 @@ Since this adapter is using a `web` adapter instance to provide web hooks to the
     ### **WORK IN PROGRESS**
 -->
 ### 1.3.2 (2025-01-04)
-- *[@phoeluga]* Fixed TypeError issue with empty initial value of outgoing channels - #13
-- *[@phoeluga]* Updated information about handling of outgoing channels - #14
-- *[@phoeluga]* Fixed special character escaping issue - #16
-- *[@phoeluga]* Added text mapping for 'human readable' descriptions of the message parent objects - #14
+- *[@phoeluga]* Fixed issue with 5 digit port number when using a IP for property - *[@phoeluga]* Synology URL/IP - #20
+- *[@phoeluga]* Addressed W[171],W[105],W[109] - #18
+- *[@phoeluga]* Updated admin style.css and classes to support scrolling on mobile - *[@phoeluga]* device view - #24
+- *[@phoeluga]* Updated several dependencies to met the current overall config - #21
+- *[@phoeluga]* Update test-workflow to be prepared for Node.js v22 - #22
+- *[@phoeluga]* Bumped min. Node.js version to v18 - #22
+- *[@phoeluga]* Bumped @iobroker/adapter-core to version >= 3.x.x - #23
+- *[@phoeluga]* Updated ESLint usage and config - Migration to ESLint 9 - #25 
 
 ### 1.3.1 (2023-08-13)
 - *[@phoeluga]* Fixed TypeError issue with empty initial value of outgoing channels - #13
