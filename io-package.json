@@ -114,30 +114,31 @@
 		  "zh-cn": "开发开始"
 		}
 	  },
-	  "title": "Synology-Chat",
 	  "titleLang": {
 		"en": "Synology-Chat",
 		"de": "Synology-Chat",
-		"ru": "Synology-Чат",
+		"ru": "Синология-Чат",
 		"pt": "Synology-Chat",
-		"nl": "Synology-Chat",
+		"nl": "Synology-chat",
 		"fr": "Synology-Chat",
 		"it": "Synology-Chat",
 		"es": "Chat de Synology",
 		"pl": "Synology-Chat",
-		"zh-cn": "Synology-聊天"
+		"uk": "Синологія-Чат",
+		"zh-cn": "语义-聊天"
 	  },
 	  "desc": {
-		"en": "This adapter provides an interface of Synology Chat and ioBroker.",
-		"de": "Dieser Adapter bietet eine Schnittstelle von Synology Chat und ioBroker.",
-		"ru": "Этот адаптер обеспечивает интерфейс Synology Chat и ioBroker.",
-		"pt": "Este adaptador fornece uma interface de Synology Chat e ioBroker.",
-		"nl": "Deze adapter biedt een interface van Synology Chat en ioBroker.",
-		"fr": "Cet adaptateur fournit une interface de Synology Chat et ioBroker.",
-		"it": "Questo adattatore fornisce un'interfaccia di Synology Chat e ioBroker.",
-		"es": "Este adaptador proporciona una interfaz de Synology Chat e ioBroker.",
-		"pl": "Ten adapter zapewnia interfejs Synology Chat i ioBroker.",
-		"zh-cn": "此适配器提供 Synology Chat 和 ioBroker 的接口。"
+		"en": "This adapter provides an interface between the Synology Chat and ioBroker.",
+		"de": "Dieser Adapter bietet eine Schnittstelle zwischen dem Synology Chat und ioBroker.",
+		"ru": "Этот адаптер обеспечивает интерфейс между Synology Chat и ioBroker.",
+		"pt": "Este adaptador fornece uma interface entre o Synology Chat e ioBroker.",
+		"nl": "Deze adapter biedt een interface tussen de Synology Chat en ioBroker.",
+		"fr": "Cet adaptateur fournit une interface entre Synology Chat et ioBroker.",
+		"it": "Questo adattatore fornisce un'interfaccia tra Synology Chat e ioBroker.",
+		"es": "Este adaptador proporciona una interfaz entre el Chat de Sinología y el ioBroker.",
+		"pl": "Adapter ten zapewnia interfejs między czatem synologicznym a joBrokerem.",
+		"uk": "Цей адаптер надає інтерфейс між Синологічним чатом та ioBroker.",
+		"zh-cn": "这个适配器提供了Synology Chat和ioBroker之间的接口."
 	  },
 	  "authors": [
 		"phoeluga <phoeluga@gmail.com>"
