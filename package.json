@@ -14,7 +14,8 @@
     "message",
     "incoming",
     "outgoing",
-    "channel"
+    "channel",
+    "ioBroker"
   ],
   "repository": {
     "type": "git",
