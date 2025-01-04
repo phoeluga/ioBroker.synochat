@@ -17,8 +17,7 @@
     "channel",
     "ioBroker",
     "adapter",
-    "smart",
-    "home"
+    "smarthome"
   ],
   "repository": {
     "type": "git",
