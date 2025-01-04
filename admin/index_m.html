@@ -210,43 +210,43 @@
 
 <body>
 
-	<div class="m s12 m6 l4 adapter-container">
+	<div class="m adapter-container">
         <nav>
-            <div class="row s12 m6 l4">
-                <div class="col s12 m6 l4">
+            <div class="row">
+                <div class="col s5">
                     <img src="synochat.png" class="logo" style="float: left">
                     <font size="+2"><big>Synology-Chat</big></font>
                 </div>
             </div>
         </nav>
-        <div class="row s12 m6 l4">
-            <div class="col s12 m6 l4">
+        <div class="row">
+            <div class="col s12">
                 <ul class="tabs">
                     <li class="tab col s2"><a href="#tab-main"      class="translate" data-lang="Main settings">Main settings</a></li>
                     <li class="tab col s2"><a href="#tab-channels"  class="translate" data-lang="Channel management">Channel management</a></li>
                     <li class="tab col s2"><a href="#tab-message-messageTemplates"  class="translate" data-lang="Message templates">Message templates</a></li>
-                    <li class="tab col s2"><a target="_blank"       class="translate" data-lang="Help" href="https://github.com/phoeluga/ioBroker.synochat">Help</a></li>
+                    <li class="tab col s2"><a target="_blank"       class="translate" data-lang="Help" href="https://github.com/phoeluga/ioBroker.synochat/blob/master/README.md">Help</a></li>
                 </ul>
             </div>
-            <div id="tab-main" class="col s12 m6 l4 page">
-                <div class="card s12 m6 l4">
-                    <div class="card-content s12 m6 l4">
+            <div id="tab-main" class="col s12 page">
+                <div class="card">
+                    <div class="card-content">
                         <div class="row">
-                            <div class="input-field col s12 m6 l4">
+                            <div class="input-field col s6 l2">
                                 <p><label class="translate" for="synoUrl">Synology URL/IP</label></p>
                                 <input class="value" id="synoUrl" type="text" />
                             </div>
-                            <div class="input-field col s12 m6 l4">
+                            <div class="input-field col s6 l2">
                                 <input class="value" id="certCheck" type="checkbox" />
                                 <label class="translate" for="certCheck">Validate SSL certificate</label>
                             </div>
                         </div>
-                        <div class="ro s12 m6 l4w">
-                            <div class="input-field col s12 m6 l4">
+                        <div class="row">
+                            <div class="input-field col s6 l2">
                                 <p><label class="translate" for="iobrokerHost">Hostname / IP address of ioBroker instance</label></p>
                                 <input class="value" id="iobrokerHost" type="text" />
                             </div>
-                            <div class="col s12 m6 l4 input-field">
+                            <div class="col s12 l3 input-field">
                                 <p><label class="translate" for="webInstance">Web instance for messages send from Synology chat to ioBroker adapter instance</label></p>
                                 <select class="value" id="webInstance">
                                     <!-- <option value="*" class="translate">Any</option> -->
@@ -256,11 +256,11 @@
                     </div>
                 </div>
             </div>
-            <div id="tab-message-messageTemplates" class="col s12 m6 l4 page">
-                <div class="card s12 m6 l4">
-                    <div class="card-content s12 m6 l4">
-                        <div class="row s12 m6 l4">
-                            <div class="col s12 m6 l4">
+            <div id="tab-message-messageTemplates" class="col s12 page">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="row">
+                            <div class="col s12">
                                 <h6>
                                     </br>
                                     <p></p>
@@ -273,14 +273,14 @@
                     </div>
                 </div>
                 <p></p></br>
-                <div class="card s12 m6 l4">
-                    <div class="card-content s12 m6 l4">
-                        <div class="row s12 m6 l4">
-                            <div class="input-field col s12 m6 l4" style="width:50%">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="row">
+                            <div class="input-field col" style="width:50%">
                                 <p><label class="translate" for="receivedNotificationManagerTemplate">Template for sending messages received via ioBroker Notification-Manager</label></p>
                                 <textarea class="value" id="receivedNotificationManagerTemplate" name="receivedNotificationManagerTemplate" style="width:100%;height:120px;" cols="2" rows="20"></textarea>
                             </div>
-                            <div class="input-field col s12 m6 l4" style="width:50%">
+                            <div class="input-field col" style="width:50%">
                                 <p><label class="translate" for="receivedMessageTemplate">Template for sending messages of all other received messages</label></p>
                                 <textarea class="value" id="receivedMessageTemplate" name="receivedMessageTemplate" style="width:100%;height:120px;" cols="2" rows="20"></textarea>
                             </div>
@@ -288,48 +288,48 @@
                     </div>
                 </div>
                 <div><hr></hr></div>
-                <div class="card s12 m6 l4">
-                    <div class="card-content s12 m6 l4">
-                        <div class="row s12 m6 l4">
-                            <div class="input-field col s12 m6 l4" style="width:20%">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="row">
+                            <div class="input-field col" style="width:20%">
                                 <p><label class="translate" for="receivedNotificationManagerTemplate">Template 1 - Template to be applied on a specific channel</label></p>
                                 <textarea class="value" id="messageTemplate0" name="messageTemplate0" style="width:100%;height:120px;" cols="2" rows="20"></textarea>
                             </div>
-                            <div class="input-field col s12 m6 l4" style="width:20%">
+                            <div class="input-field col" style="width:20%">
                                 <p><label class="translate" for="receivedNotificationManagerTemplate">Template 2 - Template to be applied on a specific channel</label></p>
                                 <textarea class="value" id="messageTemplate1" name="messageTemplate1" style="width:100%;height:120px;" cols="2" rows="20"></textarea>
                             </div>
-                            <div class="input-field col s12 m6 l4" style="width:20%">
+                            <div class="input-field col" style="width:20%">
                                 <p><label class="translate" for="receivedNotificationManagerTemplate">Template 3 - Template to be applied on a specific channel</label></p>
                                 <textarea class="value" id="messageTemplate2" name="messageTemplate2" style="width:100%;height:120px;" cols="2" rows="20"></textarea>
                             </div>
-                            <div class="input-field col s12 m6 l4" style="width:20%">
+                            <div class="input-field col" style="width:20%">
                                 <p><label class="translate" for="receivedNotificationManagerTemplate">Template 4 - Template to be applied on a specific channel</label></p>
                                 <textarea class="value" id="messageTemplate3" name="messageTemplate3" style="width:100%;height:120px;" cols="2" rows="20"></textarea>
                             </div>
-                            <div class="input-field col s12 m6 l4" style="width:20%">
+                            <div class="input-field col" style="width:20%">
                                 <p><label class="translate" for="receivedNotificationManagerTemplate">Template 5 - Template to be applied on a specific channel</label></p>
                                 <textarea class="value" id="messageTemplate4" name="messageTemplate4" style="width:100%;height:120px;" cols="2" rows="20"></textarea>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="input-field col s12 m6 l4" style="width:20%">
+                            <div class="input-field col" style="width:20%">
                                 <p><label class="translate" for="receivedNotificationManagerTemplate">Template 6 - Template to be applied on a specific channel</label></p>
                                 <textarea class="value" id="messageTemplate5" name="messageTemplate5" style="width:100%;height:120px;" cols="2" rows="20"></textarea>
                             </div>
-                            <div class="input-field col s12 m6 l4" style="width:20%">
+                            <div class="input-field col" style="width:20%">
                                 <p><label class="translate" for="receivedNotificationManagerTemplate">Template 7 - Template to be applied on a specific channel</label></p>
                                 <textarea class="value" id="messageTemplate6" name="messageTemplate6" style="width:100%;height:120px;" cols="2" rows="20"></textarea>
                             </div>
-                            <div class="input-field col s12 m6 l4" style="width:20%">
+                            <div class="input-field col" style="width:20%">
                                 <p><label class="translate" for="receivedNotificationManagerTemplate">Template 8 - Template to be applied on a specific channel</label></p>
                                 <textarea class="value" id="messageTemplate7" name="messageTemplate7" style="width:100%;height:120px;" cols="2" rows="20"></textarea>
                             </div>
-                            <div class="input-field col s12 m6 l4" style="width:20%">
+                            <div class="input-field col" style="width:20%">
                                 <p><label class="translate" for="receivedNotificationManagerTemplate">Template 9 - Template to be applied on a specific channel</label></p>
                                 <textarea class="value" id="messageTemplate8" name="messageTemplate8" style="width:100%;height:120px;" cols="2" rows="20"></textarea>
                             </div>
-                            <div class="input-field col s12 m6 l4" style="width:20%">
+                            <div class="input-field col" style="width:20%">
                                 <p><label class="translate" for="receivedNotificationManagerTemplate">Template 10 - Template to be applied on a specific channel</label></p>
                                 <textarea class="value" id="messageTemplate9" name="messageTemplate9" style="width:100%;height:120px;" cols="2" rows="20"></textarea>
                             </div>
@@ -337,11 +337,11 @@
                     </div>
                 </div>
             </div>
-            <div id="tab-channels" class="col s12 m6 l4 page">
-                <div class="card s12 m6 l4">
-                    <div class="card-content s12 m6 l4">
-                        <div class="row s12 m6 l4">
-                            <div class="col s12 m6 l4">
+            <div id="tab-channels" class="col s12 page">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="row">
+                            <div class="col s12">
                                 <h6>
                                     </br>
                                     <p></p>
@@ -354,11 +354,11 @@
                     </div>
                 </div>
                 <p></p></br>
-                <div class="row s12 m6 l4">
-                    <div class="col s12 m6 l4" id="channels">
+                <div class="row">
+                    <div class="col s12" id="channels">
                         <a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a>
                         <p></p>
-                        <div class="table-values-div s12 m6 l4">
+                        <div class="table-values-div">
                             <table class="table-values">
                                 <thead>
                                 <tr>
