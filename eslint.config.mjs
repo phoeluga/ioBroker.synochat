@@ -14,6 +14,7 @@ export default [
             'test/**/*.js', 
             '*.config.mjs', 
             'build', 
+            'admin/.watch', 
             'admin/build', 
             'admin/words.js',
             'admin/admin.d.ts',
@@ -25,7 +26,8 @@ export default [
         // you may disable some 'jsdoc' warnings - but using jsdoc is highly recommended
         // as this improves maintainability. jsdoc warnings will not block buiuld process.
         rules: {
-            // 'jsdoc/require-jsdoc': 'off',
+            'jsdoc/require-jsdoc': 'off',
+            "require-jsdoc": 0,
         },
     },
     
