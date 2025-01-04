@@ -390,9 +390,9 @@ Since this adapter is using a `web` adapter instance to provide web hooks to the
     ### **WORK IN PROGRESS**
 -->
 ### 1.3.2 (2025-01-04)
-- *[@phoeluga]* Fixed issue with 5 digit port number when using a IP for property - *[@phoeluga]* Synology URL/IP - #20
+- *[@phoeluga]* Fixed issue with 5 digit port number when using a IP for property Synology URL/IP - #20
 - *[@phoeluga]* Addressed W[171],W[105],W[109] - #18
-- *[@phoeluga]* Updated admin style.css and classes to support scrolling on mobile - *[@phoeluga]* device view - #24
+- *[@phoeluga]* Updated admin style.css and classes to support scrolling on mobile device view - #24
 - *[@phoeluga]* Updated several dependencies to met the current overall config - #21
 - *[@phoeluga]* Update test-workflow to be prepared for Node.js v22 - #22
 - *[@phoeluga]* Bumped min. Node.js version to v18 - #22
