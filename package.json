@@ -14,10 +14,7 @@
     "message",
     "incoming",
     "outgoing",
-    "channel",
-    "ioBroker",
-    "adapter",
-    "smarthome"
+    "channel"
   ],
   "repository": {
     "type": "git",
