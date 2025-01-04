@@ -14,7 +14,11 @@
     "message",
     "incoming",
     "outgoing",
-    "channel"
+    "channel",
+    "ioBroker",
+    "adapter",
+    "smart",
+    "home"
   ],
   "repository": {
     "type": "git",

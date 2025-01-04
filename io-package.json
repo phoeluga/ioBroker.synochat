@@ -131,7 +131,10 @@
       "incoming",
       "outgoing",
       "channel",
-      "ioBroker"
+      "ioBroker",
+      "adapter",
+      "smart",
+      "home"
     ],
     "tier": 3,
     "licenseInformation": {
@@ -154,7 +157,6 @@
       "config": "materialize"
     },
     "eraseOnUpload": true,
-    "materialize": true,
     "messagebox": true,
     "dependencies": [
       {

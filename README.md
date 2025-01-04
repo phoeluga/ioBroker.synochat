@@ -460,7 +460,7 @@ Since this adapter is using a `web` adapter instance to provide web hooks to the
 
 This code is licensed under 'The MIT License (MIT)' license specified in the [LICENSE](./LICENSE) file.
 
-Copyright (c) 2023 phoeluga <phoeluga@gmail.com>
+Copyright (c) 2025 phoeluga <phoeluga@gmail.com>
 
 
 ## Other disclosures
