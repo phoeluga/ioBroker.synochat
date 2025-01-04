@@ -658,7 +658,7 @@ class Synochat extends utils.Adapter {
     if (formatTemplate === this.config.receivedNotificationManagerTemplate) {
       const { instances } = obj.message.category;
       const readableInstances = Object.entries(instances).map(
-        ([instance, entry]) =>
+        ([instance, _entry]) =>
           `${instance.substring("system.adapter.".length)}`,
       );
       formattedMessage = formattedMessage.replaceAll(

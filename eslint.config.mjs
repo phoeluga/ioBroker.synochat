@@ -18,7 +18,8 @@ export default [
             'admin/build', 
             'admin/words.js',
             'admin/admin.d.ts',
-            '**/adapter-config.d.ts'     
+            '**/adapter-config.d.ts',
+            'admin/src/i18n/i18n.d.ts'
         ] 
     },
 
@@ -27,7 +28,10 @@ export default [
         // as this improves maintainability. jsdoc warnings will not block buiuld process.
         rules: {
             'jsdoc/require-jsdoc': 'off',
-            "require-jsdoc": 0,
+            // Added this because of passive usage of adapter setting store and load process
+            "no-unused-vars": "off",
+            "@typescript-eslint/no-unused-vars": "off",
+            "@typescript-eslint/no-this-alias": "off",
         },
     },
     
