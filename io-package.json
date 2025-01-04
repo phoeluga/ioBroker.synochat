@@ -130,10 +130,7 @@
       "message",
       "incoming",
       "outgoing",
-      "channel",
-      "ioBroker",
-      "adapter",
-      "smart home"
+      "channel"
     ],
     "tier": 3,
     "licenseInformation": {
