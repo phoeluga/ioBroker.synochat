@@ -31,4 +31,6 @@ label > i[title] {
 	white-space: nowrap;
 }
 
-/* Add your styles here */
+.m [type="checkbox"] + span:not(.lever) {
+	height: 28px;
+}
