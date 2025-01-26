@@ -1,6 +1,6 @@
 {
   "name": "iobroker.synochat",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "This adapter provides an interface of Synology Chat and ioBroker.",
   "author": {
     "name": "phoeluga",
