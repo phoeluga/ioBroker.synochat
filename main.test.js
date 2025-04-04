@@ -7,9 +7,8 @@
  * It is advised to test all your modules with accompanying *.test.js-files
  */
 
-// tslint:disable:no-unused-expression
-
 const { expect } = require("chai");
+const { formatReceivedOnMessageData } = require("./template-interpolation.js");
 // import { functionToTest } from "./moduleToTest";
 
 describe("module to test => function to test", () => {
@@ -27,4 +26,39 @@ describe("module to test => function to test", () => {
 
 });
 
-// ... more test suites => describe
+const DEFAULT_NOTIFICATION_MANAGER_MESSAGE = {
+	"host": "system.host.dev-fyta-oma-desktop",
+	"scope": {
+		"name": "Fyta",
+		"description": "TODO"
+	},
+	"category": {
+		"instances": {
+			"system.adapter.fyta.0": {
+				"messages": [
+					{
+						"message": "Plant Ren is not having a perfect moisture status",
+						"ts": 1743750514032,
+						"contextData": {
+							"name": "Ren",
+							"sName": "Dracaena reflexa",
+							"actual": 3
+						}
+					}
+				]
+			}
+		},
+		"description": "The humidity of a plant needs to be checked.",
+		"name": "Check Humidity",
+		"severity": "alert"
+	}
+};
+
+describe("formatReceivedOnMessageData", () => {
+	it("should return template without parameters", () => {
+		const result = formatReceivedOnMessageData(DEFAULT_NOTIFICATION_MANAGER_MESSAGE, "Hello World");
+
+		expect(result).equals("Hello World");
+	});
+});
+
