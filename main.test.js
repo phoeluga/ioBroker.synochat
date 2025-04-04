@@ -84,6 +84,10 @@ describe("formatReceivedOnMessageData", () => {
 		expect(result).equals("Hello World");
 	});
 	
+	it("should skip processing contextData if not present in the notification", () => {
+		// TODO
+	});
+	
 	const replacementTests = [
 		{ args: ["${_id}"], expected: `${DEFAULT_ID}` },
 		{ args: ["${instances}"], expected: `adapter.0` },
@@ -98,6 +102,8 @@ describe("formatReceivedOnMessageData", () => {
 		{ args: ["${message.test/-nested/-property}"], expected: `"${DEFAULT_DOTTED_PROPERTY}"` },
 
 		{ args: ["${instances}: ${message.host}"], expected: `adapter.0: "${DEFAULT_HOST}"` },
+
+		{ args: ["${contextData.name}"], expected: `"Ren"` },
 	];
 
 	replacementTests.forEach(({args, expected}) => {

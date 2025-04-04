@@ -42,6 +42,13 @@ function formatReceivedOnMessageData(obj, formatTemplate, config, log) {
             "${instances}",
             String(readableInstances.join(", ")),
         );
+        
+        const allMessages = Object.values(instances).map(byAdapter => byAdapter.messages ?? [])
+            .reduce((prev, curr) => [...prev, ...curr], []);
+        
+        if(allMessages.length === 1 && !!allMessages[0].contextData) {
+            formatTemplate = replacePropertiesForTemplate(formattedMessage, "contextData", allMessages[0].contextData, log);
+        }
     }
 
     formattedMessage = formattedMessage.replaceAll(
@@ -56,7 +63,7 @@ function formatReceivedOnMessageData(obj, formatTemplate, config, log) {
     );
 
     formattedMessage = replacePropertiesForTemplate(formattedMessage, "message", obj.message, log);
-    
+        
     return formattedMessage;
 }
 
