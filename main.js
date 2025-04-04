@@ -9,7 +9,7 @@
 const utils = require("@iobroker/adapter-core");
 
 const SynoChatRequests = require("./lib/synoChatRequests.js");
-const { formatReceivedOnMessageData } = require("./template-interpolation.js");
+const TemplateInterpolation = require("./template-interpolation.js");
 const iFaces = require("os").networkInterfaces();
 const uuid = require("uuid");
 
@@ -654,7 +654,12 @@ class Synochat extends utils.Adapter {
   }
 
   formatReceivedOnMessageData(obj, formatTemplate) {
-    return formatReceivedOnMessageData(obj, formatTemplate, this.config, this.log);
+    return TemplateInterpolation.formatReceivedOnMessageData(
+      obj,
+      formatTemplate,
+      this.config,
+      this.log,
+    );
   }
 }
 

@@ -71,7 +71,8 @@
     "www/",
     "io-package.json",
     "LICENSE",
-    "main.js"
+    "main.js",
+    "template-interpolation.js"
   ],
   "scripts": {
     "prebuild": "rimraf admin/build",
