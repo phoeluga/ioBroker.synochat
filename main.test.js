@@ -84,7 +84,7 @@ describe("formatReceivedOnMessageData", () => {
 		expect(result).equals("Hello World");
 	});
 	
-	const singleReplacementTests = [
+	const replacementTests = [
 		{ args: ["${_id}"], expected: `${DEFAULT_ID}` },
 		{ args: ["${instances}"], expected: `adapter.0` },
 		{ args: ["${from}"], expected: `${DEFAULT_FROM}` },
@@ -96,9 +96,11 @@ describe("formatReceivedOnMessageData", () => {
 		// Check that dotted/nested properties are handled correctly
 		{ args: ["${message.test.nested.property}"], expected: `"${DEFAULT_ACTUAL_NESTED_PROPERTY}"` },
 		{ args: ["${message.test/-nested/-property}"], expected: `"${DEFAULT_DOTTED_PROPERTY}"` },
+
+		{ args: ["${instances}: ${message.host}"], expected: `adapter.0: "${DEFAULT_HOST}"` },
 	];
 
-	singleReplacementTests.forEach(({args, expected}) => {
+	replacementTests.forEach(({args, expected}) => {
 		it(`correctly replaces ${args[0]}`, function () {
 			const res = formatReceivedOnMessageData(DEFAULT_NOTIFICATION_MANAGER_MESSAGE, args[0], { receivedNotificationManagerTemplate: args[0] });
 			expect(res).equals(expected);

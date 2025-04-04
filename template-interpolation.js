@@ -1,3 +1,34 @@
+function replacePropertiesForTemplate(formattedMessage, templateString, dataSource, log) {
+    let maxItter = 100000;
+    const regexStr = `\\$\\{${templateString}\\.(.+?)\\}`;
+    const regex = new RegExp(regexStr);
+    
+    while (regex.test(formattedMessage) && maxItter > 0) {
+        const match = regex.exec(formattedMessage);
+        if(!match) break;
+        
+        let replacePattern = match[1];
+        let replaceValue = replacePattern.split(".").reduce(function (o, k) {
+            return o && o[k.replaceAll("/-", ".")];
+        }, dataSource);
+        formattedMessage = formattedMessage.replaceAll(
+            String(`\${message.${replacePattern}}`),
+            JSON.stringify(replaceValue),
+        );
+
+        maxItter--;
+    }
+
+    if (maxItter <= 0 && !!log) {
+        log.error(
+            `Infinite loop while parsing JSON detected! Returning raw text for ${templateString}!`,
+        );
+        formattedMessage = dataSource;
+    }
+    
+    return formattedMessage;
+}
+
 function formatReceivedOnMessageData(obj, formatTemplate, config, log) {
     let formattedMessage = formatTemplate;
 
@@ -24,27 +55,8 @@ function formatReceivedOnMessageData(obj, formatTemplate, config, log) {
         String(JSON.stringify(obj.message, undefined, 4)),
     );
 
-    let maxItter = 100000;
-    while (formattedMessage.match(/\$\{message\.(.+?)\}/) && maxItter > 0) {
-        let replacePattern = formattedMessage.match(/\$\{message\.(.+?)\}/)[1];
-        let replaceValue = replacePattern.split(".").reduce(function (o, k) {
-            return o && o[k.replaceAll("/-", ".")];
-        }, obj.message);
-        formattedMessage = formattedMessage.replaceAll(
-            String(`\${message.${replacePattern}}`),
-            JSON.stringify(replaceValue),
-        );
-
-        maxItter--;
-    }
-
-    if (maxItter <= 0 && !!log) {
-        log.error(
-            `Infinite loop while parsing JSON detected! Returning raw text!`,
-        );
-        formattedMessage = obj.message;
-    }
-
+    formattedMessage = replacePropertiesForTemplate(formattedMessage, "message", obj.message, log);
+    
     return formattedMessage;
 }
 
