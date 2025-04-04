@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "synochat",
-    "version": "1.3.3",
+    "version": "1.4.0",
     "news": {
       "1.3.3": {
         "en": "Updated admin UI to fix desponsive design (mobile view) - #28",

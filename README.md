@@ -389,6 +389,9 @@ Since this adapter is using a `web` adapter instance to provide web hooks to the
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### 1.4.0 (2025-04-04) 
+- *[@OlliMartin]* Allow `dataContext` to be used in message templates - #34
+
 ### 1.3.3 (2025-01-26)
 - *[@phoeluga]* Updated admin UI to fix desponsive design (mobile view) - #28
 
