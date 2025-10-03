@@ -16,7 +16,7 @@
   "editor.tabSize": 2,
   // Enable ESLint auto-fix on save if using ESLint
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": "explicit"
   },
   // Enable IntelliSense for JSON schemas
   "json.enableSchemaDownload": true,

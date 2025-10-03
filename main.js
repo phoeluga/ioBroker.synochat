@@ -512,6 +512,20 @@ class Synochat extends utils.Adapter {
     }
   }
 
+  isJSON(data) {
+    var isJson = false;
+    try {
+      if (typeof data === "object") {
+        return true;
+      }
+      var json = JSON.parse(data);
+      isJson = typeof json === "object";
+    } catch (ex) {
+      return isJson;
+    }
+    return isJson;
+  }
+
   async enqueueAndSendMessage(
     channelIndex,
     messageObject,
@@ -628,10 +642,17 @@ class Synochat extends utils.Adapter {
           let replaceValue = replacePattern.split(".").reduce(function (o, k) {
             return o && o[k.replaceAll("/-", ".")];
           }, obj);
-          formatTemplate = formatTemplate.replaceAll(
-            String(`\${${replacePattern}}`),
-            JSON.stringify(replaceValue),
-          );
+          if (this.isJSON(replaceValue)) {
+            formatTemplate = formatTemplate.replaceAll(
+              String(`\${${replacePattern}}`),
+              JSON.stringify(replaceValue),
+            );
+          } else {
+            formatTemplate = formatTemplate.replaceAll(
+              String(`\${${replacePattern}}`),
+              replaceValue,
+            );
+          }
 
           maxItterB--;
         }

@@ -9,7 +9,11 @@
 
 // tslint:disable:no-unused-expression
 
-const { expect } = require("chai");
+const chai = require("chai");
+const { expect } = chai;
+
+chai.should();
+
 const { formatReceivedOnMessageData } = require("./lib/template-interpolation.js");
 // import { functionToTest } from "./moduleToTest";
 
