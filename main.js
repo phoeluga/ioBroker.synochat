@@ -9,6 +9,7 @@
 const utils = require("@iobroker/adapter-core");
 
 const SynoChatRequests = require("./lib/synoChatRequests.js");
+const TemplateInterpolation = require("./lib/template-interpolation.js");
 const iFaces = require("os").networkInterfaces();
 const uuid = require("uuid");
 
@@ -511,6 +512,20 @@ class Synochat extends utils.Adapter {
     }
   }
 
+  isJSON(data) {
+    var isJson = false;
+    try {
+      if (typeof data === "object") {
+        return true;
+      }
+      var json = JSON.parse(data);
+      isJson = typeof json === "object";
+    } catch (ex) {
+      return isJson;
+    }
+    return isJson;
+  }
+
   async enqueueAndSendMessage(
     channelIndex,
     messageObject,
@@ -627,10 +642,17 @@ class Synochat extends utils.Adapter {
           let replaceValue = replacePattern.split(".").reduce(function (o, k) {
             return o && o[k.replaceAll("/-", ".")];
           }, obj);
-          formatTemplate = formatTemplate.replaceAll(
-            String(`\${${replacePattern}}`),
-            JSON.stringify(replaceValue),
-          );
+          if (this.isJSON(replaceValue)) {
+            formatTemplate = formatTemplate.replaceAll(
+              String(`\${${replacePattern}}`),
+              JSON.stringify(replaceValue),
+            );
+          } else {
+            formatTemplate = formatTemplate.replaceAll(
+              String(`\${${replacePattern}}`),
+              replaceValue,
+            );
+          }
 
           maxItterB--;
         }
@@ -653,53 +675,61 @@ class Synochat extends utils.Adapter {
   }
 
   formatReceivedOnMessageData(obj, formatTemplate) {
-    let formattedMessage = formatTemplate;
-
-    if (formatTemplate === this.config.receivedNotificationManagerTemplate) {
-      const { instances } = obj.message.category;
-      const readableInstances = Object.entries(instances).map(
-        ([instance, _entry]) =>
-          `${instance.substring("system.adapter.".length)}`,
-      );
-      formattedMessage = formattedMessage.replaceAll(
-        "${instances}",
-        String(readableInstances.join(", ")),
-      );
-    }
-
-    formattedMessage = formattedMessage.replaceAll(
-      "${command}",
-      String(obj.command),
-    );
-    formattedMessage = formattedMessage.replaceAll("${from}", String(obj.from));
-    formattedMessage = formattedMessage.replaceAll("${_id}", String(obj._id));
-    formattedMessage = formattedMessage.replaceAll(
-      "${message}",
-      String(JSON.stringify(obj.message, undefined, 4)),
+    return TemplateInterpolation.formatReceivedOnMessageData(
+      obj,
+      formatTemplate,
+      this.config,
+      this.log,
     );
 
-    let maxItter = 100000;
-    while (formattedMessage.match(/\$\{message\.(.+?)\}/) && maxItter > 0) {
-      let replacePattern = formattedMessage.match(/\$\{message\.(.+?)\}/)[1];
-      let replaceValue = replacePattern.split(".").reduce(function (o, k) {
-        return o && o[k.replaceAll("/-", ".")];
-      }, obj.message);
-      formattedMessage = formattedMessage.replaceAll(
-        String(`\${message.${replacePattern}}`),
-        JSON.stringify(replaceValue),
-      );
+    // Deprecated - Will be replaced with #34
+    // let formattedMessage = formatTemplate;
 
-      maxItter--;
-    }
+    // if (formatTemplate === this.config.receivedNotificationManagerTemplate) {
+    //   const { instances } = obj.message.category;
+    //   const readableInstances = Object.entries(instances).map(
+    //     ([instance, _entry]) =>
+    //       `${instance.substring("system.adapter.".length)}`,
+    //   );
+    //   formattedMessage = formattedMessage.replaceAll(
+    //     "${instances}",
+    //     String(readableInstances.join(", ")),
+    //   );
+    // }
 
-    if (maxItter <= 0) {
-      this.log.error(
-        `Infinite loop while parsing JSON detected! Returning raw text!`,
-      );
-      formattedMessage = obj.message;
-    }
+    // formattedMessage = formattedMessage.replaceAll(
+    //   "${command}",
+    //   String(obj.command),
+    // );
+    // formattedMessage = formattedMessage.replaceAll("${from}", String(obj.from));
+    // formattedMessage = formattedMessage.replaceAll("${_id}", String(obj._id));
+    // formattedMessage = formattedMessage.replaceAll(
+    //   "${message}",
+    //   String(JSON.stringify(obj.message, undefined, 4)),
+    // );
 
-    return formattedMessage;
+    // let maxItter = 100000;
+    // while (formattedMessage.match(/\$\{message\.(.+?)\}/) && maxItter > 0) {
+    //   let replacePattern = formattedMessage.match(/\$\{message\.(.+?)\}/)[1];
+    //   let replaceValue = replacePattern.split(".").reduce(function (o, k) {
+    //     return o && o[k.replaceAll("/-", ".")];
+    //   }, obj.message);
+    //   formattedMessage = formattedMessage.replaceAll(
+    //     String(`\${message.${replacePattern}}`),
+    //     JSON.stringify(replaceValue),
+    //   );
+
+    //   maxItter--;
+    // }
+
+    // if (maxItter <= 0) {
+    //   this.log.error(
+    //     `Infinite loop while parsing JSON detected! Returning raw text!`,
+    //   );
+    //   formattedMessage = obj.message;
+    // }
+
+    // return formattedMessage;
   }
 }
 

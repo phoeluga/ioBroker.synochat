@@ -1,0 +1,32 @@
+{
+  // Enable built-in JSON schema validation for package.json and io-package.json
+  "json.schemas": [
+    {
+      "fileMatch": ["io-package.json"],
+      "url": "https://json.schemastore.org/io-package"
+    },
+    {
+      "fileMatch": ["package.json"],
+      "url": "https://json.schemastore.org/package"
+    }
+  ],
+  // Enable format on save for consistent formatting
+  "editor.formatOnSave": true,
+  // Set specific tab size for JavaScript/TypeScript
+  "editor.tabSize": 2,
+  // Enable ESLint auto-fix on save if using ESLint
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  // Enable IntelliSense for JSON schemas
+  "json.enableSchemaDownload": true,
+  // Set default formatter for JavaScript/TypeScript
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  // Optional: Configure specific language settings
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}
