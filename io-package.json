@@ -1,9 +1,9 @@
 {
   "common": {
     "name": "synochat",
-    "version": "1.4.1",
+    "version": "1.4.2",
     "news": {
-      "1.4.1": {
+      "1.4.2": {
         "en": "Adding channelToken and channels properties to protectedNative and encryptedNative object type\nEnhanced template handling to properly ignore non-JSON objects, preventing them from being processed as JSON objects.\nAllow to be used in message templates - #34\nAdding compatibility check and testing for node.js 24 - #35\nUpdated dependencies to the current minimum versions and according to - #36 ; #38 ; #39\n",
         "de": "Hinzufügen der Eigenschaften channelToken und channels zum Objekttyp protectedNative und encryptedNative\nDie Behandlung von Vorlagen wurde verbessert, um Nicht-JSON-Objekte zu ignorieren und zu verhindern, dass sie als JSON-Objekte verarbeitet werden.\nVerwendung in Nachrichtenvorlagen zulassen - #34\nHinzufügen von Kompatibilitätsprüfungen und Tests für node.js 24 - #35\nAktualisierte Abhängigkeiten auf die aktuellen Mindestversionen und gemäß - #36 ; #38 ; #39\n",
         "ru": "Добавление свойств channelToken и channels к типам объектов protectedNative и encryptedNative\nУлучшена обработка шаблонов, чтобы правильно игнорировать не-JSON-объекты, предотвращая их обработку как JSON-объектов.\nРазрешить использовать в шаблонах сообщений - #34\nДобавление проверки совместимости и тестирования для node.js 24 - #35\nОбновление зависимостей до текущих минимальных версий и в соответствии с - #36 ; #38 ; #39\n",
@@ -175,8 +175,7 @@
     "channels"
   ],
   "encryptedNative": [
-    "channelToken",
-    "channels"
+    "channelToken"
   ],
   "native": {
     "synoUrl": "",

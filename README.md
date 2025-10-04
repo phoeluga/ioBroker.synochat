@@ -390,7 +390,7 @@ Since this adapter is using a `web` adapter instance to provide web hooks to the
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### 1.4.1 (2025-10-04)
+### 1.4.2 (2025-10-04)
 - *[@phoeluga]* Adding channelToken and channels properties to protectedNative and encryptedNative object type
 - *[@phoeluga]* Enhanced template handling to properly ignore non-JSON objects, preventing them from being processed as JSON objects
 - *[@OlliMartin]* Allow to be used in message templates - #34
