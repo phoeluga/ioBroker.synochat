@@ -390,12 +390,12 @@ Since this adapter is using a `web` adapter instance to provide web hooks to the
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### 1.4.0 (2025-09-10)
+### 1.4.1 (2025-10-04)
 - *[@phoeluga]* Adding channelToken and channels properties to protectedNative and encryptedNative object type
 - *[@phoeluga]* Enhanced template handling to properly ignore non-JSON objects, preventing them from being processed as JSON objects
 - *[@OlliMartin]* Allow to be used in message templates - #34
 - *[@phoeluga]* Adding compatibility check and testing for node.js 24 - #35
-- *[@phoeluga]* Updated dependencies to the current minimum versions and according to - #36 ; #38
+- *[@phoeluga]* Updated dependencies to the current minimum versions and according to - #36 ; #38 ; #39
 
 ### 1.3.3 (2025-01-26)
 - *[@phoeluga]* Updated admin UI to fix desponsive design (mobile view) - #28
