@@ -1,32 +1,47 @@
 {
-  // Enable built-in JSON schema validation for package.json and io-package.json
-  "json.schemas": [
-    {
-      "fileMatch": ["io-package.json"],
-      "url": "https://raw.githubusercontent.com/ioBroker/ioBroker.js-controller/master/schemas/io-package.json"
+    // Enable built-in JSON schema validation for package.json and io-package.json
+    "json.schemas": [
+        {
+            "fileMatch": [
+                "io-package.json"
+            ],
+            "url": "https://raw.githubusercontent.com/ioBroker/ioBroker.js-controller/master/schemas/io-package.json"
+        },
+        {
+            "fileMatch": [
+                "package.json"
+            ],
+            "url": "https://json.schemastore.org/package"
+        },
+        {
+            "fileMatch": [
+                "admin/jsonConfig.json",
+                "admin/jsonCustom.json",
+                "admin/jsonTab.json",
+                "admin/jsonConfig.json5",
+                "admin/jsonCustom.json5",
+                "admin/jsonTab.json5"
+            ],
+            "url": "https://raw.githubusercontent.com/ioBroker/ioBroker.admin/master/packages/jsonConfig/schemas/jsonConfig.json"
+        }
+    ],
+    // Enable format on save for consistent formatting
+    "editor.formatOnSave": true,
+    // Set specific tab size for JavaScript/TypeScript
+    "editor.tabSize": 2,
+    // Enable ESLint auto-fix on save if using ESLint
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit"
     },
-    {
-      "fileMatch": ["package.json"],
-      "url": "https://json.schemastore.org/package"
+    // Enable IntelliSense for JSON schemas
+    "json.enableSchemaDownload": true,
+    // Set default formatter for JavaScript/TypeScript
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    // Optional: Configure specific language settings
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
     }
-  ],
-  // Enable format on save for consistent formatting
-  "editor.formatOnSave": true,
-  // Set specific tab size for JavaScript/TypeScript
-  "editor.tabSize": 2,
-  // Enable ESLint auto-fix on save if using ESLint
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit"
-  },
-  // Enable IntelliSense for JSON schemas
-  "json.enableSchemaDownload": true,
-  // Set default formatter for JavaScript/TypeScript
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  // Optional: Configure specific language settings
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
 }
