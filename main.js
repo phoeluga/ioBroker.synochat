@@ -10,7 +10,7 @@ const utils = require("@iobroker/adapter-core");
 
 const SynoChatRequests = require("./lib/synoChatRequests.js");
 const TemplateInterpolation = require("./lib/template-interpolation.js");
-const iFaces = require("os").networkInterfaces();
+const iFaces = require("node:os").networkInterfaces();
 const uuid = require("uuid");
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
