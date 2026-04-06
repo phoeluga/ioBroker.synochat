@@ -3,11 +3,10 @@ updates:
   - package-ecosystem: npm
     directory: "/"
     schedule:
-      interval: monthly
-      day: 15
-      time: "00:05"
+      interval: "cron"
+      cron: "5 2 7 * *"
       timezone: Europe/Berlin
-    open-pull-requests-limit: 5
+    open-pull-requests-limit: 15
     assignees:
       - phoeluga
     versioning-strategy: increase
@@ -15,10 +14,9 @@ updates:
   - package-ecosystem: github-actions
     directory: "/"
     schedule:
-      interval: monthly
-      day: 15
-      time: "00:05"
+      interval: "cron"
+      cron: "15 3 19 * *"
       timezone: Europe/Berlin
-    open-pull-requests-limit: 5
+    open-pull-requests-limit: 15
     assignees:
       - phoeluga
