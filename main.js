@@ -106,7 +106,7 @@ class Synochat extends utils.Adapter {
       }
 
       // Set ioBroker Host address to the first address in the listed network interfaces
-      if (this.config.iobrokerHost == "") {
+      if (this.config.iobrokerHost === "") {
         let ipAddress = "localhost";
 
         Object.keys(iFaces).forEach((dev) => {
@@ -141,9 +141,9 @@ class Synochat extends utils.Adapter {
       };
 
       if (
-        this.config.channels.length == 1 &&
-        this.config.channels[0].channelName == "" &&
-        this.config.channels[0].channelAccessToken == ""
+        this.config.channels.length === 1 &&
+        this.config.channels[0].channelName === "" &&
+        this.config.channels[0].channelAccessToken === ""
       ) {
         this.log.debug(
           "Found empty initial channel item! > Deleting this item for migration...",
@@ -223,7 +223,7 @@ class Synochat extends utils.Adapter {
         if (i < this.config.channels.length - 1) {
           for (let j = i + 1; j < this.config.channels.length; j++) {
             if (
-              this.config.channels[i].channelName ==
+              this.config.channels[i].channelName ===
               this.config.channels[j].channelName
             ) {
               coveredChannels.push(j);
@@ -234,7 +234,7 @@ class Synochat extends utils.Adapter {
         }
       } catch (e) {
         this.log.warn(
-          `Unable to parse provided object type for parrent message object descriotion! Set to default! ${e}`,
+          `Unable to parse provided object type for parent message object description! Set to default! ${e}`,
         );
         infoText = `${this.config.channels[i].channelType} messages`;
       }
@@ -266,13 +266,14 @@ class Synochat extends utils.Adapter {
     for (const adapterInstanceObject in await this.getAdapterObjectsAsync()) {
       if (adapterInstanceObject.split(".").length === 3) {
         if (
-          (await this.getObjectAsync(adapterInstanceObject)).type == "folder" &&
+          (await this.getObjectAsync(adapterInstanceObject)).type ===
+            "folder" &&
           adapterInstanceObject.split(".")[2] != "info"
         ) {
           let deleteObj = true;
           for (let i = 0; i < this.config.channels.length; i++) {
             if (
-              this.config.channels[i].channelName ==
+              this.config.channels[i].channelName ===
               adapterInstanceObject.split(".")[2]
             ) {
               deleteObj = false;
@@ -343,7 +344,8 @@ class Synochat extends utils.Adapter {
       // clearInterval(interval1);
       this.setState("info.connection", false, true);
       callback();
-    } catch {
+    } catch (err) {
+      this.log.error(`Error during unload: ${err}`);
       callback();
     }
     this.log.info("SynoChat adapter instance unloaded!");
@@ -387,9 +389,11 @@ class Synochat extends utils.Adapter {
 
       let sendingResult = false;
 
+      const idParts = id.split(".");
+      const channelNameFromId = idParts[idParts.length - 2]?.toLowerCase();
       for (let i = 0; i < this.config.channels.length; i++) {
         if (
-          id.split(".")[id.split(".").length - 2].toLowerCase() ==
+          channelNameFromId ===
           this.config.channels[i].channelName.toLowerCase()
         ) {
           this.log.debug(
@@ -441,18 +445,6 @@ class Synochat extends utils.Adapter {
           this.log.debug(
             `Found channel '${this.config.channels[i].channelName}' for requested message to react on messages from Notification-Manager.`,
           );
-
-          // Telegram default text from Notificaiton-Manager messages:
-          //const subject = obj.message.category.name;
-          //const { instances } = obj.message.category;
-          //
-          //const readableInstances = Object.entries(instances).map(([instance, entry]) => `${instance.substring('system.adapter.'.length)}`);
-          //const text = `${obj.message.category.description}
-          //	${obj.message.host}:
-          //	${readableInstances.join('\n')}
-          //`;
-          // sample: *Issues with RAM availability* Your system is running out of memory. Please check the number of running adapters and processes or if single processes need too many memory. system.host.iobroker: notification-manager.0
-          //const msg = `*${subject}*\n\n${text}`
 
           sendingResult = await this.enqueueAndSendMessage(
             i,
@@ -513,17 +505,14 @@ class Synochat extends utils.Adapter {
   }
 
   isJSON(data) {
-    var isJson = false;
-    try {
-      if (typeof data === "object") {
-        return true;
-      }
-      var json = JSON.parse(data);
-      isJson = typeof json === "object";
-    } catch (ex) {
-      return isJson;
+    if (typeof data === "object") {
+      return true;
     }
-    return isJson;
+    try {
+      return typeof JSON.parse(data) === "object";
+    } catch {
+      return false;
+    }
   }
 
   async enqueueAndSendMessage(
@@ -547,14 +536,13 @@ class Synochat extends utils.Adapter {
       this.log.debug(
         `Channel '${lookupChannelName}' was disabled in the adapter instance configuration! > Checking next channel...`,
       );
-    } else if (lookupChannelType.toLowerCase() == "incoming") {
+    } else if (lookupChannelType.toLowerCase() === "incoming") {
       this.log.debug(`Adding message '${msgUuid}' to the send queue...`);
       this.messageQueue.push(msgUuid);
 
       // Adding message queue to ensure messages will send in the incoming order
-      let j = 0;
-      for (j = 0; j < 30; j++) {
-        if (this.messageQueue[0] == msgUuid) {
+      for (let j = 0; j < 30; j++) {
+        if (this.messageQueue[0] === msgUuid) {
           let formattedMessage = "";
           if (messageTemplate) {
             formattedMessage = this.formatReceivedOnMessageData(
@@ -592,14 +580,8 @@ class Synochat extends utils.Adapter {
         // Math.floor(Math.random() * (max - min + 1) + min)
         await sleep(Math.floor(Math.random() * (1450 - 890 + 1) + 890));
       }
-      if (j >= 30) {
-        this.log.error(
-          `Timeout for sending message '${msgUuid}'. Message will be discarded!`,
-        );
-        return;
-      }
-      this.log.debug(
-        `Message '${msgUuid}' not successfully sent. > Lookup next configured channel...`,
+      this.log.error(
+        `Timeout for sending message '${msgUuid}'. Message will be discarded!`,
       );
     } else {
       this.log.debug(
@@ -616,8 +598,8 @@ class Synochat extends utils.Adapter {
       return "Unable to parse provided object message to JSON!";
     }
 
-    let maxItter = 100000;
-    while (formatTemplate.match(/\$\{(.+?)\}/) && maxItter > 0) {
+    let maxIter = 100000;
+    while (formatTemplate.match(/\$\{(.+?)\}/) && maxIter > 0) {
       let wholeMatch = formatTemplate.match(/\$\{(.+?)\}/)[1];
       let currentMatch = wholeMatch.split(".")[0];
 
@@ -630,10 +612,10 @@ class Synochat extends utils.Adapter {
           String(replaceValue),
         );
       } else {
-        let maxItterB = 100000;
+        let maxIterB = 100000;
         while (
           formatTemplate.match(`\\$\\{${currentMatch}\\.(.+?)\\}`) &&
-          maxItter > 0
+          maxIter > 0
         ) {
           let replacePattern = `${currentMatch}.${
             formatTemplate.match(`\\$\\{${currentMatch}\\.(.+?)\\}`)[1]
@@ -654,17 +636,17 @@ class Synochat extends utils.Adapter {
             );
           }
 
-          maxItterB--;
+          maxIterB--;
         }
-        if (maxItterB <= 0) {
-          maxItter = 0;
+        if (maxIterB <= 0) {
+          maxIter = 0;
         }
       }
 
-      maxItter--;
+      maxIter--;
     }
 
-    if (maxItter <= 0) {
+    if (maxIter <= 0) {
       this.log.error(
         `Infinite loop while parsing JSON detected! Returning raw text!`,
       );
@@ -681,55 +663,6 @@ class Synochat extends utils.Adapter {
       this.config,
       this.log,
     );
-
-    // Deprecated - Will be replaced with #34
-    // let formattedMessage = formatTemplate;
-
-    // if (formatTemplate === this.config.receivedNotificationManagerTemplate) {
-    //   const { instances } = obj.message.category;
-    //   const readableInstances = Object.entries(instances).map(
-    //     ([instance, _entry]) =>
-    //       `${instance.substring("system.adapter.".length)}`,
-    //   );
-    //   formattedMessage = formattedMessage.replaceAll(
-    //     "${instances}",
-    //     String(readableInstances.join(", ")),
-    //   );
-    // }
-
-    // formattedMessage = formattedMessage.replaceAll(
-    //   "${command}",
-    //   String(obj.command),
-    // );
-    // formattedMessage = formattedMessage.replaceAll("${from}", String(obj.from));
-    // formattedMessage = formattedMessage.replaceAll("${_id}", String(obj._id));
-    // formattedMessage = formattedMessage.replaceAll(
-    //   "${message}",
-    //   String(JSON.stringify(obj.message, undefined, 4)),
-    // );
-
-    // let maxItter = 100000;
-    // while (formattedMessage.match(/\$\{message\.(.+?)\}/) && maxItter > 0) {
-    //   let replacePattern = formattedMessage.match(/\$\{message\.(.+?)\}/)[1];
-    //   let replaceValue = replacePattern.split(".").reduce(function (o, k) {
-    //     return o && o[k.replaceAll("/-", ".")];
-    //   }, obj.message);
-    //   formattedMessage = formattedMessage.replaceAll(
-    //     String(`\${message.${replacePattern}}`),
-    //     JSON.stringify(replaceValue),
-    //   );
-
-    //   maxItter--;
-    // }
-
-    // if (maxItter <= 0) {
-    //   this.log.error(
-    //     `Infinite loop while parsing JSON detected! Returning raw text!`,
-    //   );
-    //   formattedMessage = obj.message;
-    // }
-
-    // return formattedMessage;
   }
 }
 

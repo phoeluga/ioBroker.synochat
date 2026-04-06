@@ -398,7 +398,7 @@ Since this adapter is using a `web` adapter instance to provide web hooks to the
 - *[@phoeluga]* Updated dependencies to the current minimum versions and according to - #36 ; #38 ; #39
 
 ### 1.3.3 (2025-01-26)
-- *[@phoeluga]* Updated admin UI to fix desponsive design (mobile view) - #28
+- *[@phoeluga]* Updated admin UI to fix responsive design (mobile view) - #28
 
 ### 1.3.2 (2025-01-04)
 - *[@phoeluga]* Fixed issue with 5 digit port number when using a IP for property Synology URL/IP - #20
