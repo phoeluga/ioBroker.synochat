@@ -8,6 +8,18 @@
     {
       "fileMatch": ["package.json"],
       "url": "https://json.schemastore.org/package"
+    },
+    {
+      "fileMatch": ["admin/jsonConfig.json", "admin/jsonConfig.json5"],
+      "url": "https://raw.githubusercontent.com/ioBroker/ioBroker.admin/master/packages/jsonConfig/schemas/jsonConfig.json"
+    },
+    {
+      "fileMatch": ["admin/jsonCustom.json", "admin/jsonCustom.json5"],
+      "url": "https://raw.githubusercontent.com/ioBroker/ioBroker.admin/master/packages/jsonConfig/schemas/jsonConfig.json"
+    },
+    {
+      "fileMatch": ["admin/jsonTab.json", "admin/jsonTab.json5"],
+      "url": "https://raw.githubusercontent.com/ioBroker/ioBroker.admin/master/packages/jsonConfig/schemas/jsonConfig.json"
     }
   ],
   // Enable format on save for consistent formatting
