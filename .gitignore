@@ -28,4 +28,5 @@ admin/.watch
 .claude/
 .dev-server/
 docs/DEVELOPING.md
+CLAUDE.md
 # <<< p-sync <<<
