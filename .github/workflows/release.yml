@@ -1,0 +1,40 @@
+name: Release
+
+on:
+  push:
+    tags:
+      # normal versions
+      - "v[0-9]+.[0-9]+.[0-9]+"
+      # pre-releases
+      - "v[0-9]+.[0-9]+.[0-9]+-**"
+
+# Never cancel an in-progress release — simultaneous tags must each complete.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  # Run the full test suite before deploying
+  test:
+    uses: ./.github/workflows/test.yml
+
+  # Deploys the final package to NPM via trusted publishing (no long-lived token required)
+  deploy:
+    needs: [test]
+
+    runs-on: ubuntu-latest
+
+    # id-token: write is required for NPM trusted publishing (OIDC)
+    # contents: write is required to create GitHub releases
+    permissions:
+      id-token: write
+      contents: write
+
+    steps:
+      - uses: ioBroker/testing-action-deploy@v1
+        with:
+          node-version: '22.x'
+          # Uncomment the following line if your adapter cannot be installed using 'npm ci'
+          # install-command: 'npm install'
+          build: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
