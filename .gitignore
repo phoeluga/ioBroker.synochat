@@ -20,3 +20,12 @@ admin/i18n/*/flat.txt
 .DS_Store
 admin/build
 admin/.watch
+.dev-server.private/
+
+.private/
+
+# >>> p-sync >>>
+.claude/
+.dev-server/
+docs/DEVELOPING.md
+# <<< p-sync <<<
