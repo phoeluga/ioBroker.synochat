@@ -390,6 +390,19 @@ Since this adapter is using a `web` adapter instance to provide web hooks to the
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+- *[@phoeluga]* Updated outdated devDependencies (`@alcalzone/release-script*` to v5.x, `@iobroker/testing` to 5.2.2)
+- *[@phoeluga]* Bumped `admin` globalDependency requirement to `>=7.6.20`
+- *[@phoeluga]* Migrated CI/CD to NPM Trusted Publishing (OIDC) — removed long-lived `NPM_TOKEN`
+- *[@phoeluga]* Split monolithic `test-and-release.yml` workflow into reusable `test.yml` and `release.yml`
+- *[@phoeluga]* Added `node:` prefix to all Node.js built-in `require()` calls
+- *[@phoeluga]* Removed `JSON.parse(JSON.stringify(...))` anti-pattern in REST API client
+- *[@phoeluga]* Fixed loose equality comparisons (`==` → `===`) throughout codebase
+- *[@phoeluga]* Removed dead commented-out code and unreachable branches
+- *[@phoeluga]* Fixed typos in log messages and variable names (`maxItter` → `maxIter`)
+- *[@phoeluga]* Added optional chaining for safer template interpolation
+- *[@phoeluga]* Updated copyright year to 2025-2026
+
 ### 1.4.2 (2025-10-04)
 - *[@phoeluga]* Adding channelToken and channels properties to protectedNative and encryptedNative object type
 - *[@phoeluga]* Enhanced template handling to properly ignore non-JSON objects, preventing them from being processed as JSON objects
