@@ -1,0 +1,13 @@
+# Configure which Dependabot updates should be merged automatically.
+- match:
+    # Patches for production dependencies
+    dependency_type: production
+    update_type: "semver:patch"
+- match:
+    # Security fixes up to minor for production dependencies
+    dependency_type: production
+    update_type: "security:minor"
+- match:
+    # Minor updates are safe for development dependencies
+    dependency_type: development
+    update_type: "semver:minor"
