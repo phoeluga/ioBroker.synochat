@@ -391,6 +391,7 @@ Since this adapter is using a `web` adapter instance to provide web hooks to the
     ### **WORK IN PROGRESS**
 -->
 ### **WORK IN PROGRESS**
+- (copilot) Adapter requires node.js >= 22 now
 - *[@phoeluga]* Updated outdated devDependencies (`@alcalzone/release-script*` to v5.x, `@iobroker/testing` to 5.2.2)
 - *[@phoeluga]* Bumped `admin` globalDependency requirement to `>=7.6.20`
 - *[@phoeluga]* Migrated CI/CD to NPM Trusted Publishing (OIDC) — removed long-lived `NPM_TOKEN`
