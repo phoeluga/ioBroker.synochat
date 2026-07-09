@@ -479,6 +479,7 @@ Since this adapter is using a `web` adapter instance to provide web hooks to the
 
 - *[@phoeluga]* Start of development
 
+[Older changelogs can be found there](CHANGELOG_OLD.md)
 
 ## License
 
