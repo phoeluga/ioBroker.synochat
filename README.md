@@ -18,24 +18,24 @@ Incoming and Outgoing integrations can be used to send messages to the Synology 
 
 ---
 
-# Manual
+## Manual
 
-## 1. Installation
+### 1. Installation
 The adapter can be instantiated from the adapter section in your ioBroker installation.
 More information can be found in the official [ioBroker documentation](https://www.iobroker.net/#de/documentation/admin/adapter.md).
 
-## 2. Configuration
+### 2. Configuration
 
 <div id="synology-chat-configuration"></div>
 
-### 2.1. Synology chat configuration
+#### 2.1. Synology chat configuration
 - The Synology Chat offers the possibility to handle incoming and outgoing messages. In the following, both options will be examined in more detail.
 
 - To create messages via the Synology Chat interface, an integration must be created in Synology Chat:
 ![SynoChatChannel](./docs/images/diSynoChatChannel.png)
 ![SynoChatIntegrations](./docs/images/diSynoChatIntegrations.png)
 
-  	#### 2.1.1. Incoming integration
+  	##### 2.1.1. Incoming integration
 
 	For the integration of an incoming message in the Synology chat, a token is needed, which can be taken from the URL generated during the creation.
 	![SynoChatIntegrationIncoming](./docs/images/diSynoChatIntegrationIncoming.png)
@@ -43,7 +43,7 @@ More information can be found in the official [ioBroker documentation](https://w
 
 	<div id="synologyChatConfigurationOutgoingIntegration"></div>
 
-  	#### 2.1.2. Outgoing integration
+  	##### 2.1.2. Outgoing integration
 	For the integration of an outgoing message in the Synology chat, a web hook URL needs to be provided. You will get this web hook URL from the instance objects after instantiating the `synochat` adapter. More details can be found in [3. Usage > 3.1 General](#web-hook-location)
 	![SynoChatIntegrationIncoming](./docs/images/diSynoChatIntegrationOutgoing.png)
 	![SynoChatIntegrationIncomingSettings](./docs/images/diSynoChatIntegrationOutgoingSettings.png)
@@ -53,9 +53,9 @@ More information can be found in the official [ioBroker documentation](https://w
 
 For more details on how to handle integrations within Synology chat, please refer to Synology's official documentation [HERE](https://kb.synology.com/DSM/help/Chat/chat_integration)
 
-### 2.2. ioBroker adapter instance configuration
+#### 2.2. ioBroker adapter instance configuration
 - The configuration of this adapter can be done in the instance settings.
-    #### 2.2.1. Main settings:
+    ##### 2.2.1. Main settings:
 	![IobrokerInstanceSettingsMainSettings](./docs/images/diIobrokerInstanceSettingsMainSettings.png)
     
 	* **Synology URL/IP**
@@ -89,7 +89,7 @@ For more details on how to handle integrations within Synology chat, please refe
 
 	<div id="channel-configuration"></div>
 
-    #### 2.2.2. Channel management / configuration:
+    ##### 2.2.2. Channel management / configuration:
 	![IobrokerInstanceSettingsChannelConfiguration](./docs/images/diIobrokerInstanceSettingsChannelConfiguration.png)
 
 	* **Channel enabled**
@@ -168,7 +168,7 @@ For more details on how to handle integrations within Synology chat, please refe
     
 	<div id="message-templates"></div>
 
-	#### 2.2.3. Message templates:
+	##### 2.2.3. Message templates:
     It is possible to define message templates that are processed before sending a message to Synology Chat Server. These templates can contain patterns that are replaced during the sending process.
     
 	![IobrokerInstanceSettingsChannelConfiguration](./docs/images/diIobrokerInstanceSettingsMessageTemplates.png)
@@ -321,13 +321,13 @@ For more details on how to handle integrations within Synology chat, please refe
 
 		The available patterns are related to the customer JSON value that will be provided to the channel message object.
 
-	#### 2.2.4. Help:
+	##### 2.2.4. Help:
    	* This tab usually redirects to the official GitHub page of this project, where detailed help and usage instructions are given.
 	* If there are any open questions, suggestions for changes, unwanted behavior or bugs, please create a [GitHub issue](https://github.com/phoeluga/ioBroker.synochat/issues/new/choose) to ensure the quality of this project.
 
 <div id="configurationWebInstance"></div>
 
-### 2.3. Configuration of the `web` instance
+#### 2.3. Configuration of the `web` instance
 For receiving messages from the Synology chat server an outgoing integration is needed to be configured - See [Outgoing integration](#synologyChatConfigurationOutgoingIntegration).
 
 This requires an instance of the `web` adapter to be running and configures in the [`synochat` adapter instance configured](#configurationAdapterWebInstance).
@@ -338,8 +338,8 @@ The communication will not be established and unfortunately there will be no dir
 
 <div id="usage"></div>
 
-## 3. Usage
-### 3.1 General
+### 3. Usage
+#### 3.1 General
 * After configuring the adapter instance, a folder with the channel name is created for each configured channel in the objects of the respective adapter instance.
 	![IobrokerObjectOverview](./docs/images/diIobrokerObjectOverview.png)
 
@@ -367,7 +367,7 @@ The communication will not be established and unfortunately there will be no dir
 * The web hook URL / address will be provided as an object value in the info folder of the adapter instance and is valid for all channels withing one adapter instance.
 	![IobrokerObjectWebHook](./docs/images/diIobrokerObjectWebHook.png)
 
-### 3.2 Message content type
+#### 3.2 Message content type
 
 Besides sending plain text messages, other content types such as images can also be sent to an incoming channel.\
 To realize this, the content must be available as a web resource. To send an image, just set the URL as the value of the the message object of the Syno-Chat adapter instance mentioned in [3. Usage > 3.1 General](#usage).
@@ -377,7 +377,7 @@ Many surveillance cameras provide a stream or interface to retrieve an image tha
 This URL provides image that needs to be set as the value of the the message object.
 
 
-### 3.3 Debugging in case of issues
+#### 3.3 Debugging in case of issues
 
 To get more detailed information about the adapter behaviors in case of issues, you can increase the log level of the `synochat` adapter instance to `debug`.
 
@@ -392,6 +392,13 @@ Since this adapter is using a `web` adapter instance to provide web hooks to the
 -->
 ### **WORK IN PROGRESS**
 - (iobroker-bot) Adapter requires node.js >= 22 now.
+- *[@phoeluga]* Dropped Node.js 20 support (EOL) and added Node.js 26 to the test matrix; bumped `engines.node` to `>=22` - #79
+- *[@phoeluga]* Added `CHANGELOG_OLD.md` to keep the changelog section of this README concise - #62
+- *[@phoeluga]* Added a Dependabot ignore rule for `@types/node` major version bumps - #64
+- *[@phoeluga]* Fixed README containing two top-level headings and moved the License section to be the last section
+- *[@phoeluga]* Added `prettier.config.mjs` re-exporting the shared `@iobroker/eslint-config` prettier config
+- *[@phoeluga]* Replaced the custom `sleep()`/`setTimeout()` helpers with the lifecycle-managed `this.delay()` from `@iobroker/adapter-core`
+- *[@phoeluga]* Added a Dependabot cooldown period and switched update schedules from `monthly` to `cron` for better load distribution
 - *[@phoeluga]* Updated outdated devDependencies (`@alcalzone/release-script*` to v5.x, `@iobroker/testing` to 5.2.2)
 - *[@phoeluga]* Bumped `admin` globalDependency requirement to `>=7.6.20`
 - *[@phoeluga]* Migrated CI/CD to NPM Trusted Publishing (OIDC) — removed long-lived `NPM_TOKEN`
@@ -482,16 +489,16 @@ Since this adapter is using a `web` adapter instance to provide web hooks to the
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)
 
+## Other disclosures
+#### Resource attribution
+- [Chat icons created by Pixel perfect - Flaticon](https://www.flaticon.com/free-icons/chat)
+
+
 ## License
 
 This code is licensed under 'The MIT License (MIT)' license specified in the [LICENSE](./LICENSE) file.
 
 Copyright (c) 2025-2026 phoeluga <phoeluga@gmail.com>
-
-
-## Other disclosures
-#### Resource attribution
-- [Chat icons created by Pixel perfect - Flaticon](https://www.flaticon.com/free-icons/chat)
 
 
 
