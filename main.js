@@ -13,7 +13,6 @@ const TemplateInterpolation = require("./lib/template-interpolation.js");
 const iFaces = require("node:os").networkInterfaces();
 const uuid = require("uuid");
 
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 class Synochat extends utils.Adapter {
   constructor(options) {
     super({
@@ -578,7 +577,7 @@ class Synochat extends utils.Adapter {
         );
 
         // Math.floor(Math.random() * (max - min + 1) + min)
-        await sleep(Math.floor(Math.random() * (1450 - 890 + 1) + 890));
+        await this.delay(Math.floor(Math.random() * (1450 - 890 + 1) + 890));
       }
       this.log.error(
         `Timeout for sending message '${msgUuid}'. Message will be discarded!`,
