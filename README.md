@@ -398,7 +398,7 @@ Since this adapter is using a `web` adapter instance to provide web hooks to the
 - *[@phoeluga]* Fixed README containing two top-level headings and moved the License section to be the last section
 - *[@phoeluga]* Added `prettier.config.mjs` re-exporting the shared `@iobroker/eslint-config` prettier config
 - *[@phoeluga]* Replaced the custom `sleep()`/`setTimeout()` helpers with the lifecycle-managed `this.delay()` from `@iobroker/adapter-core`
-- *[@phoeluga]* Added a Dependabot cooldown period and switched update schedules from `monthly` to `cron` for better load distribution
+- *[@phoeluga]* Added a Dependabot cooldown period (`cooldown.default-days: 7`) to reduce supply-chain risk
 - *[@phoeluga]* Updated outdated devDependencies (`@alcalzone/release-script*` to v5.x, `@iobroker/testing` to 5.2.2)
 - *[@phoeluga]* Bumped `admin` globalDependency requirement to `>=7.6.20`
 - *[@phoeluga]* Migrated CI/CD to NPM Trusted Publishing (OIDC) — removed long-lived `NPM_TOKEN`
