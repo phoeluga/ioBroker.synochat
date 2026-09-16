@@ -3,8 +3,7 @@ updates:
   - package-ecosystem: npm
     directory: '/'
     schedule:
-      interval: 'cron'
-      cron: '37 6 12 * *'
+      interval: 'monthly'
       timezone: Europe/Berlin
     cooldown:
       default-days: 7
@@ -20,8 +19,7 @@ updates:
   - package-ecosystem: github-actions
     directory: '/'
     schedule:
-      interval: 'cron'
-      cron: '12 7 18 * *'
+      interval: 'monthly'
       timezone: Europe/Berlin
     cooldown:
       default-days: 7
